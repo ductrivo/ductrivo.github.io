@@ -2,7 +2,7 @@
 layout: post
 title:  "Taking Python to Production: A Professional Onboarding Guide"
 # author: voductri
-categories: [Python]
+categories: [Programming, Python]
 image: 'images/taking-python-to-production.jpg'
 
 description: "Data scientists, analysts, and beginner devs: transition from 'coder' to 'software engineer' and learn to ship code."

@@ -1,7 +1,7 @@
 # Site
 name: "VO Duc-Tri"
-title: "VO Duc-Tri - System Engineer"
-description: "System Engineer."
+title: "VO Duc-Tri - Discover my personal website showcasing innovative projects, research, and insights in automation, control systems, and engineering."
+description: "Discover my personal website showcasing innovative projects, research, and insights in automation, control systems, and engineering."
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/logo.png'
 baseurl: ''
@@ -34,7 +34,7 @@ jekyll-archives:
     category: '/category/:name/'
     
 # Pagination 
-paginate: 6
+paginate: 9
 paginate_path: /page:num/
     
 # Other
