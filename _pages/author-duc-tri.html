@@ -1,0 +1,27 @@
+---
+title: "Duc-Tri VO"
+layout: default
+permalink: "/author-duc-tri.html"
+---
+<div class="container">
+<div class="row justify-content-center">
+    <div class="col-md-8">        
+        <div class="row align-items-center mb-5">
+            <div class="col-md-9">
+                <h2 class="font-weight-bold">{{page.title}} </h2>
+                <!-- <span class="small btn btn-outline-success btn-sm btn-round"><a href="{{ site.authors.ductri.twitter }}">Follow</a></span> -->
+                <p><a href="{{ site.authors.ductri.site }}">{{ site.authors.ductri.site }}</a></p>
+                <p class="excerpt">{{ site.authors.ductri.bio }}</p>
+            </div>
+            <div class="col-md-3 text-right">
+                <img alt="{{ site.authors.ductri.name }}" src="{{ site.url }}{{ site.baseurl }}/{{ site.authors.ductri.avatar }}" class="rounded-circle" height="100" width="100">
+            </div>
+        </div>
+        <h4 class="font-weight-bold spanborder"><span>Posts by {{page.title}}</span></h4>
+            {% assign posts = site.posts | where:"author","ductri" %}
+            {% for post in posts %}
+            {% include main-loop-card.html %}
+            {% endfor %}
+    </div>
+</div>
+</div>
