@@ -8,64 +8,19 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ site.title }}</title>
-
   {% seo %}
-
-  <link rel="shortcut icon" type="image/x-icon" href="{{site.baseurl}}/{{site.favicon}}">
-
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
-  <!-- Google Fonts-->
-  <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700" rel="stylesheet">
-
-  <!-- Bootstrap Modified -->
-  <link rel="stylesheet" href="{{site.baseurl}}/assets/css/main.css">
-
-  <!-- Theme Stylesheet -->
-  <link rel="stylesheet" href="{{site.baseurl}}/assets/css/theme.css">
-
-  <link rel="stylesheet" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}">
-
-  <!-- Jquery on header to make sure everything works, the rest  of the scripts in footer for fast loading -->
-  <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-
-  {% include tracking-header.html %}
-
-  <!-- Latex -->
-  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   <link rel="icon" type="image/png" href="{{ site.icon_img | prepend: site.baseurl }}">
   <link rel="shortcut icon" type="image/png" href="{{ site.icon_img | prepend: site.baseurl }}">
+  <!-- <link id="main_css" rel="stylesheet" href="{{ '/assets/css/main.css' | prepend: site.baseurl }}"> -->
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}">
   <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-
-
 </head>
 
-<body>
-  <nav id="MagicMenu" class="topnav navbar navbar-expand-lg navbar-light bg-white fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="{{ site.baseurl }}/index.html"><strong>{{site.name}}</strong></a>
-        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse" id="navbarColor02" style="">
-            <ul class="navbar-nav mr-auto d-flex align-items-center">
-               {% include menu-header.html %}
-            </ul>
-            <ul class="navbar-nav ml-auto d-flex align-items-center">
-                {% include search-lunr.html %}
-            </ul>
-        </div>
-    </div>
-    </nav>
-
+<body>      
   <div id="sidebar">
     <ul class="toc-box"></ul>
   </div>
@@ -140,6 +95,7 @@
       <h2>{{ site.job }}</h2>
     </div>
   </div>
+  
   <div id="contents">
     <ul>
       {% for subject in meta %}
@@ -184,9 +140,10 @@
       {% endfor %}
       </ul>
   </div>
+
   <div id="footer">
     <span>
-      Copyright © 2024 | <a href="https://github.com/byanko55">Yankos</a>
+      Made with <a target="_blank" class="text-dark font-weight-bold" href="https://github.com/byanko55/jekyll-professional-resume"> Jekyll Professional Resume </a>.
     </span>
   </div>
 </body>
