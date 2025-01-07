@@ -1,22 +1,20 @@
-subject: Experiences
+subject: Expérience
 listing-order: 1
 icon: "/assets/images/resume/briefcase.svg"
 contents:
-  - title: Nanosoft
-    role: Project Manager
+  - role: Université Grenoble Alpes, en collaboration avec CEA Marcoule (France)
+    title: Chercheur en Automatisation Avancée (Thèse CIFRE)
     description:
-      - Led development of a new chatbot software utilizing large language model
-      - Co-designer of '*Kopilot*' and '*Gemmini*'
-    date: Jan. 2024 - Ongoing
-  - title: Amazone
-    role: Senior Software Engineer
-    description: 
-      - Built a Java microservice, database schema to manage customer accounts
-      - Enhanced internal pipelines to query real-time data from client devices
-    date: Apr. 2016 - Dec. 2018
-  - title: Pacebook
-    role: Software Engineer Intern
-    description: 
-      - Designed the dynamic website using React for data visualization
-      - Integrated '*Yolo*' to boost the accuracy of the object detection
-    date: Jul. 2013 - Sep. 2013
+      - "**Titre :** Contrôle avancé des procédés de séparation : couplage interactif et itératif entre analyse en ligne et commande."
+      - "*_Analysé_, _conçu_, _implémenté_ et _validé expérimentalement_ des stratégies de contrôle avancées pour le traitement des combustibles nucléaires usés."
+      - "Planifié **une campagne expérimentale de 100 heures, en horaires 3*8**, avec une équipe de 6 personnes."
+      - "Développé une application (utilisant `Python`, `Qt`, et `SQLite3`) pour implémenter des algorithmes de contrôle, permettre la visualisation en temps réel et le post-traitement des données de simulation et expérimentales."
+      - "Coordonné les activités de recherche entre les laboratoires universitaires et industriels."
+    date: 2021 - 2024
+
+  - role: Techtronics Industries Manufacturing (TTI Group, Vietnam)
+    title: Ingénieur Introduction de Nouveaux Produits
+    description:
+      - Coordonné avec d'autres équipes pour le développement et la résolution de problèmes des produits, depuis le démarrage du projet jusqu'à la production de masse.
+      - Préparé les documents techniques requis pour le développement des produits.
+    date: 2020 - 2021

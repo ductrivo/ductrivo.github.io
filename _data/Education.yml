@@ -2,17 +2,15 @@ subject: Education
 listing-order: 2
 icon: "/assets/images/resume/graduation-cap.svg"
 contents:
-  - title: Farvard University, PhD in Computer Science
+  - role: Université Grenoble Alpes, en collaboration avec CEA Marcoule
+    title: Doctorat en Automatisation Avancée
+    date: 2021 - 2024
+
+  - role: Programme de Formation d'Ingénieurs d'Excellence du Vietnam -- Institute Polytechnique d'HCM-Ville et Grenoble INP (UGA)
+    title: Diplôme d'Ingénieur en Mécatronique (Automatique)
     description:
-      - Design of a method to build a probabilistic generative model
-      - Development of model calibration algorithm for cross-domain few-shot learning
-    date: Mar. 2019 - Aug. 2023
-  - title: Stanfort University, MA in Computer Science
-    description:
-      - Development of deep learning algorithms for automatically tracking the facial expressions
-      - Optimizing parameter efficient fine tuning for fairness in medical image analysis
-    grade: "**GPA**: `4.1/4.3`"
-    date: Mar. 2014 - Feb. 2016
-  - title: Kambridge University, BA in Electronic Engineering
-    grade: "**GPA**: `3.9/4.3`"
-    date: Mar. 2010 - Feb. 2014
+      - "Ce programme de 268 crédits est accrédité par la Commission des Titres d'Ingénieur (CTI, France) et est désigné comme _un programme de Master en ingénierie européen (EUR-ACE Master)_ accrédité par le Réseau Européen d'Accréditation en Éducation d'Ingénierie (ENAEE)."
+      - "**Moyenne Générale :** 8,53/10 **<span style='color:red;'>(Major de ma promotion)</span>**."
+      - "**Stage :** Labo. de Contrôle et d'Automatisation (2017-2020)."
+      - "**Projet de fin d'études :** Conception d'un système automatisé de vissage d'écrous de vélo. [🔗 Dépôt du projet](https://github.com/ductrivo/automated-nut-running-system-for-bicycles)"
+    date: 2015 - 2020
