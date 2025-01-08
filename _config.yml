@@ -12,8 +12,8 @@ include: ["_pages"]
 permalink: /:title/
 
 # Resume
-title: My Résumé
-profile_img: /assets/images/resume/profile.webp
+title: Résumé
+profile_img: /assets/images/resume/photo.jpg
 icon_img: /assets/images/resume/icon.webp
 
 # name: "Your Name Here"
