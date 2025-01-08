@@ -652,7 +652,7 @@ footer {
     margin-top:10px;
 }
 article {
-	font-size:20px;
+	font-size:1.25rem;
 	line-height:1.86;
     font-family: "Poppins", sans-serif;
 }
@@ -788,7 +788,7 @@ a.a2a_i, i.a2a_i, .a2a_menu a.a2a_i:visited, .a2a_menu a.a2a_more {
 }
 div.a2a_full_footer {display:none;}
 @media (min-width: 1920px) {
-	html {font-size:17px;}
+	html {font-size:16px;}
 	.container, .container-lg {    
 	 width: 1280px;
 	 max-width: 1280px;
