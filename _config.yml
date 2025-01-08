@@ -39,7 +39,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-paginate
   - jekyll-seo-tag
-  
+  - jekyll-toc
 authors:
     ductri:
       name:           Duc-Tri

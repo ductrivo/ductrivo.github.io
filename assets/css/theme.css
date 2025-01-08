@@ -653,7 +653,7 @@ footer {
 }
 article {
 	font-size:1rem;
-	line-height:1.86;
+	line-height:1.5;
     font-family: "Poppins", sans-serif;
 	text-align: justify;
 }
@@ -665,7 +665,7 @@ article {
     color: #222222;
 }
 article p,article pre,article figure,article img,article blockquote,article iframed,article embed {
-	margin-bottom:2rem;
+	margin-bottom:0.5rem;
 }
 article blockquote {
 	padding-left:40px;
