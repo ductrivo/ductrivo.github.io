@@ -1,11 +1,11 @@
 subject: Publications
-listing-order: 4
+listing-order: 6
 icon: "/assets/images/resume/flask.svg"
 contents:
-  - title: Journal
+  - title: Book Chapter
     ref: 
-      - "[1] **M. Yankovich**, L. Hernández, M. Roveri, “[A symmetric encryption method with biometric authorization for constrained environments](https://scholar.google.com/),” *Cryptography*, vol. x, no. x, pp. xxx–xxx, 202x."
-      - "[2] **M. Yankovich**, F. Arute, G. Persiano, G. Segev, “[Authorized public-key search on iiot applications](https://scholar.google.com/),” *IEEE Transactions on Information Forensics and Security*, pp. xxx–xxx, 202x."
+      - "[1] **D.-T. Vo**, I. Prodan, L. Lefèvre, V. Vanel, S. Costenoble, and B. Dinh, [PSO-based Adaptive NMPC for Uranium Extraction-Scrubbing Operation in Spent Nuclear Fuel Treatment Process](https://arxiv.org/abs/2402.03656), in Proceedings of the 20th International Conference on Informatics in Control, Automation and Robotics, 2024."
   - title: Conference
     ref:
-      - "[3] I. Lebedev, **M. Yankovich**, L. Wang, G. Segev, “[Post-training of deep bidirectional transformers for language understanding](https://scholar.google.com/),” *in Proc. 99th Annu. Meeting Assoc. Comput. Linguistics*, pp. xxx–xxx, 202x."
+      - "[2] **D.-T. Vo**, I. Prodan, L. Lefèvre, V. Vanel, S. Costenoble, and B. Dinh, [Nonlinear Model Predictive Control for Uranium Extraction-Scrubbing Operation in Spent Nuclear Fuel Treatment Process](https://www.scitepress.org/PublicationsDetail.aspx?ID=V/J7zGloPlc=&t=1), in Proceedings of the 20th International Conference on Informatics in Control, Automation and Robotics, 2023. doi: 10.5220/0012180700003543. (Best Student Paper Award)."
+      - "[3] **D.-T. Vo**, I. Prodan, L. Lefèvre, V. Vanel, S. Costenoble, and B. Dinh, [ANN-based Adaptive NMPC for Uranium Extraction-Scrubbing Operation in Spent Nuclear Fuel Treatment Process](https://ieeexplore.ieee.org/document/10666566), in Proceedings of the 8th IEEE Conference on Control Technology and Applications (CCTA), 2024."

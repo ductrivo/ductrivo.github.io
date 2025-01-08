@@ -1,13 +1,24 @@
 subject: Awards
-listing-order: 6
+listing-order: 7
 icon: "/assets/images/resume/trophy.svg"
 contents:
-  - title: IEEEE Fellow
-    description: Association for Natural Language Processing
-    date: Feb. 2024
-  - title: Gogle CodeJam
-    description: 3rd place in Gogle CodeJam
-    date: Jul. 2013
-  - title: Millennium Hackaton
-    description: won the best Inspirational Youth Awards
-    date: Oct. 2010
+  - title: "Prix du Meilleur Article Étudiant"
+    description:  "A la [20ème Conférence Internationale sur l'Informatique en Contrôle, Automatisation et Robotique](https://icinco.scitevents.org/PreviousAwards.aspx), Rome, Italie."
+    date: 2023
+
+  - title: Top 30 -- Prix National pour les Étudiants d'Excellence
+    # description: 3rd place in Gogle CodeJam
+    date: 2021
+
+  - title: Bourse Odon Valet
+    # description: won the best Inspirational Youth Awards
+    date: 2020
+
+  - title: Bourse de la Corporation NIDEC-TOSOK
+    date: 2019
+
+  - title: Prix Nationale de Modélisation et Simulation
+    date: 2018 et 2019
+
+  - title: Mission Sunflower -- Ingénierie et Technologie
+    date: 2018

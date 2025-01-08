@@ -5,9 +5,10 @@ contents:
   - role: Université Grenoble Alpes, en collaboration avec CEA Marcoule (France)
     title: Chercheur en Automatisation Avancée (Thèse CIFRE)
     description:
-      - "**Titre :** Contrôle avancé des procédés de séparation : couplage interactif et itératif entre analyse en ligne et commande."
-      - "*_Analysé_, _conçu_, _implémenté_ et _validé expérimentalement_ des stratégies de contrôle avancées pour le traitement des combustibles nucléaires usés."
-      - "Planifié **une campagne expérimentale de 100 heures, en horaires 3*8**, avec une équipe de 6 personnes."
+      - "**Titre :** [Pilotage avancé des procédés de séparation : couplage interactif et itératif entre analyse en ligne et commande](https://theses.fr/s306232)."
+      - "**Rapports de soutenance:** [View](/assets/pdf/Rapport-de-soutenance_Comments.pdf)."
+      - "**<span style='color:red;'>Analysé, conçu, implémenté et validé expérimentalement</span>** des stratégies de contrôle avancées pour le traitement des combustibles nucléaires usés."
+      - "Planifié **<span style='color:red;'>une campagne expérimentale de 100 heures, en horaires 3*8</span>**, avec une équipe de 6 personnes."
       - "Développé une application (utilisant `Python`, `Qt`, et `SQLite3`) pour implémenter des algorithmes de contrôle, permettre la visualisation en temps réel et le post-traitement des données de simulation et expérimentales."
       - "Coordonné les activités de recherche entre les laboratoires universitaires et industriels."
     date: 2021 - 2024

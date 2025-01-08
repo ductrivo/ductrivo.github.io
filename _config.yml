@@ -1,8 +1,8 @@
 # Site
 name: 'Duc-Tri VO'
 description: 'Discover my personal website showcasing innovative projects, research, and insights in automation, control systems, and engineering.'
-logo: 'assets/images/logo.png'
-favicon: 'assets/images/favicon.ico'
+logo: 'assets/images/avatar1.jpg'
+favicon: 'assets/images/favicon_VDT.png'
 baseurl: ''
 # disqus: 'demowebsite'
 email: 'duc-tri.vo@outlook.fr'

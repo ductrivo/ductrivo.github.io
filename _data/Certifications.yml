@@ -1,0 +1,51 @@
+subject: Certifications
+listing-order: 8
+icon: "/assets/images/resume/trophy.svg"
+contents:
+  - title: "[Google Advanced Data Analytics Professional Certificate](https://github.com/ductrivo/google-advanced-data-analytics)"
+    date: 2024
+    description:
+      - Acquis une expérience pratique des outils et flux de travail avancés en analyse de données, y compris Python, R et Tableau.
+      - Maîtrisé l'analyse exploratoire, les statistiques, la régression, la modélisation des données et les bases du machine learning.
+
+  - title: "[Google Data Analytics Professional Certificate](https://github.com/ductrivo/google-data-analytics)"
+    date: 2024
+    description:
+      - "Acquis une expérience pratique des outils essentiels d'analyse de données : tableurs, SQL, R et Python."
+
+      - Réalisé la création et la présentation des résultats analytiques via tableaux de bord, présentations et plateformes de visualisation.
+
+      - Développé la capacité à communiquer efficacement les recommandations basées sur les données aux parties prenantes.
+
+  - title: "[Google Project Management Professional Certificate](https://github.com/ductrivo/google-project-management)"
+    date: 2024
+    description:
+      - Maîtrisé la planification, la documentation et la gestion de projets.
+      - Acquis des connaissances de base des pratiques Agile et Scrum.
+      - Développé des compétences en résolution de problèmes, communication et gestion des parties prenantes.
+      - Réalisé une application pratique des stratégies de gestion de projets.
+
+  - title: "[Deep Learning Specialization Certificate](https://github.com/ductrivo/deep-learning-specialization)"
+    date: 2024
+    description:
+      - Conçu et entraîné des réseaux neuronaux profonds, avec optimisation des paramètres clés pour diverses applications.
+      - Appliqué les meilleures pratiques d'entraînement, d'analyse de variance et d'optimisation avec TensorFlow.
+      - Conçu, entraîné et déployé des CNN et RNN pour diverses tâches.
+
+  - title: "[TensorFlow for Deep Learning Certificate](https://github.com/ductrivo/tensorflow-for-deep-learning-bootcamp)"
+    date: 2024
+    description:
+      - Application de techniques de deep learning pour les prévisions de séries temporelles.
+      - Développé des compétences en création, entraînement et évaluation de modèles en tant que TensorFlow Developer.
+
+  - title: "[Taking Python to Production: A Professional Guide](https://github.com/ductrivo/taking-python-to-production)"
+    date: 2024
+    description:
+      - "Acquis les meilleures pratiques pour écrire du code propre, maintenable et bien documenté : tests, linting, formatage et vérification des types."
+      - Développé une expertise dans la publication de packages Python prêts pour la production avec gestion des versions, pipelines CI/CD, GitHub Actions et PyPI.
+
+  - title: "[Google IT Automation with Python Professional Certificate](https://github.com/ductrivo/google-it-automation-with-python)"
+    date: 2024
+    description:
+      - Mis en œuvre de stratégies de résolution de problèmes pour des défis réels.
+      - Utilisation de Git et GitHub pour le contrôle de version.

@@ -1,21 +1,11 @@
 subject: Projects
-listing-order: 3
+listing-order: 5
 icon: "/assets/images/resume/clipboard-list.svg"
 contents:
-  - title: "ChatPPT ([https://chat.opena1.com/](https://chat.openai.com/))"
+  - title: "[**NEXT-PRED-CO** (NEXT PREDictive COntroller)](https://github.com/ductrivo/nextpredco)"
+    image: <img src="/assets/nextpredco/project_logo.webp" alt="nextpredco_logo" width="200"/>
     description: 
-      - Chatbot developed based on a large language model
-      - Designed Generative algorithm to generate novel human-like content
-      - "Technology Used: Rust, Typescript, Python, Ruby"
-    image: "![](https://i.ibb.co/hX2wYLB/231321.webp)"
-  - title: "AW5-cli ([https://github.com/aw5/aw5-cli](https://github.com/aws/aws-cli))"
-    description: 
-      - Universal Command Line Interface for Amazone Web Services
-      - Developed a scheme to facilitate users’ authentication without having to remember their credentials
-      - "Technology Used: Typescript, Python, Go"
-    image: "![](https://i.ibb.co/Ttb5Qn9/21321312.webp)"
-  - title: "PiTorch ([https://pitorch.org/](https://pytorch.org/))" 
-    description: 
-      - Machine learning library for applications such as computer vision and natural language processing
-      - "Technology Used: Python, Cuda, Objective-C++"
-    image: "![](https://i.ibb.co/R9150c4/12421323.webp)"
+      - "Plateforme modulaire et évolutive pour le *développement*, la *simulation* et le *déploiement* de méthodes de contrôle avancées, avec un focus sur le contrôle prédictif."
+      - "Supporte l'*acquisition*, le *traitement*, la *visualisation des données* et la *génération de rapports* pour optimiser le développement et la supervision des systèmes de contrôle."
+      - "Intègre des techniques de *machine learning* pour améliorer les stratégies de contrôle avec des capacités *adaptatives*, *tolérantes aux pannes* et *diagnostiques*."
+    

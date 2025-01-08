@@ -145,7 +145,7 @@
             <div>
               <img class="subject-icon" src="{{ subject.icon | prepend: site.baseurl }}" alt="{{ subject.subject | prepend: site.baseurl }}">
             </div>
-            {{ subject.subject }}
+            <b style="text-transform: uppercase; font-size: 1.5rem;">{{ subject.subject }}</b>
           </h2>
           <ul>
               {% for member in subject.contents %}

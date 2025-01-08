@@ -14,7 +14,7 @@ layout: default
                         {% endfor %}
                         </span>
 					</p>
-					<h1 class="display-4 mb-4 article-headline">{{ page.title }}</h1>
+					<h1 class="display-4 mb-4 article-headline {{page.font}}">{{ page.title }}</h1>
 					<div class="d-flex align-items-center">
                         {% if author.avatar %}
                         <img class="rounded-circle" src="{{ site.url }}{{site.baseurl}}/{{author.avatar}}" alt="{{author.name}}" width="70"/>
@@ -65,7 +65,7 @@ layout: default
 		<div class="col-md-12 col-lg-8">
             
             <!-- Article -->
-			<article class="article-post">                
+			<article class="article-post {{page.font}}">                
 			{{ content }}                
 			</article>
 			
