@@ -9,7 +9,7 @@ description: "Data scientists, analysts, and beginner devs: transition from 'cod
 
 ---
 
-## What we will learn in this course:
+# What we will learn in this course:
 - Set up a professional Python development environment - Visual Studio Code, pyenv, git, autocompletion
 - Make the terminal more intuitive with ZSH and plugins
 - Setup automated code quality checks (testing, linting, documentation, type checking, etc.)
@@ -17,15 +17,15 @@ description: "Data scientists, analysts, and beginner devs: transition from 'cod
 - Version and package Python software and publish it for the community
 
 
-## 1. Introduction
+# 1. Introduction
 
-## 2. Environment setup
+# 2. Environment setup
 
-## 3. Improving the terminal with ZSH
+# 3. Improving the terminal with ZSH
 
-## 4. Managing multiple Python versions
+# 4. Managing multiple Python versions
 
-### 4.1. Semantic versioning (`semver`)
+## 4.1. Semantic versioning (`semver`)
 
 **Summary:** Given a version number `MAJOR.MINOR.PATCH`, increment the:
 
