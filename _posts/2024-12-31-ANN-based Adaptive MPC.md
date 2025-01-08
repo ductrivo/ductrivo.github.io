@@ -11,9 +11,9 @@ description: "Test latex."
 
 This study focuses on the challenges in optimizing the control of uranium extraction and scrubbing within the PUREX process. The objective is to maintain the system at a target solvent saturation level while adhering to operational constraints, managing disturbances, and adjusting to changes in set points. The French Alternative Energies and Atomic Energy Commission (CEA) developed a specialized simulator called PAREX to model liquid-liquid extraction in the PUREX process. However, the underlying mathematical model is complicated, consisting of nonlinear, high-dimensional differential-algebraic equations (DAEs). Consequently, direct application of optimal control methods would result in computationally intensive, large-scale nonlinear programming problems. To overcome this, we propose training a neural network to forecast process outputs based on historical measurements. This network architecture incorporates long short-term memory (LSTM), linear regression, and logistic regression networks, effectively reducing the number of state variables and simplifying the optimization problem. Furthermore, we formulate and solve nonlinear model predictive control (NMPC) and moving horizon estimation (MHE) problems using the Particle Swarm Optimization (PSO) algorithm. Simulation results demonstrate the effectiveness of this adaptive optimal control approach in meeting the control objectives, suggesting its potential for real-world implementation.
 
-## Introduction
+# Introduction
 
-### Motivation
+## Motivation
 
 The PUREX process, an acronym for "Plutonium, Uranium, Reduction, EXtraction," was developed to recover uranium and plutonium from spent nuclear fuels, which is composed of 95% uranium, 1% plutonium, and 4% high radioactive toxic waste (the ultimate waste). This process offers a high-purity U-Pu recovery and recycling, reducing the ultimate waste volume and thus contributing to sustainable nuclear energy development. The overall control objective is quickly driving the process to achieve a desired solvent saturation level, guarantee constraints, handle the disturbances, and set point variations. 
 

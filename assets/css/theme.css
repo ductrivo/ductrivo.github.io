@@ -655,6 +655,7 @@ article {
 	font-size:1rem;
 	line-height:1.86;
     font-family: "Poppins", sans-serif;
+	text-align: justify;
 }
 .article-headline {
     font-family: "Poppins", Georgia, Times,"Times New Roman",serif;
