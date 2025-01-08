@@ -134,3 +134,17 @@ $(function() {
     }
   }
 });
+
+$(function () {
+    var navSelector = "#toc";
+    var $myNav = $(navSelector);
+    Toc.init(
+        $myNav,     
+        // $scope: $("h2"),
+    );
+    
+    $("body").scrollspy({
+      target: navSelector,
+    });
+  });
+  
