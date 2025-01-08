@@ -31,6 +31,7 @@ youtube_username: ductrivo.official
 blog_url: https://ductrivo.github.io
 
 
+excerpt_separator: "<!-- excerpt -->"
 
 # Plugins
 plugins: 

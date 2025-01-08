@@ -1,17 +1,18 @@
 ---
 layout: post
 title:  "ANN-Based Adaptive NMPC for Uranium Extraction-Scrubbing Operation in Spent Nuclear Fuel Treatment Process"
-# author: voductri
+author: ductri
 categories: [Publication]
 tags: [featured]
 image: 'assets/images/ann-based-mpc-paper.png'
-description: "Test latex."
-
+# description: "Test latex."
 ---
 
-This study focuses on the challenges in optimizing the control of uranium extraction and scrubbing within the PUREX process. The objective is to maintain the system at a target solvent saturation level while adhering to operational constraints, managing disturbances, and adjusting to changes in set points. The French Alternative Energies and Atomic Energy Commission (CEA) developed a specialized simulator called PAREX to model liquid-liquid extraction in the PUREX process. However, the underlying mathematical model is complicated, consisting of nonlinear, high-dimensional differential-algebraic equations (DAEs). Consequently, direct application of optimal control methods would result in computationally intensive, large-scale nonlinear programming problems. To overcome this, we propose training a neural network to forecast process outputs based on historical measurements. This network architecture incorporates long short-term memory (LSTM), linear regression, and logistic regression networks, effectively reducing the number of state variables and simplifying the optimization problem. Furthermore, we formulate and solve nonlinear model predictive control (NMPC) and moving horizon estimation (MHE) problems using the Particle Swarm Optimization (PSO) algorithm. Simulation results demonstrate the effectiveness of this adaptive optimal control approach in meeting the control objectives, suggesting its potential for real-world implementation.
+**Abstract:** This study focuses on the challenges in optimizing the control of uranium extraction and scrubbing within the PUREX process. The objective is to maintain the system at a target solvent saturation level while adhering to operational constraints, managing disturbances, and adjusting to changes in set points. The French Alternative Energies and Atomic Energy Commission (CEA) developed a specialized simulator called PAREX to model liquid-liquid extraction in the PUREX process. However, the underlying mathematical model is complicated, consisting of nonlinear, high-dimensional differential-algebraic equations (DAEs). Consequently, direct application of optimal control methods would result in computationally intensive, large-scale nonlinear programming problems. To overcome this, we propose training a neural network to forecast process outputs based on historical measurements. This network architecture incorporates long short-term memory (LSTM), linear regression, and logistic regression networks, effectively reducing the number of state variables and simplifying the optimization problem. Furthermore, we formulate and solve nonlinear model predictive control (NMPC) and moving horizon estimation (MHE) problems using the Particle Swarm Optimization (PSO) algorithm. Simulation results demonstrate the effectiveness of this adaptive optimal control approach in meeting the control objectives, suggesting its potential for real-world implementation.
 
-# Introduction
+[Download the Paper]({{site.baseurl}}/assets/publications/ANN-Based-Adaptive-NMPC-for-Uranium-Extraction-Scrubbing-Operation-in-Spent-Nuclear-Fuel-Treatment-Process.pdf)
+
+<!-- # Introduction
 
 ## Motivation
 
@@ -25,4 +26,4 @@ In our previous studies (\cite{vo2023} and \cite{Vo2023a}), a high dimensional p
 
 Our main idea is to develop an artificial neural network (ANN) to predict the essential state variables based on available measurements. Then, the ANN is embedded as a predictor in the Nonlinear Model Predictive Controller (NMPC) scheme and as an estimator in the Moving Horizon Estimator (MHE) strategy. Furthermore, integrating NMPC and MHE allows us to have an adaptive control scheme in which any unmeasured disturbances can be estimated and updated to the controller. To solve the NMPC and MHE optimization problems, we use the enhanced Particle Swarm Optimization (PSO) developed in our previous work (\cite{Vo2023a}).
 
-The Long Short-term Memory (LSTM) neural network, which was first proposed by \cite{Hochreiter}, is a common choice for time series prediction applications. Therefore, it represents a good candidate method for approximating system dynamics, allowing the application of model-based control techniques such as NMPC. The applicability of LSTM within NMPC was comprehensively discussed by \cite{JUNG2023106226}. Note that our proposed ANN architecture is based on the LSTM and linear and logistic regression networks. As will be discussed later in the paper, the ANN is designed based on the particularities of the control problem. 
+The Long Short-term Memory (LSTM) neural network, which was first proposed by \cite{Hochreiter}, is a common choice for time series prediction applications. Therefore, it represents a good candidate method for approximating system dynamics, allowing the application of model-based control techniques such as NMPC. The applicability of LSTM within NMPC was comprehensively discussed by \cite{JUNG2023106226}. Note that our proposed ANN architecture is based on the LSTM and linear and logistic regression networks. As will be discussed later in the paper, the ANN is designed based on the particularities of the control problem.  -->
