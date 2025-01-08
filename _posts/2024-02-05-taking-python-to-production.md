@@ -3,6 +3,7 @@ layout: post
 title:  "Taking Python to Production: A Professional Onboarding Guide"
 author: ductri
 categories: [Programming, Python]
+tags: [featured]
 image: 'assets/images/taking-python-to-production.jpg'
 
 description: "Data scientists, analysts, and beginner devs: transition from 'coder' to 'software engineer' and learn to ship code."
