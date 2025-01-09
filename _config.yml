@@ -12,7 +12,7 @@ include: ["_pages"]
 permalink: /:title/
 
 # Resume
-title: Résumé
+title_resume: Résumé
 profile_img: /assets/images/resume/photo.jpg
 icon_img: /assets/images/resume/icon.webp
 
