@@ -2,10 +2,10 @@
 layout: post-sidebar
 title:  "Python Clean Code, Style Guides, Formatters, and Linters"
 author: ductri
-categories: [Course Notes, Python]
+categories: [Course Notes]
 tags: [featured, python]
-image: 'assets/images/taking-python-to-production.jpg'
-description: "Data scientists, analysts, and beginner devs: transition from 'coder' to 'software engineer' and learn to ship code."
+image: 'assets/images/python-clean-code-style-guides-formatters-linters.webp'
+# description: "Data scientists, analysts, and beginner devs: transition from 'coder' to 'software engineer' and learn to ship code."
 toc: true
 ---
 
