@@ -5,7 +5,7 @@ author: ductri
 categories: [Course Notes]
 tags: [featured, python, sticky]
 # image: 'assets/images/python-clean-code-style-guides-formatters-linters.webp'
-image: wowthemesnet.github.io/mundana-theme-jekyll/assets/images/demo1.jpg
+image: assets/images/python-clean-code-style-guides-formatters-linters.webp
 # description: "Data scientists, analysts, and beginner devs: transition from 'coder' to 'software engineer' and learn to ship code."
 toc: true
 ---
