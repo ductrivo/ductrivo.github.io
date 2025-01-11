@@ -37,10 +37,10 @@ Clean code is crucial for maintaining and scaling software projects. It should b
 ## Code Principles
 There are numerous coding principles you can follow to write better code, each having their own pros/cons and tradeoffs. This article covers four of the more popular principles: DRY, KISS, SoC, and SOLID:
 
-- DRY (Don't repeat yourself)
-- KISS (Keep it simple, stupid)
-- SoC (Separation of concerns)
-- SOLID:
+- **DRY** (Don't repeat yourself)
+- **KISS** (Keep it simple, stupid)
+- **SoC** (Separation of concerns)
+- **SOLID:**
     - The **S**ingle-responsibility principle: "A class should have one, and only one, reason to change."
     - The **O**pen–closed principle: "Entities should be open for extension, but closed for modification."
     - The **L**iskov substitution principle: "Functions that use pointers or references to base classes must be able to use objects of derived classes without knowing it."
@@ -50,11 +50,9 @@ There are numerous coding principles you can follow to write better code, each h
 [**Source:** Clean Code in Python](https://testdriven.io/blog/clean-code-python/)
 
 ## A Foolish Consistency is the Hobgoblin of Little Minds
-One of Guido’s key insights is that code is read much more often than it is written. The guidelines provided here are intended to improve the readability of code and make it consistent across the wide spectrum of Python code. As [PEP 20](https://peps.python.org/pep-0020/) says, `Readability counts`.
-
-A style guide is about consistency. Consistency with this style guide is important. Consistency within a project is more important. Consistency within one module or function is the most important.
-
-However, know when to be inconsistent – sometimes style guide recommendations just aren’t applicable. When in doubt, use your best judgment. Look at other examples and decide what looks best. And don’t hesitate to ask!
+- One of Guido’s key insights is that code is read much more often than it is written. The guidelines provided here are intended to improve the readability of code and make it consistent across the wide spectrum of Python code. As [PEP 20](https://peps.python.org/pep-0020/) says, `Readability counts`.
+- A style guide is about consistency. Consistency with this style guide is important. Consistency within a project is more important. Consistency within one module or function is the most important.
+- However, know when to be inconsistent – sometimes style guide recommendations just aren’t applicable. When in doubt, use your best judgment. Look at other examples and decide what looks best. And don’t hesitate to ask!
 
 > In particular: do not break backwards compatibility just to comply with this PEP!
 
@@ -140,3 +138,38 @@ Some other good reasons to ignore a particular guideline:
 - Installing `flake8` and `radon` in the same virtual environment enables radon as a `flake8` extension, allowing syntax highlighting when the Cyclomatic Complexity is too high
     - Add this to your .flake8 config file to set the max CC score you want your code to have at 10: `radon-max-cc = 10`
 
+## Darker: incrementally lint legacy projects
+
+- Linting makes code more readable, but if you have a large, pre-existing codebase, enforcing 100% linting compliance all at once may be prohibitively time-consuming.
+- `darker` is a Python-based CLI tool that allows you to run linting tools like `flake8`, `pylint`, `ruff`, etc. *only* on lines of code that have changed in your repository. It does this by looking at the `git --diff` between two commits in your repository.
+- So in a Pull Request workflow, you could use `darker` to only fail `pylint` or `ruff` for errors discovered in the lines modified between the latest commit in your feature branch and the latest commit in the main/master/trunk branch.
+- Similar tools exist to achieve this with test coverage enforcement as well. But we have not talked about testing up to this point, so if this comment does not make sense, it will later.
+
+## Ruff: the last Python linter ever?
+
+- Ruff is a Python linter implemented in Rust, known for its speed and performance.
+- Ruff aims to gather multiple linting and other static analysis tools into one unified tool, e.g. `pylint`, `flake8`, `autoflake`, `isort`, etc.
+- `ruff` reimplements all of these static analysis tools in `rust` from scratch!
+- Ruff can automatically fix certain code issues with `ruff check --fix ./`
+- Ruff has a VS Code extension and follows the language server protocol.
+- Ruff configuration can be done through files like `pyproject.toml`.
+- `darker` supports using `darker --lint "ruff check" ./` to apply `ruff` fixes only to the git diff between commits.
+
+![Screenshot from ruff repo](/assets/images/ruff-the-last-python-linter-ever.svg)
+<p align="center">
+  <i>Linting the CPython codebase from scratch.</i>
+</p>
+- ⚡️ 10-100x faster than existing linters (like Flake8) and formatters (like Black)
+- 🐍 Installable via `pip`
+- 🛠️ `pyproject.toml` support
+- 🤝 Python 3.13 compatibility
+- ⚖️ Drop-in parity with [Flake8](https://docs.astral.sh/ruff/faq/#how-does-ruffs-linter-compare-to-flake8), isort, and [Black](https://docs.astral.sh/ruff/faq/#how-does-ruffs-formatter-compare-to-black)
+- 📦 Built-in caching, to avoid re-analyzing unchanged files
+- 🔧 Fix support, for automatic error correction (e.g., automatically remove unused imports)
+- 📏 Over [800 built-in rules](https://docs.astral.sh/ruff/rules/), with native re-implementations
+    of popular Flake8 plugins, like flake8-bugbear
+- ⌨️ First-party [editor integrations](https://docs.astral.sh/ruff/integrations/) for
+    [VS Code](https://github.com/astral-sh/ruff-vscode) and [more](https://docs.astral.sh/ruff/editors/setup)
+- 🌎 Monorepo-friendly, with [hierarchical and cascading configuration](https://docs.astral.sh/ruff/configuration/#config-file-discovery)
+
+[**Reference:** Ruff Documentation](https://docs.astral.sh/ruff/)
