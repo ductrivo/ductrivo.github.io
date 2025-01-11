@@ -4,20 +4,11 @@ title:  "Python Clean Code, Style Guides, Formatters, and Linters"
 author: ductri
 categories: [Course Notes]
 tags: [featured, python, sticky]
-# image: 'assets/images/python-clean-code-style-guides-formatters-linters.webp'
 image: assets/images/python-clean-code-style-guides-formatters-linters.webp
 # description: "Data scientists, analysts, and beginner devs: transition from 'coder' to 'software engineer' and learn to ship code."
-toc: true
+toc: False
+side_toc: True
 ---
-
-<!-- ## Learning Objectives
-{: .no_toc}
-- Set up a professional Python development environment - `Visual Studio Code`, `pyenv`, `git`, `autocompletion`
-- Make the terminal more intuitive with ZSH and plugins
-- Setup automated code quality checks (testing, linting, documentation, type checking, etc.)
-- Learn the professional git workflow with GitHub and CI/CD with GitHub Actions
-- Version and package Python software and publish it for the community -->
-
 
 ## What is Clean Code?
 
@@ -173,3 +164,4 @@ Some other good reasons to ignore a particular guideline:
 - 🌎 Monorepo-friendly, with [hierarchical and cascading configuration](https://docs.astral.sh/ruff/configuration/#config-file-discovery)
 
 [**Reference:** Ruff Documentation](https://docs.astral.sh/ruff/)
+

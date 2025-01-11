@@ -7,9 +7,10 @@ tags: [featured, python]
 image: 'assets/images/code-versioning.webp'
 # description: "Data scientists, analysts, and beginner devs: transition from 'coder' to 'software engineer' and learn to ship code."
 toc: true
+side_toc: true
 ---
 
-## Semantic Versioning (`semver`)
+## Semantic Versioning
 [**Summary:**](https://semver.org/) Given a version number `Major.Minor.Patch`, increment the:
 - `Major` version when you make incompatible API changes
 - `Minor` version when you add functionality in a backward compatible manner
@@ -38,3 +39,4 @@ def add_numbers(a, b, c, d = 0):
 # pip install cool_library
 add_numbers(1, 2, 3, 0)
 ```
+
