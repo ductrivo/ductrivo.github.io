@@ -32,8 +32,6 @@
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
 
-    {% include tracking-header.html %}
-
     <!-- Latex -->
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
@@ -43,6 +41,7 @@
     <!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
     <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
 
+    {% include tracking-header.html %}
 </head>
 
 <body data-spy="scroll" data-target="#toc" class="{% if page.url == "/" %} homefirstpage {% endif %}">
@@ -104,7 +103,6 @@
     </footer>
 
     {% include tracking-footer.html %}
-
 </body>
 
 </html>
