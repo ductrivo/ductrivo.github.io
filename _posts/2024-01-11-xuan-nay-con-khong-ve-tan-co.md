@@ -36,22 +36,24 @@ Trông bánh chưng chờ trời sáng
 
 **Nam:**  
 Chiều nay én liệng trời cao mai đào vàng trên rẫy  
-Nẻo quê hương mù xa dịu viễn, mẹ ơi xuân năm nay chắc con sẽ không... về  
-(--) (--)  
-Chắc mẹ chiều nay còn tựa cửa đợi chờ  
-Ngày ra đi con có hẹn rằng sẽ trở lại  
-Khi mai đào rụng cánh đầy sân  
-Trời bây giờ trời đã sang xuân  
-mà con mẹ vẫn đôi đường cách trở  
-Nhớ mẹ nhiều nhưng không thể về thăm  
-Ôi nỗi chờ mong chắc đã nhuộm tóc mẹ màu sương tuyết.
+Nẻo quê hương mù xa dịu viễn, mẹ ơi xuân năm nay chắc con sẽ không... **về** (16)  
+(--)  
+**Chắc** mẹ chiều nay -- còn tựa cửa đợi **chờ** (20)  
+Ngày ra **đi** con có hẹn rằng **sẽ**  
+trở lại khi mai đào -- rụng cánh đầy **sân** (24)  
+Trời bây **giờ** trời đã sang **xuân**  
+Mà con *mẹ* vẫn đôi **đường** cách trở -- (28)  
+Nhớ mẹ *nhiều* nhưng **không** thể về *thăm* 
+ôi nỗi chờ mong chắc đã **nhuộm** tóc mẹ *màu* sương **tuyết**. (32)
 
 ## Vọng Cổ Câu 2
 
 **Nữ:**  
-Tết năm nay chắc nhà mình buồn lắm  
-Ngõ trước vườn sau tiêu điều vắng lặng  
-Xuân đã về chưa mà con của mẹ vẫn chưa về  
+*(Nghỉ 8 nhịp)*  
+(--) Tết năm **nay**  
+Chắc nhà mình buồn **lắm** ngõ trước vườn **sau** (12)  
+Tiêu điều vắng **lặng** Xuân đã về **chưa**  
+Mà con của **mẹ** vẫn chưa **về** (16)  
 (--) (--)  
 Đốt 3 nén nhang cắm giữa bàn thờ  
 Lời khấn nguyện nghe như lời tâm sự  
@@ -75,17 +77,18 @@ Ba ngày Xuân đi khoe xóm giềng
 
 ## Vọng Cổ Câu 5
 
-**Nữ:**
+**Nữ:**  
 Mấy đứa em con đang đùa vui tung tăng ngoài ngõ  
-Bỗng chợt buồn bâng khuâng hỏi Mẹ Tết năm nay sao không thấy Anh... về  
-Mẹ quay mặt dấu che ngấn lệ chợt tuôn trào  
+Bỗng chợt buồn bâng khuâng hỏi Mẹ Tết năm nay sao không thấy Anh... **về**  
+(--) **Mẹ**  
+Quay mặt dấu che -- ngấn lệ chợt tuôn **trào**  
 Thằng Út nói Anh Hai có hứa  
-Tết này sẽ may nhiều áo mới cho tụi con  
+Tết này sẽ may **nhiều** áo mới cho tụi **con**  
 Hay là hay là ảnh hỏng còn thương  
 Nên mới không về thăm con thăm má  
 Nè, đừng có nói bậy con  
 Nó thương mấy đứa tụi con thương má lắm  
-Nhưng vì đường quá xa nên không về kịp xuân này
+Nhưng vì đường quá xa nên không về kịp xuân **này** (Xề)
 
 ## Vọng Cổ Câu 6
 
