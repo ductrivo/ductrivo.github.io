@@ -2,16 +2,7 @@
 <html lang="en">
 
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QSRJEN04ZJ"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-QSRJEN04ZJ');
-    </script>
-
+    {% include tracking-header.html %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -52,7 +43,7 @@
     <!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
     <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
 
-    {% include tracking-header.html %}
+    
 </head>
 
 <body data-spy="scroll" data-target="#toc" class="{% if page.url == " /" %} homefirstpage {% endif %}">
