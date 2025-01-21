@@ -17,11 +17,10 @@ profile_img: /assets/images/resume/photo.jpg
 icon_img: /assets/images/resume/icon.webp
 
 # name: "Your Name Here"
-# job: "À la recherche d'un poste d'Ingénieur-Chercheur spécialisé en Analyse de Données, Contrôle-Commande, Développement Logiciel ou Systèmes Embarqués"
-
+job: "Ingénieur spécialisé en Développement Logiciel, Analyse de Données, Intelligence Artificielle et Automatique, prêt à relever des défis innovants"
 phone_number: +33 07 65 80 35 49
 address: Valence, France
-email: duc-tri.vo@outlook.fr
+# email: "duc-tri.vo@outlook.fr"
 linkedin_username: voductri97
 github_username: ductrivo
 instagram_username: instagram
@@ -29,7 +28,6 @@ twitter_username: twitter
 facebook_username: facebook
 youtube_username: ductrivo.official
 blog_url: https://ductrivo.github.io
-
 
 excerpt_separator: "<!-- excerpt -->"
 
