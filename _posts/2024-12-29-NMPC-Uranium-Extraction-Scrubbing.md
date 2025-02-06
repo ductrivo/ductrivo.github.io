@@ -2,7 +2,7 @@
 layout: post
 title:  "Nonlinear Model Predictive Control for Uranium Extraction-Scrubbing Operation in Spent Nuclear Fuel Treatment Process"
 author: ductri
-categories: [Publication]
+categories: [Control System]
 tags: [featured]
 image: 'assets/publications/extraction-scrubbing.png'
 font: vietnamese-font

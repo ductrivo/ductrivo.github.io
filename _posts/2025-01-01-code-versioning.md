@@ -2,7 +2,7 @@
 layout: post-sidebar
 title:  "Code Versioning"
 author: ductri
-categories: [Course Notes]
+categories: [Programming]
 tags: [featured, python]
 image: 'assets/images/code-versioning.webp'
 # description: "Data scientists, analysts, and beginner devs: transition from 'coder' to 'software engineer' and learn to ship code."
