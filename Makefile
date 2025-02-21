@@ -2,7 +2,7 @@ help:
 	bash run.sh help
 
 install:
-	bash run.sh install
+	sudo bash run.sh install
 
 install-gems:
 	bash run.sh install:gems

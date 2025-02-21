@@ -2,6 +2,13 @@ subject: Certifications
 listing-order: 8
 icon: "/assets/images/resume/trophy.svg"
 contents:
+  - title: "[INGITION 8.1 Credentials](https://inductiveuniversity.com/courses/ignition/ignition-overview/8.1)"
+    date: 2025
+    description:
+      - Acquis des connaissances générales sur la plateforme de développement IGNITION 8.1.
+      - Formation donnée par [Inductive University](https://inductiveuniversity.com/courses/ignition/ignition-overview/8.1)
+
+
   - title: "[Google Advanced Data Analytics Professional Certificate](https://github.com/ductrivo/google-advanced-data-analytics)"
     date: 2024
     description:
