@@ -5,7 +5,7 @@ author: ductri
 categories: [Music]
 tags: [Tân cổ]
 # image: 'assets/images/python-clean-code-style-guides-formatters-linters.webp'
-image: assets/images/xuan-nay-con-khong-ve.jpg
+image: /assets/images/xuan-nay-con-khong-ve.jpg
 # description: "Data scientists, analysts, and beginner devs: transition from 'coder' to 'software engineer' and learn to ship code."
 toc: false
 side_toc: true
