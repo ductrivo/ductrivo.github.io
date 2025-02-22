@@ -4,7 +4,7 @@ title:  "Inverted Pendulumn Modelling and Control"
 author: ductri
 categories: [Control System]
 tags: [featured]
-image: '/assets/images/control_systems/inverted_pendulum_on_cart.png'
+image: 'https://i.imgur.com/nNWWyEy.png'
 # font: vietnamese-font
 # description: "Test latex."
 toc: False
@@ -12,11 +12,11 @@ side_toc: True
 ---
 
 <figure style="margin: auto; text-align: center;">
-  <img src="/assets/images/control_systems/inverted_pendulum_on_cart.png" alt="Free-body diagrams" style="width:75%;">
+  <img src="https://i.imgur.com/nNWWyEy.png" alt="Free-body diagrams" style="width:75%;">
   <figcaption>Free-body diagrams</figcaption>
 </figure>
 
-In this post, we derive the equations of motion for an inverted pendulum mounted on a cart using the Lagrangian approach. The system consists of a cart with mass $$M$$ that can move horizontally and a pendulum with mass $$m$$ attached by a rigid rod of length $$l$$. The pendulum’s angle $$\theta$$ is measured from the vertical.
+In this post, we derive the equations of motion for an inverted pendulum mounted on a cart using the Lagrangian approach. The system consists of a cart with mass $$m_\text{cart}$$ that can move horizontally and a pendulum with mass $$m$$ attached by a rigid rod of length $$l$$. The pendulum’s angle $$\theta$$ is measured from the vertical.
 
 ## 1. Kinetic Energy
 
@@ -28,7 +28,7 @@ The kinetic energy of the cart is given by:
 
 $$
 \begin{align}
-    K_\text{cart} = \frac{1}{2} M \dot{x}^2, \label{K_cart}
+    K_\text{cart} = \frac{1}{2} m_\text{cart} \dot{x}^2, \label{K_cart}
 \end{align}
 $$
 
@@ -68,7 +68,7 @@ Combining \eqref{K_cart} and \eqref{K_m}, the total kinetic energy is:
 $$
 \begin{align}
     K   &= K_\text{cart} + K_m \notag \\
-        &= \frac{1}{2} M \dot{x}^2 + \frac{1}{2} m \left[\dot{x}^2 + 2l\dot{x}\dot{\theta}\cos\theta + l^2\dot{\theta}^2\right].
+        &= \frac{1}{2} m_\text{cart} \dot{x}^2 + \frac{1}{2} m \left[\dot{x}^2 + 2l\dot{x}\dot{\theta}\cos\theta + l^2\dot{\theta}^2\right].
 \end{align}
 $$
 
@@ -91,7 +91,7 @@ The Lagrangian is defined as the difference between the kinetic and potential en
 $$
 \begin{align}
     \mathcal{L} &= K - P \notag \\
-    &= \frac{1}{2} M \dot{x}^2 + \frac{1}{2} m \left[\dot{x}^2 + 2l\dot{x}\dot{\theta}\cos\theta + l^2\dot{\theta}^2\right] - mgl\cos\theta.
+    &= \frac{1}{2} m_\text{cart} \dot{x}^2 + \frac{1}{2} m \left[\dot{x}^2 + 2l\dot{x}\dot{\theta}\cos\theta + l^2\dot{\theta}^2\right] - mgl\cos\theta.
 \end{align}
 $$
 
@@ -121,7 +121,7 @@ First, compute the derivative with respect to $$\dot{x}$$:
 
 $$
 \begin{align}
-    \frac{\partial \mathcal{L}}{\partial \dot{x}} = (M+m)\dot{x} + ml\dot{\theta}\cos\theta.
+    \frac{\partial \mathcal{L}}{\partial \dot{x}} = (m_\text{cart}+m)\dot{x} + ml\dot{\theta}\cos\theta.
 \end{align}
 $$
 
@@ -129,7 +129,7 @@ Taking the time derivative yields:
 
 $$
 \begin{align}
-    \frac{d}{dt}\left(\frac{\partial \mathcal{L}}{\partial \dot{x}}\right) &= (M+m)\ddot{x} + ml\ddot{\theta}\cos\theta - ml\dot{\theta}^2\sin\theta.
+    \frac{d}{dt}\left(\frac{\partial \mathcal{L}}{\partial \dot{x}}\right) &= (m_\text{cart}+m)\ddot{x} + ml\ddot{\theta}\cos\theta - ml\dot{\theta}^2\sin\theta.
 \end{align}
 $$
 
@@ -145,7 +145,7 @@ Thus, the Euler–Lagrange equation for $$x$$ becomes:
 
 $$
 \begin{align}
-    (M+m)\ddot{x} + ml\ddot{\theta}\cos\theta - ml\dot{\theta}^2\sin\theta = F. \label{final_eq_1}
+    (m_\text{cart}+m)\ddot{x} + ml\ddot{\theta}\cos\theta - ml\dot{\theta}^2\sin\theta = F. \label{final_eq_1}
 \end{align}
 $$
 
@@ -197,7 +197,7 @@ Collecting the results, the dynamical model of the inverted pendulum on a cart i
 
 $$
 \begin{align}
-(M+m)\ddot{x} + ml\ddot{\theta}\cos\theta - ml\dot{\theta}^2\sin\theta &= F, \quad \text{(from \eqref{final_eq_1})}\\
+(m_\text{cart}+m)\ddot{x} + ml\ddot{\theta}\cos\theta - ml\dot{\theta}^2\sin\theta &= F, \quad \text{(from \eqref{final_eq_1})}\\
 ml\ddot{x}\cos\theta + ml^2\ddot{\theta} - mgl\sin\theta &= 0. \quad \text{(from \eqref{final_eq_2})}
 \end{align}
 $$
