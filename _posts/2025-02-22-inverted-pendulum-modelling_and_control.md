@@ -26,11 +26,9 @@ The total kinetic energy is the sum of the kinetic energy of the cart and that o
 
 The kinetic energy of the cart is given by:
 
-$$
-\begin{align}
+$$\begin{align}
     K_\text{cart} = \frac{1}{2} m_\text{cart} \dot{x}^2, \label{K_cart}
-\end{align}
-$$
+\end{align}$$
 
 where $$x$$ is the horizontal position of the cart.
 
