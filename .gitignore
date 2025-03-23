@@ -1,6 +1,6 @@
 _site
 .sass-cache
 .jekyll-metadata
-.bundle
+.bundle/
 node_modules
 Gemfile.lock
