@@ -4,7 +4,7 @@ title:  "PSO-Based Adaptive NMPC for Uranium Extraction-Scrubbing Operation in S
 author: ductri
 categories: [Control System]
 tags: [featured]
-image: 'assets/publications/pso-based-mpc.png'
+image: /assets/publications/pso-based-mpc.png
 # description: "Test latex."
 ---
 

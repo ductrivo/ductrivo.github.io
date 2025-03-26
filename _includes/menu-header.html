@@ -6,15 +6,23 @@
 <!-- <li class="nav-item">
 <a class="nav-link" href="{{site.baseurl}}/authors-list.html">Authors</a>
 </li> -->
-<li class="nav-item">
+<li class="nav-item" style="background-color: var(--danger);">
     <a class="nav-link" href="{{site.baseurl}}/resume.html">Résumé</a>
 </li>
 
 <!-- <li class="nav-item">
     <a class="nav-link" href="{{site.baseurl}}/categories.html#Control System">Control System</a>
 </li> -->
-<li class="nav-item">
-    <a class="nav-link" href="{{site.baseurl}}/categories.html#programming">Programming</a>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Categories
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="{{site.baseurl}}/categories.html#programming">SCADA</a>
+        <a class="dropdown-item" href="{{site.baseurl}}/categories.html#programming">Programming</a>
+        <a class="dropdown-item" href="{{site.baseurl}}/categories.html#control%20system">Control System</a>
+    </div>
 </li>
 
 <li class="nav-item">

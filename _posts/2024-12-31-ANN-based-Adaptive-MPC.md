@@ -4,7 +4,7 @@ title:  "ANN-Based Adaptive NMPC for Uranium Extraction-Scrubbing Operation in S
 author: ductri
 categories: [Control System]
 tags: [featured]
-image: 'assets/images/ann-based-mpc-paper.png'
+image: /assets/images/ann-based-mpc-paper.png
 # description: "Test latex."
 ---
 

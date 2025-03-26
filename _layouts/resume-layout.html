@@ -2,7 +2,9 @@
 <html lang="en">
 {% assign meta = "" | split: "" %}
 {% for yml_file in site.data %}
+{% unless yml_file[0] == "images" %}
 {% assign meta = meta | push:yml_file[1] %}
+{% endunless %}
 {% endfor %}
 {% assign meta = meta | sort: 'listing-order' %}
 

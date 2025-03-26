@@ -4,7 +4,7 @@ title:  "Code Versioning"
 author: ductri
 categories: [Programming]
 tags: [featured, python]
-image: 'assets/images/code-versioning.webp'
+image: /assets/images/code-versioning.webp
 # description: "Data scientists, analysts, and beginner devs: transition from 'coder' to 'software engineer' and learn to ship code."
 toc: true
 side_toc: true

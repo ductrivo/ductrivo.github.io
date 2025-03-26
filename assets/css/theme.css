@@ -809,4 +809,83 @@ div.a2a_full_footer {display:none;}
     font-family: Helvetica, Arial, sans-serif;
 }
 
-	
+
+
+.post-intro-toc {
+	background-color: #f9f9f9;
+	border-left: 4px solid var(--primary, #007bff);
+	padding: 1.5rem;
+	margin-bottom: 2rem;
+	border-radius: 0.5rem;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+	font-size: 1.05rem;
+	line-height: 1.6;
+	color: #333;
+  }
+  
+  /* TOC container text before list */
+  .post-intro-toc .intro-text {
+	margin-bottom: 1rem;
+  }
+  
+  /* Main TOC list */
+  .post-intro-toc .toc-list {
+	list-style: none;
+	padding-left: 0;
+	counter-reset: section;
+  }
+  
+  /* TOC list items */
+  .post-intro-toc .toc-list > li {
+	counter-increment: section;
+	margin-bottom: 0.5rem;
+	position: relative;
+	padding-left: 2.2rem;
+  }
+  
+  .post-intro-toc .toc-list > li::before {
+	content: counter(section) ".";
+	position: absolute;
+	left: 0;
+	top: 0;
+	font-weight: bold;
+	color: var(--primary, #007bff);
+	width: 1.5rem;
+	text-align: right;
+  }
+  
+  /* Nested TOC lists */
+  .post-intro-toc .toc-list li ul {
+	list-style: none;
+	padding-left: 0;
+	counter-reset: subsection;
+  }
+  
+  .post-intro-toc .toc-list li ul > li {
+	counter-increment: subsection;
+	margin-bottom: 0.3rem;
+	position: relative;
+	padding-left: 3rem;
+  }
+  
+  .post-intro-toc .toc-list li ul > li::before {
+	content: counter(section) "." counter(subsection);
+	position: absolute;
+	left: 0;
+	top: 0;
+	font-weight: bold;
+	color: #666;
+	width: 2.5rem;
+	text-align: right;
+  }
+  
+  /* Link styling */
+  .post-intro-toc .toc-list a {
+	text-decoration: none;
+	color: var(--primary, #007bff);
+  }
+  
+  .post-intro-toc .toc-list a:hover {
+	text-decoration: underline;
+  }
+  

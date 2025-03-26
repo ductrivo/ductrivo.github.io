@@ -21,7 +21,8 @@ layout: default
 					<h1 class="display-4 mb-4 article-headline {{page.font}}">{{ page.title }}</h1>
 					<div class="d-flex align-items-center">
 						{% if author.avatar %}
-						<img class="rounded-circle" src="{{ site.url }}{{site.baseurl}}/{{author.avatar}}"
+						<img class="rounded-circle"
+							src="{% if author.avatar contains ':' %}{{ author.avatar }}{% else %}{{ site.baseurl }}{{ author.avatar }}{% endif %}"
 							alt="{{author.name}}" width="70" />
 						{% endif %}
 						<small class="ml-3"> {{ author.name }} <span><a target="_blank" href="{{ author.twitter }}"
@@ -75,10 +76,20 @@ layout: default
 
 
 		<div class="col-md-12 col-lg-8">
+			{% if page.intro %}
+			<div class="post-intro-toc">
+				<div class="intro-text">
+					{{ page.intro | markdownify }}
+				</div>
+				<nav class="toc-content">
+					{% toc %}
+				</nav>
+			</div>
+			{% endif %}
 
 			<!-- Article -->
 			<article class="article-post {{page.font}}">
-				{{ content | toc}}
+				{{ content }}
 			</article>
 
 			<!-- Tags -->
@@ -127,7 +138,8 @@ layout: default
 			<div class="row mt-5">
 				<div class="col-md-2 align-self-center">
 					{% if author.avatar %}
-					<img class="rounded-circle" src="{{ site.url }}{{site.baseurl}}/{{author.avatar}}"
+					<img class="rounded-circle"
+						src="{% if author.avatar contains ':' %}{{ author.avatar }}{% else %}{{ site.baseurl }}{{ author.avatar }}{% endif %}"
 						alt="{{author.name}}" width="90" />
 					{% endif %}
 				</div>
@@ -156,15 +168,19 @@ layout: default
 		<div class="row prevnextlinks small font-weight-bold">
 			{% if page.previous.url %}
 			<div class="col-md-6 rightborder pl-0">
-				<a class="text-dark" href="{{ site.baseurl }}{{ page.previous.url }}">{% if page.previous.image %} <img
-						height="30px" class="mr-1" src="{{site.baseurl}}/{{page.previous.image}}"> {% endif %}
+				<a class="text-dark" href="{{ site.baseurl }}{{ page.previous.url }}">{% if page.previous.image %}
+					<img height="30px" class="mr-1"
+						src="{% if page.previous.image contains ':' %} {{ page.previous.image }}{% else %} {{ page.previous.image }} {% endif %}">
+					{% endif %}
 					{{page.previous.title}}</a>
 			</div>
 			{% endif %}
 			{% if page.next.url %}
 			<div class="col-md-6 text-right pr-0">
 				<a class="text-dark" href="{{ site.baseurl }}{{ page.next.url }}"> {{page.next.title}} {% if
-					page.next.image %} <img height="30px" class="ml-1" src="{{site.baseurl}}/{{page.next.image}}"> {%
+					page.next.image %} <img height="30px" class="ml-1"
+						src="{% if page.next.image contains ':' %} {{ page.next.image }} {% else %} {{ site.baseurl }}{{ page.next.image }} {% endif %}">
+					{%
 					endif %}</a>
 			</div>
 			{% endif %}

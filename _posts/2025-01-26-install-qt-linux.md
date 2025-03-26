@@ -4,7 +4,7 @@ title:  "Install Qt on Linux"
 author: ductri
 categories: [Programming]
 tags: [featured, python]
-image: assets/images/python-clean-code-style-guides-formatters-linters.webp
+image: /assets/images/python-clean-code-style-guides-formatters-linters.webp
 # description: "Data scientists, analysts, and beginner devs: transition from 'coder' to 'software engineer' and learn to ship code."
 toc: False
 side_toc: True

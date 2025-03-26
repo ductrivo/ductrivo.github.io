@@ -4,8 +4,8 @@ title:  "Nonlinear Model Predictive Control for Uranium Extraction-Scrubbing Ope
 author: ductri
 categories: [Control System]
 tags: [featured]
-image: 'assets/publications/extraction-scrubbing.png'
-font: vietnamese-font
+image: /assets/publications/extraction-scrubbing.png
+# font: vietnamese-font
 # description: "Test latex."
 ---
 

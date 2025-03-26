@@ -4,10 +4,11 @@ title:  "Python Clean Code, Style Guides, Formatters, and Linters"
 author: ductri
 categories: [Programming]
 tags: [featured, python, sticky]
-image: assets/images/python-clean-code-style-guides-formatters-linters.webp
+image: /assets/images/python-clean-code-style-guides-formatters-linters.webp
 # description: "Data scientists, analysts, and beginner devs: transition from 'coder' to 'software engineer' and learn to ship code."
-toc: False
+toc: true
 side_toc: True
+intro: >
 ---
 
 ## What is Clean Code?

@@ -42,7 +42,7 @@ authors:
     ductri:
       name:           Duc-Tri
       site:           https://ductrivo.github.io
-      avatar:         /assets/images/avatar1.jpg
+      avatar:         "https://i.imgur.com/QSMPgex.jpg"
       bio:            "Hi, I am Duc-Tri, the author of this site. I hope you like it!"
       email:          duc-tri.vo@outlook.fr
       # twitter:        https://twitter.com/wowthemesnet
@@ -88,6 +88,14 @@ highlighter: rouge
 paginate: 10
 
 
+toc:
+  min_level: 2      # Minimum heading level (h2)
+  max_level: 4      # Maximum heading level (h4)
+  no_toc_section_class: no_toc  # class to exclude from toc
+  list_class: toc-list
+  sublist_class: toc-sublist
+  item_class: toc-item
+  item_prefix: toc-
 
 # Exclude metadata and development time dependencies (like Grunt plugins)
 exclude: [README.markdown, package.json, grunt.js, Gruntfile.js, Gruntfile.coffee, node_modules]
