@@ -4,17 +4,19 @@ title:  "Inverted Pendulumn Modelling and Control"
 author: ductri
 categories: [Control System]
 tags: [featured]
-image: 'https://i.imgur.com/nNWWyEy.png'
+# image: site.data.images.inv_pendulum_free_body.src
+image: "https://i.imgur.com/nNWWyEy.png"
 # font: vietnamese-font
 # description: "Test latex."
 toc: False
 side_toc: True
 ---
 
-<figure style="margin: auto; text-align: center;">
-  <img src="https://i.imgur.com/nNWWyEy.png" alt="Free-body diagrams" style="width:75%;">
-  <figcaption>Free-body diagrams</figcaption>
-</figure>
+{% include figure.html
+    src=site.data.images.inv_pendulum_free_body.src
+    alt=site.data.images.inv_pendulum_free_body.alt
+    caption=site.data.images.inv_pendulum_free_body.caption
+%}
 
 In this post, we derive the equations of motion for an inverted pendulum mounted on a cart using the Lagrangian approach. The system consists of a cart with mass $$m_\text{cart}$$ that can move horizontally and a pendulum with mass $$m$$ attached by a rigid rod of length $$l$$. The pendulum’s angle $$\theta$$ is measured from the vertical.
 

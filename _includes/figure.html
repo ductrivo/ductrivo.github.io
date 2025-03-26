@@ -1,0 +1,6 @@
+<figure style="{{ include.figure_style | default: 'margin: auto; text-align: center;' }}">
+    <img src="{{ include.src }}" alt="{{ include.alt }}" style="{{ include.img_style | default: 'width:75%;' }}">
+    {% if include.caption %}
+    <figcaption>{{ include.caption }}</figcaption>
+    {% endif %}
+</figure>
