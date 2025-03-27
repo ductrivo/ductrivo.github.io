@@ -148,3 +148,107 @@ $(function () {
     });
   });
   
+// Copy button
+// document.addEventListener('DOMContentLoaded', function () {
+//     document.querySelectorAll('div.highlight').forEach(function (block) {
+//       const btn = document.createElement('button');
+//       btn.innerText = 'Copy';
+//       btn.className = 'copy-button';
+  
+//       btn.addEventListener('click', () => {
+//         // Clone the code block to safely remove line numbers
+//         const codeClone = block.cloneNode(true);
+  
+//         // Remove line number spans if any
+//         codeClone.querySelectorAll('.lineno').forEach(el => el.remove());
+  
+//         // Get only the text content of <code>
+//         const code = codeClone.querySelector('code')?.innerText || '';
+  
+//         // Copy to clipboard
+//         navigator.clipboard.writeText(code).then(() => {
+//           btn.innerText = 'Copied!';
+//           setTimeout(() => btn.innerText = 'Copy', 1500);
+//         });
+//       });
+  
+//       block.classList.add('code-block');
+//       block.appendChild(btn);
+//     });
+//   });
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('div.highlight').forEach(function (block) {
+    // Create wrapper for header + code
+    const wrapper = document.createElement('div');
+    wrapper.className = 'code-block-wrapper';
+
+    // Move existing block inside wrapper
+    block.parentNode.insertBefore(wrapper, block);
+    wrapper.appendChild(block);
+
+    // Extract language
+    let langMatch = null;
+    const codeEl = block.querySelector('code');
+    if (codeEl) {
+      langMatch = codeEl.className.match(/language-(\w+)/);
+    }
+    if (!langMatch) {
+      const parentLangEl = block.closest('[class*="language-"]');
+      if (parentLangEl) {
+        langMatch = parentLangEl.className.match(/language-(\w+)/);
+      }
+    }
+
+    // Create header
+    const header = document.createElement('div');
+    header.className = 'code-block-header';
+
+    // Language label
+    const langLabel = document.createElement('div');
+    langLabel.className = 'language-label';
+    langLabel.textContent = langMatch ? `${getLanguageIcon(langMatch[1])} ${langMatch[1]}` : 'Code';
+    header.appendChild(langLabel);
+
+    // Copy button
+    const btn = document.createElement('button');
+    btn.innerText = 'Copy';
+    btn.className = 'copy-button';
+    btn.addEventListener('click', () => {
+      const codeClone = block.cloneNode(true);
+      codeClone.querySelectorAll('.lineno').forEach(el => el.remove());
+      const code = codeClone.querySelector('code')?.innerText || '';
+      navigator.clipboard.writeText(code).then(() => {
+        btn.innerText = 'Copied!';
+        setTimeout(() => btn.innerText = 'Copy', 1500);
+      });
+    });
+    header.appendChild(btn);
+
+    // Prepend header to wrapper
+    wrapper.insertBefore(header, block);
+
+    // Final styling hook
+    block.classList.add('code-block');
+    
+  });
+});
+
+function getLanguageIcon(lang) {
+  const map = {
+    python: '🐍',
+    bash: '💻',
+    html: '🌐',
+    css: '🎨',
+    javascript: '🟨',
+    java: '☕',
+    c: '🔧',
+    cpp: '➕',
+    json: '📦',
+    yaml: '📄',
+    markdown: '📝',
+    default: '📄'
+  };
+  return map[lang?.toLowerCase()] || map.default;
+}

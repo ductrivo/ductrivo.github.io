@@ -107,3 +107,20 @@ Thằng con phiêu bạt kiếp long đong
 Cho nên tóc bạc càng thêm bạc  
 Thương nhớ cho lòng Mẹ héo hon.
 
+```python
+import numpy as np
+
+x = np.array
+```
+
+```bash
+import numpy as np
+
+x = np.array
+```
+
+```python32
+import numpy as np
+
+x = np.array
+```

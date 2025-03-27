@@ -3,8 +3,6 @@ title: Home
 layout: default
 pagination:
 enabled: true
-description: "Discover my personal website showcasing innovative projects, research, and insights in automation, control
-systems, and engineering."
 ---
 
 
@@ -30,9 +28,9 @@ systems, and engineering."
                         <a class="text-dark {{latest_post.font}}" href="{{site.baseurl}}{{latest_post.url}}">{{
                             latest_post.title }}</a>
                     </h2>
-                    <!-- <p class="excerpt">
-                        {{ latest_post.excerpt | strip_html | strip_newlines | truncate: 136 }}
-                    </p> -->
+                    <p class="excerpt">
+                        {{ latest_post.description | strip_html | strip_newlines | truncate: 136 }}
+                    </p>
                     <div>
                         <small class="d-block text-muted">
                             In <span class="catlist">
@@ -65,7 +63,7 @@ systems, and engineering."
                 </div>
                 {% endif %}
                 <div>
-                    <h2 class="mb-2 h6 font-weight-bold">
+                    <h2 class="mb-2 h3 font-weight-bold">
                         <a class="text-dark {{second_post.font}}" href="{{site.baseurl}}{{second_post.url}}">{{second_post.title }}</a>
                     </h2>
                     <small class="d-block text-muted">
@@ -95,7 +93,7 @@ systems, and engineering."
                 </div>
                 {% endif %}
                 <div>
-                    <h2 class="mb-2 h6 font-weight-bold">
+                    <h2 class="mb-2 h3 font-weight-bold">
                         <a class="text-dark {{third_post.font}}" href="{{site.baseurl}}{{third_post.url}}">{{ third_post.title }}</a>
                     </h2>
                     <small class="d-block text-muted">
@@ -125,7 +123,7 @@ systems, and engineering."
                 </div>
                 {% endif %}
                 <div>
-                    <h2 class="mb-2 h6 font-weight-bold">
+                    <h2 class="mb-2 h3 font-weight-bold">
                         <a class="text-dark {{fourth_post.font}}" href="{{site.baseurl}}{{fourth_post.url}}">{{ fourth_post.title }}</a>
                     </h2>
                     <small class="d-block text-muted">
@@ -155,9 +153,9 @@ systems, and engineering."
             <div class="row justify-content-between">
                 <div class="col-md-6 pt-6 pb-6 pr-lg-4 align-self-center">
                     <h1 class="mb-3">{{post.title}}</h1>
-                    <!-- <p class="mb-3 lead">
-                        {{ post.excerpt | strip_html | strip_newlines | truncate: 136 }}
-                    </p> -->
+                    <p class="mb-3 lead">
+                        {{ post.description | strip_html | strip_newlines | truncate: 136 }}
+                    </p>
                     <a href="{{site.baseurl}}{{post.url}}" class="btn btn-dark">Read More</a>
                 </div>
                 <div class="col-md-6 d-none d-md-block pr-0"
@@ -183,7 +181,7 @@ systems, and engineering."
 
         <div class="col-md-8 main-loop">
 
-            <h4 class="font-weight-bold spanborder"><span>All Posts</span></h4>
+            <h3 class="font-weight-bold spanborder"><span>All Posts</span></h3>
 
 
             {% for post in paginator.posts %}

@@ -3,7 +3,7 @@ layout: post-sidebar
 title:  "Install Ignition on VPS"
 author: ductri
 categories: [SCADA]
-tags: [featured]
+tags: [featured, sticky]
 image: "https://i.imgur.com/BniJjuq.png"
 # font: vietnamese-font
 # description: "Test latex."
@@ -11,6 +11,7 @@ toc: true
 side_toc: True
 intro: >
   In this post, we’ll go through the steps to install **Ignition 8.1** on a **VPS hosted on OVH**. The process includes:
+description: In this post, we’ll go through the steps to install Ignition 8.1 on a VPS hosted on OVH.
 ---
 
 {% include figure.html

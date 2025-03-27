@@ -888,4 +888,70 @@ div.a2a_full_footer {display:none;}
   .post-intro-toc .toc-list a:hover {
 	text-decoration: underline;
   }
+
+  .code-block-wrapper {
+	margin: 1.5rem 0;
+	border-radius: 6px;
+	overflow: hidden;
+	background: #1e1e1e;
+	font-family: 'Fira Code', monospace;
+  }
   
+  /* Header bar for language + copy button */
+  .code-block-header {
+	background: #2b2b2b;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 6px 12px;
+	font-size: 12px;
+	color: #f8f8f2;
+	text-transform: uppercase;
+  }
+  
+  /* Language label */
+  .language-label {
+	font-weight: bold;
+	opacity: 0.8;
+  }
+  
+  /* Copy button */
+  .copy-button {
+	background: #444;
+	color: white;
+	border: none;
+	padding: 4px 8px;
+	font-size: 12px;
+	border-radius: 4px;
+	cursor: pointer;
+	opacity: 0.7;
+  }
+  .copy-button:hover {
+	opacity: 1;
+  }
+  
+  /* Code block container */
+  .code-block {
+	position: relative;
+  }
+  
+  /* Line numbers */
+  .highlight td.gutter {
+	color: #f8f8f2;
+	text-align: right;
+	padding-right: 1em;
+	vertical-align: top;
+	user-select: none;
+  }
+  
+  .highlight .lineno {
+	color: #f8f8f2;
+  }
+
+/* Default white color for unwrapped text in code blocks */
+.highlight pre,
+.highlight td.rouge-code pre,
+.highlight .rouge-code pre {
+  color: #ffffff;
+}
+
