@@ -3,6 +3,7 @@ name: 'Duc-Tri VO'
 description: "𝗘xpertise partagée pour la recherche, l'éducation, le déploiement, la communauté et l'ouverture. Discover projects and research in automation, control systems, embedded systems, predictive control, and programming—insights into smart engineering and real-time optimization."
 logo: 'assets/images/avatar1.jpg'
 favicon: 'assets/images/favicon_VDT.png'
+url: "https://expred.co"
 baseurl: ''
 # disqus: 'demowebsite'
 email: 'duc-tri.vo@outlook.fr'
@@ -27,7 +28,7 @@ instagram_username: instagram
 twitter_username: twitter
 facebook_username: facebook
 youtube_username: ductrivo.official
-blog_url: https://ductrivo.github.io
+blog_url: https://expred.co
 
 excerpt_separator: "<!-- excerpt -->"
 
