@@ -10,7 +10,7 @@ image: "https://i.imgur.com/NEcje0J.png"
 toc: true
 side_toc: True
 intro: >
-    Curious about how complex systems can be controlled with simpler models? In this post, I will introduce you an interesting approach called hierarchical control using approximate simulation relations. You'll find a clear, easy-to-follow summary of Girard’s 2006 paper, along with insights into how the method works, how it’s evolved in recent research, and where it’s being applied today—from robot motion control to multi-agent systems. Plus, I’ve included my own implementation code so you can try it out for yourself!
+    Curious about how complex systems can be controlled with simpler models? In this post, I will introduce you an interesting approach called hierarchical control using approximate simulation relations. You'll find a clear, easy-to-follow summary of Girard's 2006 paper, along with insights into how the method works, how it's evolved in recent research, and where it's being applied today—from robot motion control to multi-agent systems. Plus, I've included my own implementation code so you can try it out for yourself!
 
 description: Curious about how complex systems can be controlled with simpler models? In this post, I unpack an elegant approach called hierarchical control using approximate simulation relations.
 ---
@@ -27,15 +27,12 @@ The framework's architecture consists of two main layers: the *concrete system* 
     caption=site.data.images.herarchical_control_girard.caption
 %}
 
-
 Consider a control problem for the concrete system with specific invariance and reachability properties. Section III proves that the proposed control architecture guarantees that the output $$\mathbf{y}$$ of $$\Sigma$$ satisfies these desired properties, provided the following conditions are met:
 
 - $$\Sigma'$$ is a *complete approximate sub-system of* $$\Sigma$$ *with precision* $$\delta$$, meaning that for every initial state $$\mathbf{x}_0$$ of $$\Sigma$$, there exists a corresponding initial state $$\mathbf{z}_0$$ of $$\Sigma'$$ such that, starting from these initial conditions, the outputs are bounded, i.e., $$\|\mathbf{h}(\mathbf{x}) - \mathbf{k}(\mathbf{z})\| \leq \delta$$ for all $$t \geq 0$$;[^3]
 - $$\Sigma'$$ satisfies the invariance and reachability properties within a safety margin of $$\delta$$.
 
-
 This approach is demonstrated through an application in robot motion control. The authors used a first-order kinematic model of the robot as $$\Sigma'$$ to approximate the second-order dynamical model of the robot, treated as $$\Sigma$$. Using the simulation function proposed in Proposition 4.1, the conditions and precision for which $$\Sigma'$$ becomes a complete approximate sub-system of $$\Sigma$$ are computed as functions of the bounds on $$\|\mathbf{u}\|$$ and $$\|\mathbf{v}\|$$, as detailed in Theorem 4.3. Finally, the application of this architecture to autonomous robots is explored in the latter part of the paper, showcasing its practicality and effectiveness.[^4]
-
 
 ## Reviews on Hierarchical Control based on Approximate Simulation Relations
 
