@@ -3,7 +3,7 @@ layout: post-sidebar
 title:  "Hierarchical Control using Approximate Simulation Relations"
 author: ductri
 categories: [Control System]
-tags: [featured, sticky]
+tags: [featured]
 image: "https://i.imgur.com/NEcje0J.png"
 # font: vietnamese-font
 # description: "Test latex."
