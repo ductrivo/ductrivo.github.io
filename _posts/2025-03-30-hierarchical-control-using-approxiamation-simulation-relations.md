@@ -10,7 +10,7 @@ image: "https://i.imgur.com/NEcje0J.png"
 toc: true
 side_toc: True
 intro: >
-    Curious about how complex systems can be controlled with simpler models? In this post, I will introduce you an interesting approach called hierarchical control using approximate simulation relations. You'll find a clear, easy-to-follow summary of Girard's 2006 paper, along with insights into how the method works, how it's evolved in recent research, and where it's being applied today from robot motion control to multi-agent systems. Plus, I've included my own implementation code so you can try it out for yourself!
+    Curious about how complex systems can be controlled with simpler models? In this post, I will introduce you an interesting approach called hierarchical control using approximate simulation relations. You'll find a clear, easy-to-follow summary of Girard's 2006 paper, along with insights into how the method works, how it's evolved in recent research, and where it's being applied today--from robot motion control to multi-agent systems. Plus, I've included my own implementation code so you can try it out for yourself!
 
 description: Curious about how complex systems can be controlled with simpler models? In this post, I unpack an elegant approach called hierarchical control using approximate simulation relations.
 ---
