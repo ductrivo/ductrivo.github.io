@@ -828,6 +828,9 @@ div.a2a_full_footer {display:none;}
 	margin-bottom: 1rem;
   }
   
+  .intro-text {
+	text-align: justify;
+  }
   /* Main TOC list */
   .post-intro-toc .toc-list {
 	list-style: none;

@@ -1,0 +1,18 @@
+<span id="{{ entry.key }}">
+    <span class="bib-author">{{ entry.author }}</span>,
+    <span class="bib-title">"{{ entry.title }}"</span>,
+    <span class="bib-journal"> <em>{{ entry.journal }}</em></span>,
+    <span class="bib-year">{{ entry.year }}</span>.
+
+    {% if entry.doi %}
+    <a href="https://doi.org/{{ entry.doi }}" target="_blank">DOI</a>.
+    {% endif %}
+
+    {% if entry.url %}
+    <a href="{{ entry.url }}" target="_blank">Link</a>.
+    {% endif %}
+
+    <!-- {% if site.scholar.backlink %}
+    <a href="#cite-{{ entry.key }}" class="backref">{{ site.scholar.backlink }}</a>
+    {% endif %} -->
+</span>

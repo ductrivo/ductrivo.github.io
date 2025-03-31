@@ -39,6 +39,27 @@ plugins:
   - jekyll-paginate
   - jekyll-seo-tag
   - jekyll-toc
+  - jekyll-scholar
+
+scholar:
+  # style: apa
+  # locale: en
+  # source: ./_bibliography
+  # bibliography: references.bib
+  bibliography_template: bib-custom
+  citation_template: citation
+  # repository: ./pdfs
+  # details_dir: bibliography
+  # use_raw_bibtex_entry: true
+  # order: alphabetical
+  # group_by: none
+  # replace_strings: true
+  # query: "@*"
+  # link_citations: true
+  # details_link: Details
+  # bibtex_link: BibTeX
+  backlink: "↩"
+
 authors:
     ductri:
       name:           Duc-Tri
@@ -89,6 +110,8 @@ kramdown:
   syntax_highlighter_opts:
     block:
       line_numbers: true # optional
+  # input: GFM
+  # footnote_nr: 1
 
 # Paginate
 paginate: 10

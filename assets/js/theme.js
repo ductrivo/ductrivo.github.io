@@ -252,3 +252,4 @@ function getLanguageIcon(lang) {
   };
   return map[lang?.toLowerCase()] || map.default;
 }
+
