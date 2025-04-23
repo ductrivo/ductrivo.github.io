@@ -29,7 +29,7 @@ Let us examine planar robots with 2 and 3 revolute joints.
 
 ## Planar Robot with 2 Revolute Joints
 
-### Forward Kinematics of 2R Plannar Robot
+### Forward Kinematics of 2R Plannar Robots
 
 Consider a planar robot with two revolute joints, as shown in the figure below. Let:
 
