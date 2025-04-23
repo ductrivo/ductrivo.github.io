@@ -18,6 +18,11 @@ planar_robot_2r:
   alt: "Planar robot with 2 revolut joints."
   caption: "Planar robot with 2 revolut joints."
 
+planar_robot_2r_dynamics:
+  src: "https://i.imgur.com/3jfOT0D.png"
+  alt: "Planar robot with 2 revolut joints."
+  caption: "Planar robot with 2 revolut joints."
+
 planar_robot_3r:
   src: "https://i.imgur.com/QlCwtKa.png"
   alt: "Planar robot with 3 revolut joints."

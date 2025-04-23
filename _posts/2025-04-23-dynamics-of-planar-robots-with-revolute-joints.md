@@ -4,7 +4,7 @@ title:  "Dynamic Model of Planar Robots with Two Revolut Joints"
 author: ductri
 categories: [Robotics]
 tags: [featured, sticky, robots, kinematics]
-image: "https://i.imgur.com/3jfOT0D.png"
+image: "https://i.imgur.com/CWIBlLM.png"
 # font: vietnamese-font
 # description: "Test latex."
 toc: true
@@ -50,6 +50,12 @@ where:
 ## Dynamic Model of 2R Plannar Robots
 
 ### Lagrangian Formulation
+
+{% include figure.html
+    src=site.data.images.planar_robot_2r_dynamics.src
+    alt=site.data.images.planar_robot_2r_dynamics.alt
+    caption=site.data.images.planar_robot_2r_dynamics.caption
+%}
 
 To derive the dynamic equations of motion, we apply the **Lagrangian mechanics method**, which constructs the Lagrangian function:
 
