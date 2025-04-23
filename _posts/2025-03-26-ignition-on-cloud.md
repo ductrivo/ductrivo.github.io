@@ -3,7 +3,7 @@ layout: post-sidebar
 title:  "Install Ignition on VPS"
 author: ductri
 categories: [SCADA]
-tags: [featured, sticky]
+tags: [ignition]
 image: "https://i.imgur.com/BniJjuq.png"
 # font: vietnamese-font
 # description: "Test latex."

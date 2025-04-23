@@ -24,15 +24,15 @@ I hope this tutorial will be useful for anyone who wants to strengthen both thei
 
 👉 [https://github.com/ductrivo/robot-analysis-demo](https://github.com/ductrivo/robot-analysis-demo)
 
-
 ## CHAPTER 1: PLANNAR ROBOT ARMS
+
 This chapter focuses on the **modeling, control, and simulation of planar open-chain robotic arms** composed of multiple revolute joints (N-DOF systems). The objective is to analyze both the **kinematics** and **dynamics** of these systems under various control strategies, from basic PID to advanced Model Predictive Control.
 
 Currently, this project supports analysis of **2D planar robot arms** where the **mass of each link is assumed to be concentrated at the joints**. This simplification enables efficient and insightful study of robot behavior in both simulation and hardware implementations.
 
 <div align="center">
-  <img src="https://i.imgur.com/fnhZQth.png" alt="A 3R planar open chain robot." width="50%">
-  <p><strong>Figure: A 3R planar open-chain robot. <br>(Kevin M. Lynch & Frank C. Park, 2017)</strong></p>
+  <img src="https://i.imgur.com/QlCwtKa.png" alt="A 3R planar open chain robot." width="70%">
+  <p><strong>Figure: A 3R planar open-chain robot.</strong></p>
 </div>
 
 - **Languages:** `Python` and `Rust` for most simulation and control; `C++` for embedded systems and `ROS2`.
@@ -41,18 +41,19 @@ Currently, this project supports analysis of **2D planar robot arms** where the 
 
 ### Module 1: Kinematic Modeling and Control
 
-1. Forward Kinematics
-   - Trigonometry method  
-   - Denavit-Hartenberg (DH) method
-   - Product of Exponentials (Screw Theory) method  
-2. Inverse Kinematics
-   - Closed-form and numerical solver  
-3. Trajectory Generation / Motion Planning
+<!-- - Trigonometry method  
+- Denavit-Hartenberg (DH) method
+- Product of Exponentials (Screw Theory) method   -->
+<!-- 2. Inverse Kinematics
+ - Closed-form and numerical solver   -->
+
+1. [Kinematics Using Trigonometry Method](/kinematics-of-planar-robots-with-revolute-joints/)
+2. Trajectory Generation / Motion Planning
    - Cartesian/joint space interpolation
    - Point-to-point trajectories
    - Polynomial trajectories (B-spline, Bézier Curve)
    - Obstacle avoidance.
-4. Kinematic Control
+3. Kinematic Control
    - Feedforward PID control and tuning
    - Model Predictive Control (MPC)  
 

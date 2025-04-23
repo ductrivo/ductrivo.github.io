@@ -12,3 +12,13 @@ herarchical_control_girard:
   src: "https://i.imgur.com/NEcje0J.png"
   alt: "Architecture of the controller."
   caption: "Architecture of the controller."
+
+planar_robot_2r:
+  src: "https://i.imgur.com/3jfOT0D.png"
+  alt: "Planar robot with 2 revolut joints."
+  caption: "Planar robot with 2 revolut joints."
+
+planar_robot_3r:
+  src: "https://i.imgur.com/QlCwtKa.png"
+  alt: "Planar robot with 3 revolut joints."
+  caption: "Planar robot with 3 revolut joints."

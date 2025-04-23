@@ -2,7 +2,7 @@
     "cSpell.enabled": false,
     "markdownlint.config": {
         "MD033": {
-          "allowed_elements": ["figure", "figcaption", "img"]
+          "allowed_elements": ["figure", "figcaption", "img", "div", "strong", "p"]
         }
       }    
 }
