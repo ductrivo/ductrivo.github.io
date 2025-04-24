@@ -61,17 +61,12 @@ Currently, this project supports analysis of **2D planar robot arms** where the 
 
 ### Module 2: Dynamics Modeling and Control
 
-1. Inverse Dynamics  
-   - Newton-Euler method  
-   - Lagrangian method  
-   - Screw Theory method
-2. Forward Dynamics
-   - Numerical Integration Methods
-3. Motor Influence on Control
+1. [Dynamic Model of Planar Robots with Two Revolut Joints](/dynamics-of-planar-robots-with-revolute-joints/)
+2. Motor Influence on Control
    - Torque-speed curves  
-4. Trajectory Generation (Dynamics-Based)
+3. Trajectory Generation (Dynamics-Based)
    - Optimization-based method (take in to account the dynamics of robot)
-5. Dynamic Control
+4. Dynamic Control
    - Velocity Control: Feedforward PID, MPC  
    - Computed Torque Control: PID, Sliding Mode, MPC  
 
