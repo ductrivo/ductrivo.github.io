@@ -806,7 +806,28 @@ div.a2a_full_footer {display:none;}
  }
  
 .vietnamese-font {
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: "Be Vietnam Pro", sans-serif;
+}
+
+/* Vietnamese Font Overrides */
+body.lang-vi {
+    --font-body: "Be Vietnam Pro", "Poppins", sans-serif;
+}
+
+body.lang-vi, 
+body.lang-vi p, 
+body.lang-vi h1, 
+body.lang-vi h2, 
+body.lang-vi h3, 
+body.lang-vi h4, 
+body.lang-vi h5, 
+body.lang-vi h6,
+body.lang-vi .article-headline {
+    font-family: var(--font-body) !important;
+}
+
+body.lang-vi .article-post {
+    font-family: var(--font-serif) !important;
 }
 
 
