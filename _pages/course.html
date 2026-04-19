@@ -1,0 +1,24 @@
+---
+title: Courses
+layout: page
+permalink: "/courses/"
+---
+
+<h1>Courses</h1>
+<div class="row">
+    {%- for course in site.data.courses -%}
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            {%- if course.image -%}
+            <img class="card-img-top" src="{{ course.image }}" alt="{{ course.title }}"
+                style="height:160px;object-fit:cover">
+            {%- endif -%}
+            <div class="card-body">
+                <h5 class="card-title">{{ course.title }}</h5>
+                <p class="card-text text-muted small">{{ course.description }}</p>
+                <a href="/courses/{{ course.id }}/" class="btn btn-dark btn-sm">Start Course</a>
+            </div>
+        </div>
+    </div>
+    {%- endfor -%}
+</div>

@@ -1,0 +1,43 @@
+# _data/courses.yml
+- id: robotics
+  title: "Robotics Modeling, Control & Design"
+  slug: robotics
+  description: "From kinematics to MPC — build and control a 3R robot arm"
+  level: intermediate
+  duration_hours: 20
+  image: "https://i.imgur.com/QlCwtKa.png"
+  modules:
+    - id: kinematics
+      title: "Module 1: Kinematic Modeling"
+      lessons:
+        - slug: "01-introduction"
+          title: "Introduction to Robotics"
+          duration_min: 15
+        - slug: "02-kinematics"
+          title: "Forward & Inverse Kinematics"
+          duration_min: 45
+          has_quiz: true
+    - id: dynamics
+      title: "Module 2: Dynamics"
+      lessons:
+        - slug: "03-dynamics"
+          title: "Lagrangian Dynamics"
+          duration_min: 60
+          has_quiz: true
+          has_interactive: true
+
+- id: control-systems
+  title: "Control Systems Engineering"
+  slug: control-systems
+  description: "PID, MPC, and modern control theory"
+  level: advanced
+  duration_hours: 15
+  image: ""
+  modules:
+    - id: classical
+      title: "Module 1: Classical Control"
+      lessons:
+        - slug: "01-pid-control"
+          title: "PID Control & Tuning"
+          duration_min: 50
+          has_interactive: true

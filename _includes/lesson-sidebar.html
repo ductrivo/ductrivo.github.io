@@ -1,0 +1,38 @@
+<!-- _includes/lesson-sidebar.html -->
+<div class="lesson-sidebar">
+    <h6 class="text-uppercase text-muted small font-weight-bold mb-3">
+        <a href="/courses/{{ include.course.id }}/" class="text-muted">
+            ← {{ include.course.title }}
+        </a>
+    </h6>
+
+    {%- for module in include.course.modules -%}
+    <div class="mb-3">
+        <small class="text-uppercase text-muted font-weight-bold d-block mb-1">
+            {{ module.title }}
+        </small>
+        {%- for lesson in module.lessons -%}
+        {%- assign lesson_url = "/courses/" | append: include.course.id | append: "/" | append: lesson.slug | append:
+        "/" -%}
+        {%- assign is_active = false -%}
+        {%- if page.url == lesson_url -%}{%- assign is_active = true -%}{%- endif -%}
+        <a href="{{ lesson_url }}"
+            class="d-block py-1 small {% if is_active %}font-weight-bold text-dark{% else %}text-muted{% endif %}"
+            data-sidebar-lesson="{{ include.course.id }}/{{ lesson.slug }}">
+            <span class="sidebar-check">○</span>
+            {{ lesson.title }}
+        </a>
+        {%- endfor -%}
+    </div>
+    {%- endfor -%}
+</div>
+
+<script>
+    document.querySelectorAll('[data-sidebar-lesson]').forEach(function (el) {
+        const key = 'lesson_done_' + el.dataset.sidebarLesson;
+        if (localStorage.getItem(key) === '1') {
+            el.querySelector('.sidebar-check').textContent = '✓ ';
+            el.querySelector('.sidebar-check').style.color = '#28a745';
+        }
+    });
+</script>

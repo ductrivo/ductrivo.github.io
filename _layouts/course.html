@@ -1,0 +1,75 @@
+---
+layout: default
+---
+{%- assign course_data = site.data.courses | where: "id", page.course_id | first -%}
+
+<div class="container mt-4">
+
+    <div class="row">
+        <div class="col-md-8">
+
+            <!-- Course header -->
+            <p class="text-muted text-uppercase small">Course</p>
+            <h1>{{ course_data.title }}</h1>
+            <p class="lead">{{ course_data.description }}</p>
+
+            <!-- Overall progress bar (filled by progress.js) -->
+            <div class="mb-4">
+                <div class="d-flex justify-content-between small text-muted mb-1">
+                    <span>Course progress</span>
+                    <span id="course-progress-label">0%</span>
+                </div>
+                <div class="progress" style="height:6px">
+                    <div id="course-progress-bar" class="progress-bar bg-success" role="progressbar" style="width:0%">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module/lesson list -->
+            {%- for module in course_data.modules -%}
+            <div class="mb-4">
+                <h4>{{ module.title }}</h4>
+                <div class="list-group">
+                    {%- for lesson in module.lessons -%}
+                    {%- assign lesson_url = "/courses/" | append: page.course_id | append: "/" | append: lesson.slug |
+                    append: "/" -%}
+                    <a href="{{ lesson_url }}"
+                        class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                        data-lesson-slug="{{ page.course_id }}/{{ lesson.slug }}">
+                        <div>
+                            <span class="lesson-check mr-2 text-muted">○</span>
+                            {{ lesson.title }}
+                            {%- if lesson.has_quiz -%}
+                            <span class="badge badge-light ml-1">Quiz</span>
+                            {%- endif -%}
+                        </div>
+                        <small class="text-muted">{{ lesson.duration_min }} min</small>
+                    </a>
+                    {%- endfor -%}
+                </div>
+            </div>
+            {%- endfor -%}
+
+        </div>
+    </div>
+</div>
+
+<script>
+    // Inject progress from localStorage into the course overview
+    document.addEventListener('DOMContentLoaded', function () {
+        const courseId = '{{ page.course_id }}';
+        const lessonLinks = document.querySelectorAll('[data-lesson-slug]');
+        let completed = 0;
+        lessonLinks.forEach(function (link) {
+            const slug = link.dataset.lessonSlug;
+            if (localStorage.getItem('lesson_done_' + slug) === '1') {
+                link.querySelector('.lesson-check').textContent = '✓';
+                link.querySelector('.lesson-check').style.color = '#28a745';
+                completed++;
+            }
+        });
+        const pct = lessonLinks.length ? Math.round(completed / lessonLinks.length * 100) : 0;
+        document.getElementById('course-progress-bar').style.width = pct + '%';
+        document.getElementById('course-progress-label').textContent = pct + '%';
+    });
+</script>

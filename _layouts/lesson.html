@@ -1,0 +1,75 @@
+---
+layout: default
+---
+{%- assign course_data = site.data.courses | where: "id", page.course | first -%}
+{%- assign all_lessons = site.courses | where: "course", page.course | sort: "lesson_order" -%}
+{%- assign lesson_index = 0 -%}
+{%- for l in all_lessons -%}
+{%- if l.url == page.url -%}{%- assign lesson_index = forloop.index0 -%}{%- endif -%}
+{%- endfor -%}
+{%- assign prev_index = lesson_index | minus: 1 -%}
+{%- assign next_index = lesson_index | plus: 1 -%}
+{%- assign prev_lesson = all_lessons[prev_index] -%}
+{%- assign next_lesson = all_lessons[next_index] -%}
+
+<div class="container mt-4">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white pl-0 small">
+            <li class="breadcrumb-item"><a href="/courses/">Courses</a></li>
+            <li class="breadcrumb-item"><a href="/courses/{{ page.course }}/">{{ course_data.title }}</a></li>
+            <li class="breadcrumb-item active">{{ page.title }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+
+        <!-- Lesson sidebar: module nav -->
+        <div class="col-md-3 d-none d-md-block">
+            <div class="sticky-top" style="top:80px">
+                {%- include lesson-sidebar.html course=course_data lessons=all_lessons -%}
+            </div>
+        </div>
+
+        <!-- Main lesson content -->
+        <div class="col-md-9">
+            <h1>{{ page.title }}</h1>
+            <p class="text-muted small">
+                ⏱ {{ page.duration_min }} min read
+                {%- if page.has_quiz -%} · 📝 Includes quiz{%- endif -%}
+                {%- if page.has_interactive -%} · 🔬 Interactive demo{%- endif -%}
+            </p>
+
+            <article class="article-post">{{ content }}</article>
+
+            <!-- Quiz (rendered if front matter has quiz: data) -->
+            {%- if page.quiz -%}
+            {%- include quiz.html quiz=page.quiz -%}
+            {%- endif -%}
+
+            <!-- Mark complete button -->
+            <div class="my-5 text-center">
+                <button id="btn-complete" class="btn btn-success btn-lg" data-course="{{ page.course }}"
+                    data-slug="{{ page.course }}/{{ page.slug }}">
+                    Mark as Complete ✓
+                </button>
+            </div>
+
+            <!-- Prev / Next navigation -->
+            <div class="d-flex justify-content-between mt-4 pt-3 border-top">
+                {%- if prev_lesson -%}
+                <a href="{{ prev_lesson.url }}" class="btn btn-outline-secondary">
+                    ← {{ prev_lesson.title }}
+                </a>
+                {%- else -%}<div></div>{%- endif -%}
+                {%- if next_lesson -%}
+                <a href="{{ next_lesson.url }}" class="btn btn-success">
+                    {{ next_lesson.title }} →
+                </a>
+                {%- else -%}<div></div>{%- endif -%}
+            </div>
+
+        </div>
+    </div>
+</div>
