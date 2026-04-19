@@ -1,21 +1,20 @@
 ---
-title: Home
+title: Trang chủ
 layout: default
-lang: en
-pagination:
-  enabled: true
+lang: vi
+permalink: /vi/
 ---
 
-{%- assign t = site.data.i18n[page.lang] -%}
+{% assign t = site.data.i18n[page.lang] %}
+{% assign posts = site.vi_posts | sort: "date" | reverse %}
+
 <div class="container">
 
-    {% if page.url == "/" %}
+    {% if page.url == "/vi/" %}
 
-
-
-    <!-- Begin post excerpts, let's highlight the first 4 posts on top -->
+    <!-- Phần bài viết nổi bật (Featured) - Lấy 4 bài đầu tiên -->
     <div class="row remove-site-content-margin">
-        {%- assign featured_posts = site.posts | slice: 0, 4 -%}
+        {%- assign featured_posts = posts | slice: 0, 4 -%}
 
         {%- assign first = featured_posts[0] -%}
         {% if first %}
@@ -31,7 +30,7 @@ pagination:
                         <a class="text-dark" href="{{site.baseurl}}{{first.url}}">{{ first.title }}</a>
                     </h2>
                     <p class="excerpt">{{ first.description | strip_html | truncate: 136 }}</p>
-                    <small class="text-muted">{{ first.date | date: '%b %d, %Y' }}</small>
+                    <small class="text-muted">{{ first.date | date: '%d %b %Y' }}</small>
                 </div>
             </div>
         </div>
@@ -50,7 +49,7 @@ pagination:
                     <h2 class="mb-2 h3 font-weight-bold">
                         <a class="text-dark" href="{{site.baseurl}}{{post.url}}">{{ post.title }}</a>
                     </h2>
-                    <small class="text-muted">{{ post.date | date: '%b %d, %Y' }}</small>
+                    <small class="text-muted">{{ post.date | date: '%d %b %Y' }}</small>
                 </div>
             </div>
             {%- endfor -%}
@@ -59,8 +58,8 @@ pagination:
     </div>
 
 
-    <!-- Sticky - add sticky tag to the post you want to highlight here - tags: [sticky] -->
-    {% for post in site.posts %}
+    <!-- Bài viết Ghim (Sticky) -->
+    {% for post in posts %}
     {% if post.tags contains "sticky" %}
     <div class="jumbotron jumbotron-fluid jumbotron-home pt-0 pb-0 mt-3 mb-2rem bg-lightblue position-relative">
         <div class="pl-4 pr-0 h-100 tofront">
@@ -73,15 +72,12 @@ pagination:
                     <a href="{{site.baseurl}}{{post.url}}" class="btn btn-dark">{{ t.read_more }}</a>
                 </div>
 
-                {% comment %} 1. Handle the image path logic before rendering the HTML {% endcomment %}
-
                 {% if post.image contains ':' %}
                 {% assign background_url = post.image %}
                 {% else %}
                 {% assign background_url = post.image | prepend: site.baseurl %}
                 {% endif %}
 
-                {% comment %} 2. Use the clean variable inside the style attribute {% endcomment %}
                 <div class="col-md-6 d-none d-md-block pr-0"
                     style="background-size: contain; background-repeat: no-repeat; background-position: center; background-image: url('{{ background_url }}');">
                 </div>
@@ -91,72 +87,22 @@ pagination:
     {% endif %}
     {% endfor %}
 
+    {% endif %}
 
 
-
-
-    {% endif %} <!--endif page url is / -->
-
-
-
-    <!-- Now the rest of the posts with the usual loop but with an offset:4 on the first page so we can skeep the first 4 posts displayed above -->
-
+    <!-- Danh sách tất cả bài viết tiếng Việt -->
     <div class="row mt-3">
-
         <div class="col-md-8 main-loop">
-
             <h3 class="font-weight-bold spanborder"><span>{{ t.all_posts }}</span></h3>
 
-
-            {% for post in paginator.posts %}
-
-            {% include main-loop-card.html %}
-
+            {% for post in posts %}
+                {% include main-loop-card.html %}
             {% endfor %}
-
-            <div class="mt-5">
-                <!-- Pagination links -->
-                {% if paginator.total_pages > 1 %}
-                <ul class="pagination">
-                    {% if paginator.previous_page %}
-                    <li class="page-item"><a class="page-link"
-                            href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&laquo;
-                            Prev</a></li>
-                    {% else %}
-                    <li class="page-item disabled"><span class="prev page-link">&laquo;</span></li>
-                    {% endif %}
-
-                    {% for page in (1..paginator.total_pages) %}
-                    {% if page == paginator.page %}
-                    <li class="page-item disabled"><span class="webjeda page-link">{{ page }}</span></li>
-                    {% elsif page == 1 %}
-                    <li class="page-item"><a class="page-link" href="{{site.baseurl}}/">{{ page }}</a></li>
-                    {% else %}
-                    <li class="page-item"><a class="page-link"
-                            href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{
-                            page }}</a></li>
-                    {% endif %}
-                    {% endfor %}
-
-                    {% if paginator.next_page %}
-                    <li class="page-item"><a class="page-link"
-                            href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Next
-                            &raquo;</a></li>
-                    {% else %}
-                    <li class="page-item disabled"><span class="next page-link">&raquo;</span></li>
-                    {% endif %}
-                </ul>
-                {% endif %}
-            </div>
 
         </div>
 
         <div class="col-md-4">
             {% include sidebar-featured.html %}
         </div>
-
     </div>
-
-
-
 </div>

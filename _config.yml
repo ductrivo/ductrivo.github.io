@@ -92,7 +92,17 @@ defaults:
       author: ductri
       avatar: /assets/images/avatar1.jpg
       lang: fr
-      
+
+  # Vietnamese posts collection
+  - scope:
+      path: "_vi_posts"
+      type: "vi_posts"
+    values:
+      layout: post-sidebar
+      author: ductri
+      avatar: /assets/images/avatar1.jpg
+      lang: vi
+
   # all pages
   - scope:
       path: "_pages"
@@ -139,5 +149,8 @@ collections:
   courses:
     output: true
   fr_posts:
+    output: true
+    permalink: /courses/:path/
+  vi_posts:
     output: true
     permalink: /courses/:path/

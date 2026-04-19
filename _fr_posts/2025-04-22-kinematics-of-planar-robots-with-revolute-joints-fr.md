@@ -3,7 +3,7 @@ layout: post-sidebar
 title:  "Cinématique des Robots Planaires avec Liaisons Pivots"
 author: ductri
 categories: [Robotics]
-tags: [featured, sticky, robots, kinematics]
+tags: [featured, robots, kinematics]
 image: "https://i.imgur.com/3jfOT0D.png"
 # font: vietnamese-font
 # description: "Test latex."
