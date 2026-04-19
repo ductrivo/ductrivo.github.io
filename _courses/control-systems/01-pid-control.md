@@ -4,8 +4,15 @@ title: "PID Control & Tuning"
 course: control-systems
 lesson_order: 1
 duration_min: 50
-has_quiz: false
+has_quiz: true
 has_interactive: true
+
+quiz:
+  bank: control-systems/pid-control.xml
+  count: 5
+  shuffle_questions: true
+  shuffle_answers: true
+  pass_percent: 70
 ---
 
 This lesson introduces PID control and tuning methods for control systems engineering.

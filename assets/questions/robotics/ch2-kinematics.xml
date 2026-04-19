@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+<!-- ── Forward Kinematics: definition ── -->
+<question type="multichoice">
+  <name><text>FK definition</text></name>
+  <questiontext format="html">
+    <text><![CDATA[<p>What does <strong>Forward Kinematics</strong> compute for a robotic manipulator?</p>]]></text>
+  </questiontext>
+  <generalfeedback format="html">
+    <text><![CDATA[<p>FK maps joint space → task space: given $(\theta_1, \theta_2, \ldots)$ it returns the end-effector pose $(x, y, \phi)$.</p>]]></text>
+  </generalfeedback>
+  <defaultgrade>1.0</defaultgrade>
+  <single>true</single>
+  <answer fraction="100">
+    <text>The position and orientation of the end-effector given joint angles</text>
+    <feedback><text>✓ Correct. FK solves the mapping joint space → task space.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>The joint angles required to reach a target end-effector position</text>
+    <feedback><text>That is Inverse Kinematics (IK) — the reverse problem.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>The joint torques needed to move the robot</text>
+    <feedback><text>That is dynamics / inverse dynamics, not kinematics.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>The velocity of the end-effector</text>
+    <feedback><text>Velocity requires the Jacobian — a separate step beyond basic FK.</text></feedback>
+  </answer>
+</question>
+
+<!-- ── 2R planar FK formula ── -->
+<question type="multichoice">
+  <name><text>2R planar FK x-coordinate</text></name>
+  <questiontext format="html">
+    <text><![CDATA[<p>For a 2R planar robot with link lengths $l_1$ and $l_2$, which expression gives the <strong>x</strong>-coordinate of the end-effector?</p>]]></text>
+  </questiontext>
+  <generalfeedback format="html">
+    <text><![CDATA[<p>The cumulative-angle convention gives $x = l_1\cos\theta_1 + l_2\cos(\theta_1+\theta_2)$.</p>]]></text>
+  </generalfeedback>
+  <defaultgrade>1.0</defaultgrade>
+  <single>true</single>
+  <answer fraction="100">
+    <text>x = l₁ cos θ₁ + l₂ cos(θ₁ + θ₂)</text>
+    <feedback><text>✓ Correct — each link contributes its projection onto the x-axis.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>x = l₁ sin θ₁ + l₂ sin(θ₁ + θ₂)</text>
+    <feedback><text>That formula gives the y-coordinate, not x.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>x = l₁ cos θ₁ · l₂ cos θ₂</text>
+    <feedback><text>Link contributions are added, not multiplied, and the second angle is cumulative.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>x = (l₁ + l₂) cos(θ₁ + θ₂)</text>
+    <feedback><text>This would only be correct if both links were always parallel.</text></feedback>
+  </answer>
+</question>
+
+<!-- ── IK solution count ── -->
+<question type="multichoice">
+  <name><text>IK solution count 2R</text></name>
+  <questiontext format="html">
+    <text><![CDATA[<p>How many Inverse Kinematics solutions can a <strong>2R planar robot</strong> have for a given reachable target?</p>]]></text>
+  </questiontext>
+  <generalfeedback format="html">
+    <text><![CDATA[<p>A 2R arm typically has 2 solutions: elbow-up and elbow-down. At the boundary of the workspace there is 1, and outside it there are 0.</p>]]></text>
+  </generalfeedback>
+  <defaultgrade>1.0</defaultgrade>
+  <single>true</single>
+  <answer fraction="100">
+    <text>0, 1, or 2 depending on the target position</text>
+    <feedback><text>✓ Correct — 2 (elbow-up/down) inside the workspace, 1 at the boundary, 0 outside.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>Always exactly 1</text>
+    <feedback><text>Not true — most reachable targets have 2 solutions (elbow-up and elbow-down).</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>Always exactly 2</text>
+    <feedback><text>At the workspace boundary there is only 1 solution; outside there are none.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>Infinitely many</text>
+    <feedback><text>Infinitely many solutions arise in redundant robots (≥ 3 DOF for planar tasks).</text></feedback>
+  </answer>
+</question>
+
+<!-- ── Workspace ── -->
+<question type="truefalse">
+  <name><text>Workspace of 2R robot</text></name>
+  <questiontext format="html">
+    <text><![CDATA[<p><strong>True or False:</strong> The reachable workspace of a 2R planar robot is always a solid disc with no holes.</p>]]></text>
+  </questiontext>
+  <generalfeedback format="html">
+    <text><![CDATA[<p>When $l_1 \neq l_2$ the inner boundary is a circle of radius $|l_1 - l_2|$, creating an annular (ring-shaped) workspace.</p>]]></text>
+  </generalfeedback>
+  <defaultgrade>1.0</defaultgrade>
+  <answer fraction="0">
+    <text>true</text>
+    <feedback><text>False — when the links have different lengths there is a hole of radius |l₁ − l₂| at the centre.</text></feedback>
+  </answer>
+  <answer fraction="100">
+    <text>false</text>
+    <feedback><text>✓ Correct. When l₁ ≠ l₂ the inner circle |l₁ − l₂| is unreachable, forming an annulus.</text></feedback>
+  </answer>
+</question>
+
+<!-- ── Jacobian ── -->
+<question type="multichoice">
+  <name><text>Jacobian role</text></name>
+  <questiontext format="html">
+    <text><![CDATA[<p>The <strong>Jacobian matrix</strong> $J(\theta)$ of a robot maps:</p>]]></text>
+  </questiontext>
+  <defaultgrade>1.0</defaultgrade>
+  <single>true</single>
+  <answer fraction="100">
+    <text>Joint velocities → end-effector velocities</text>
+    <feedback><text>✓ Correct: $\dot{x} = J(\theta)\,\dot{\theta}$.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>Joint angles → end-effector position (same as FK)</text>
+    <feedback><text>FK maps angles to position; the Jacobian relates velocities.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>End-effector forces → joint torques</text>
+    <feedback><text>That is the transpose Jacobian relation $\tau = J^T F$, not the Jacobian itself.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>Joint torques → joint accelerations</text>
+    <feedback><text>That is the dynamics equation (Newton–Euler / Euler–Lagrange), not kinematics.</text></feedback>
+  </answer>
+</question>
+
+<!-- ── Numerical: reach of 2R robot ── -->
+<question type="numerical">
+  <name><text>Max reach 2R</text></name>
+  <questiontext format="html">
+    <text><![CDATA[<p>A 2R planar robot has link lengths $l_1 = 1\,\text{m}$ and $l_2 = 0.8\,\text{m}$. What is its <strong>maximum reach</strong> (in metres)?</p>]]></text>
+  </questiontext>
+  <generalfeedback format="html">
+    <text><![CDATA[<p>Maximum reach = $l_1 + l_2 = 1 + 0.8 = 1.8\,\text{m}$ (both links fully extended).</p>]]></text>
+  </generalfeedback>
+  <defaultgrade>1.0</defaultgrade>
+  <answer fraction="100">
+    <text>1.8</text>
+    <tolerance>0.01</tolerance>
+    <feedback><text>✓ Correct. l₁ + l₂ = 1 + 0.8 = 1.8 m.</text></feedback>
+  </answer>
+</question>
+
+<!-- ── Matching: kinematics terms ── -->
+<question type="matching">
+  <name><text>Kinematics terminology</text></name>
+  <questiontext format="html">
+    <text><![CDATA[<p>Match each term to its correct definition.</p>]]></text>
+  </questiontext>
+  <defaultgrade>1.0</defaultgrade>
+  <subquestion>
+    <text>Forward Kinematics</text>
+    <answer><text>Joint angles → end-effector pose</text></answer>
+  </subquestion>
+  <subquestion>
+    <text>Inverse Kinematics</text>
+    <answer><text>End-effector pose → joint angles</text></answer>
+  </subquestion>
+  <subquestion>
+    <text>Jacobian</text>
+    <answer><text>Maps joint velocities to end-effector velocities</text></answer>
+  </subquestion>
+  <subquestion>
+    <text>Singularity</text>
+    <answer><text>Configuration where the Jacobian loses rank</text></answer>
+  </subquestion>
+</question>
+
+</quiz>

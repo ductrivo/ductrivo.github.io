@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+
+<!-- ── PID transfer function ── -->
+<question type="multichoice">
+  <name><text>PID transfer function</text></name>
+  <questiontext format="html">
+    <text><![CDATA[<p>The transfer function of an ideal PID controller is:</p>
+    <p>$$C(s) = K_p\left(1 + \frac{1}{T_i s} + T_d s\right)$$</p>
+    <p>Which term provides <strong>integral action</strong> (eliminates steady-state error)?</p>]]></text>
+  </questiontext>
+  <generalfeedback format="html">
+    <text><![CDATA[<p>The $\frac{K_p}{T_i s}$ term is the integrator — it accumulates error over time and drives steady-state error to zero.</p>]]></text>
+  </generalfeedback>
+  <defaultgrade>1.0</defaultgrade>
+  <single>true</single>
+  <answer fraction="100">
+    <text>Kₚ / (Tᵢ s) — the 1/(Tᵢ s) term</text>
+    <feedback><text>✓ Correct. The integral term accumulates error over time, eliminating offset.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>Kₚ — the proportional gain</text>
+    <feedback><text>Proportional action reduces error but cannot eliminate steady-state offset on its own.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>Kₚ Tᴅ s — the derivative term</text>
+    <feedback><text>The derivative term reacts to the rate of change of error; it does not eliminate steady-state error.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>All three terms together</text>
+    <feedback><text>Only the integral term specifically eliminates steady-state error.</text></feedback>
+  </answer>
+</question>
+
+<!-- ── Effect of Kp ── -->
+<question type="multichoice">
+  <name><text>Effect of increasing Kp</text></name>
+  <questiontext format="html">
+    <text><![CDATA[<p>In a PID controller, increasing the proportional gain $K_p$ will:</p>]]></text>
+  </questiontext>
+  <generalfeedback format="html">
+    <text><![CDATA[<p>Higher $K_p$ speeds up the response and reduces (but does not eliminate) steady-state error, but it also increases overshoot and can cause instability.</p>]]></text>
+  </generalfeedback>
+  <defaultgrade>1.0</defaultgrade>
+  <single>true</single>
+  <answer fraction="100">
+    <text>Speed up the response and increase overshoot, potentially causing instability</text>
+    <feedback><text>✓ Correct. Higher Kp gives a faster but more oscillatory (or even unstable) response.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>Eliminate steady-state error completely</text>
+    <feedback><text>Integral action is needed to eliminate steady-state error; Kp alone only reduces it.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>Slow down the response and reduce oscillation</text>
+    <feedback><text>Increasing Kp speeds up the response — derivative action helps reduce oscillation.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>Have no effect on system stability</text>
+    <feedback><text>Very high Kp can destabilise a system through excessive overshoot and oscillation.</text></feedback>
+  </answer>
+</question>
+
+<!-- ── Derivative kick ── -->
+<question type="truefalse">
+  <name><text>Derivative on measurement</text></name>
+  <questiontext format="html">
+    <text><![CDATA[<p><strong>True or False:</strong> Applying the derivative term to the <em>measurement</em> (rather than the error) avoids the "derivative kick" that occurs on step setpoint changes.</p>]]></text>
+  </questiontext>
+  <generalfeedback format="html">
+    <text><![CDATA[<p>When the setpoint steps, the error jumps instantly, giving an infinite derivative. Differentiating the process variable (measurement) instead avoids this spike.</p>]]></text>
+  </generalfeedback>
+  <defaultgrade>1.0</defaultgrade>
+  <answer fraction="100">
+    <text>true</text>
+    <feedback><text>✓ Correct. This technique is called "derivative on measurement" and is standard in industrial PID.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>false</text>
+    <feedback><text>Incorrect — differentiating the measurement is a well-known fix for derivative kick.</text></feedback>
+  </answer>
+</question>
+
+<!-- ── Ziegler-Nichols ── -->
+<question type="multichoice">
+  <name><text>Ziegler-Nichols method</text></name>
+  <questiontext format="html">
+    <text><![CDATA[<p>The <strong>Ziegler–Nichols ultimate gain method</strong> works by:</p>]]></text>
+  </questiontext>
+  <defaultgrade>1.0</defaultgrade>
+  <single>true</single>
+  <answer fraction="100">
+    <text>Setting Ti → ∞ and Td → 0, then increasing Kp until sustained oscillations occur</text>
+    <feedback><text>✓ Correct. The critical gain Ku and period Tu are measured, then used to set PID parameters.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>Minimising the integral of the squared error (ISE) numerically</text>
+    <feedback><text>ISE minimisation is an optimisation-based method, not Ziegler–Nichols.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>Fitting a first-order plus dead-time (FOPDT) model to a step response</text>
+    <feedback><text>That is the Ziegler–Nichols step-response method, a different variant.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>Using a Bode plot to find the gain and phase margins</text>
+    <feedback><text>Gain/phase margin tuning uses frequency-domain analysis, not the Z–N ultimate-gain procedure.</text></feedback>
+  </answer>
+</question>
+
+<!-- ── Bode plot: gain margin ── -->
+<question type="multichoice">
+  <name><text>Gain margin definition</text></name>
+  <questiontext format="html">
+    <text><![CDATA[<p>The <strong>gain margin</strong> of a control system is defined as:</p>]]></text>
+  </questiontext>
+  <generalfeedback format="html">
+    <text><![CDATA[<p>At the phase crossover frequency $\omega_{pc}$ where $\angle L(j\omega) = -180°$, the gain margin is $GM = 1/|L(j\omega_{pc})|$. In dB: $GM_{dB} = -20\log_{10}|L(j\omega_{pc})|$.</p>]]></text>
+  </generalfeedback>
+  <defaultgrade>1.0</defaultgrade>
+  <single>true</single>
+  <answer fraction="100">
+    <text>The factor by which the open-loop gain can be increased before the closed-loop becomes unstable</text>
+    <feedback><text>✓ Correct. GM = 1/|L(jω)| evaluated at the -180° phase crossing frequency.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>The additional phase lag that would make the system marginally stable</text>
+    <feedback><text>That is the phase margin, not the gain margin.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>The maximum steady-state error for a unit step input</text>
+    <feedback><text>Steady-state error is related to the position error constant, not gain margin.</text></feedback>
+  </answer>
+  <answer fraction="0">
+    <text>The frequency at which the open-loop gain equals 0 dB</text>
+    <feedback><text>That is the gain crossover frequency — used to define phase margin, not gain margin.</text></feedback>
+  </answer>
+</question>
+
+<!-- ── Numerical: phase crossover ── -->
+<question type="numerical">
+  <name><text>Gain margin in dB</text></name>
+  <questiontext format="html">
+    <text><![CDATA[<p>An open-loop transfer function has magnitude $|L(j\omega_{pc})| = 0.25$ at the phase crossover frequency. What is the gain margin in <strong>dB</strong>?</p>
+    <p><em>Hint: $GM_{dB} = -20\log_{10}|L(j\omega_{pc})|$</em></p>]]></text>
+  </questiontext>
+  <generalfeedback format="html">
+    <text><![CDATA[<p>$GM_{dB} = -20\log_{10}(0.25) = -20 \times (-0.602) = 12.04\,\text{dB}$</p>]]></text>
+  </generalfeedback>
+  <defaultgrade>1.0</defaultgrade>
+  <answer fraction="100">
+    <text>12.04</text>
+    <tolerance>0.1</tolerance>
+    <feedback><text>✓ Correct. −20 log₁₀(0.25) ≈ 12.04 dB.</text></feedback>
+  </answer>
+</question>
+
+<!-- ── Matching: PID terms ── -->
+<question type="matching">
+  <name><text>PID term roles</text></name>
+  <questiontext format="html">
+    <text><![CDATA[<p>Match each PID term to its primary effect on closed-loop behaviour.</p>]]></text>
+  </questiontext>
+  <defaultgrade>1.0</defaultgrade>
+  <subquestion>
+    <text>Proportional (Kp)</text>
+    <answer><text>Reduces error magnitude; speeds up response</text></answer>
+  </subquestion>
+  <subquestion>
+    <text>Integral (Ki = Kp/Ti)</text>
+    <answer><text>Eliminates steady-state error</text></answer>
+  </subquestion>
+  <subquestion>
+    <text>Derivative (Kd = Kp·Td)</text>
+    <answer><text>Damps oscillations; improves transient response</text></answer>
+  </subquestion>
+</question>
+
+</quiz>

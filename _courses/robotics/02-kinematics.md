@@ -6,6 +6,13 @@ lesson_order: 2
 duration_min: 45
 has_quiz: true
 has_interactive: true
+
+quiz:
+  bank: robotics/ch2-kinematics.xml
+  count: 5
+  shuffle_questions: true
+  shuffle_answers: true
+  pass_percent: 70
 ---
 
 This lesson covers forward and inverse kinematics for robotic manipulators.

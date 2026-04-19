@@ -1,0 +1,32 @@
+{%- if page.quiz -%}
+{%- assign q = page.quiz -%}
+{%- assign quiz_id = page.slug | default: page.title | slugify | prepend: "quiz-" -%}
+{%- assign base_url = site.baseurl | default: "" -%}
+
+<link rel="stylesheet" href="{{ base_url }}/assets/css/quiz.css">
+<script src="{{ base_url }}/assets/js/quiz-engine.js" defer></script>
+
+<div class="quiz-wrapper my-5">
+  <div class="quiz-wrapper-header">
+    <h5 class="font-weight-bold mb-0">Knowledge Check</h5>
+    <small class="text-muted">
+      {%- if q.pass_percent -%}&middot; Pass: {{ q.pass_percent }}%{%- endif -%}
+    </small>
+  </div>
+  <div id="{{ quiz_id }}" class="quiz-container"></div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  window.QuizEngine.init({
+    containerId:      '{{ quiz_id }}',
+    bankUrl:          '{{ base_url }}/assets/questions/{{ q.bank }}',
+    count:            {{ q.count | default: 999 }},
+    shuffleQuestions: {{ q.shuffle_questions | default: true }},
+    shuffleAnswers:   {{ q.shuffle_answers | default: true }},
+    passPercent:      {{ q.pass_percent | default: 70 }},
+    lessonSlug:       '{{ page.course }}/{{ page.slug | default: page.title | slugify }}',
+  });
+});
+</script>
+{%- endif -%}
