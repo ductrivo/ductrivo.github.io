@@ -1,3 +1,20 @@
+function toggleTheme() {
+    var current = document.documentElement.getAttribute('data-theme') || 'light';
+    var next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('expred-theme', next);
+    var btn = document.getElementById('theme-toggle');
+    if (btn) btn.textContent = next === 'dark' ? '☀' : '☽';
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    var btn = document.getElementById('theme-toggle');
+    if (btn) {
+        var t = localStorage.getItem('expred-theme') || 'light';
+        btn.textContent = t === 'dark' ? '☀' : '☽';
+    }
+});
+
  // alertbar later
     $(document).scroll(function () {
         var y = $(this).scrollTop();
