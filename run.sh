@@ -40,7 +40,7 @@ function install {
 
     # source ~/.bashrc
 
-    gem install jekyll bundler
+    sudo gem install jekyll bundler
 }
 
 function install:gems {

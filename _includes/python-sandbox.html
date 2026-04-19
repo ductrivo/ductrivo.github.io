@@ -1,0 +1,93 @@
+{% comment %}Usage: {% include python-sandbox.html %}{% endcomment %}
+<div class="interactive-widget my-4 p-3 border rounded">
+  <h6 class="text-muted text-uppercase small">🐍 Python Sandbox</h6>
+  <textarea id="pyodide-code">import numpy as np
+
+# 2R planar robot forward kinematics
+L = [1.0, 0.8]      # link lengths
+theta = [45, -30]   # joint angles in degrees
+
+theta_r = np.radians(theta)
+x = L[0]*np.cos(theta_r[0]) + L[1]*np.cos(theta_r[0]+theta_r[1])
+y = L[0]*np.sin(theta_r[0]) + L[1]*np.sin(theta_r[0]+theta_r[1])
+print(f"End-effector: x={x:.3f}, y={y:.3f}")</textarea>
+  <div class="mt-2 d-flex align-items-center">
+    <button id="pyodide-run" class="btn btn-dark btn-sm mr-2" disabled>Loading Python...</button>
+    <small class="text-muted" id="pyodide-status">NumPy available.</small>
+  </div>
+  <pre id="pyodide-output" class="mt-2 p-2 bg-dark text-light rounded small"
+    style="min-height:40px;font-family:monospace"></pre>
+</div>
+
+<script>
+(function() {
+  function loadScript(src, onload) {
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = onload;
+    document.head.appendChild(s);
+  }
+  function loadLink(href, rel) {
+    const l = document.createElement('link');
+    l.rel = rel || 'stylesheet';
+    l.href = href;
+    document.head.appendChild(l);
+  }
+
+  // Load CodeMirror once, then Pyodide
+  if (!window._cmLoaded) {
+    window._cmLoaded = true;
+    loadLink('https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css');
+    loadLink('https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/monokai.min.css');
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js', function() {
+      loadScript('https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js', initEditor);
+    });
+  } else {
+    initEditor();
+  }
+
+  function initEditor() {
+    window._cmEditor = CodeMirror.fromTextArea(document.getElementById('pyodide-code'), {
+      mode: 'python',
+      theme: 'monokai',
+      lineNumbers: true,
+      indentUnit: 4,
+      tabSize: 4,
+      indentWithTabs: false,
+      lineWrapping: true,
+      extraKeys: { Tab: function(cm) { cm.replaceSelection('    '); } }
+    });
+    window._cmEditor.setSize(null, 'auto');
+
+    // Load Pyodide after editor is ready
+    if (!window._pyodideLoading) {
+      window._pyodideLoading = true;
+      loadScript('https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js', async function() {
+        window._pyodide = await loadPyodide();
+        await window._pyodide.loadPackage('numpy');
+        document.querySelectorAll('[id="pyodide-run"]').forEach(function(btn) {
+          btn.disabled = false;
+          btn.textContent = '▶ Run';
+        });
+      });
+    }
+  }
+
+  document.getElementById('pyodide-run').addEventListener('click', async function() {
+    const code = window._cmEditor ? window._cmEditor.getValue() : document.getElementById('pyodide-code').value;
+    const out = document.getElementById('pyodide-output');
+    out.textContent = 'Running...';
+    out.style.color = '';
+    try {
+      let stdout = '';
+      window._pyodide.setStdout({ batched: (s) => { stdout += s + '\n'; } });
+      await window._pyodide.runPythonAsync(code);
+      out.textContent = stdout || '(no output)';
+      out.style.color = '#c3e88d';
+    } catch (e) {
+      out.textContent = 'Error: ' + e.message;
+      out.style.color = '#ff8888';
+    }
+  });
+})();
+</script>

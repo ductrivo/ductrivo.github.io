@@ -1,0 +1,69 @@
+{% comment %}Usage: {%- include bode-plot.html Kp=1.0 Ti=1.0 Td=0.1 -%}{% endcomment %}
+<div class="interactive-widget my-4 p-3 border rounded">
+  <h6 class="text-muted text-uppercase small">🔬 Interactive: Bode Plot Explorer</h6>
+  <div class="row">
+    <div class="col-md-3">
+      <label>Kp = <span id="bode-kp-val">{{ include.Kp | default: 1.0 }}</span></label>
+      <input id="bode-kp" type="range" min="0.1" max="10" step="0.1"
+        value="{{ include.Kp | default: 1.0 }}" class="form-control-range">
+      <label>Ti = <span id="bode-ti-val">{{ include.Ti | default: 1.0 }}</span></label>
+      <input id="bode-ti" type="range" min="0.1" max="5" step="0.1"
+        value="{{ include.Ti | default: 1.0 }}" class="form-control-range">
+      <label>Td = <span id="bode-td-val">{{ include.Td | default: 0.1 }}</span></label>
+      <input id="bode-td" type="range" min="0.01" max="2" step="0.01"
+        value="{{ include.Td | default: 0.1 }}" class="form-control-range">
+    </div>
+    <div class="col-md-9">
+      <div id="bode-plot" style="height:300px"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+if (!window._plotlyLoaded) {
+  window._plotlyLoaded = true;
+  const s = document.createElement('script');
+  s.src = 'https://cdn.plot.ly/plotly-basic-2.27.0.min.js';
+  s.onload = initBode;
+  document.head.appendChild(s);
+} else { initBode(); }
+
+function initBode() {
+  function pidBode(Kp, Ti, Td) {
+    const freqs = Array.from({length: 200}, (_, i) => Math.pow(10, -2 + i*4/199));
+    const mag = [], phase = [];
+    freqs.forEach(function(w) {
+      // PID: C(jw) = Kp * (1 + 1/(Ti*jw) + Td*jw)
+      // = Kp * (1 + j*(Td*w - 1/(Ti*w)))
+      const re = Kp;
+      const im = Kp * (Td*w - 1/(Ti*w));
+      mag.push(20*Math.log10(Math.sqrt(re*re + im*im)));
+      phase.push(Math.atan2(im, re)*180/Math.PI);
+    });
+    return { freqs, mag, phase };
+  }
+
+  function drawBode() {
+    const Kp = +document.getElementById('bode-kp').value;
+    const Ti = +document.getElementById('bode-ti').value;
+    const Td = +document.getElementById('bode-td').value;
+    document.getElementById('bode-kp-val').textContent = Kp.toFixed(1);
+    document.getElementById('bode-ti-val').textContent = Ti.toFixed(1);
+    document.getElementById('bode-td-val').textContent = Td.toFixed(2);
+    const { freqs, mag, phase } = pidBode(Kp, Ti, Td);
+    Plotly.react('bode-plot', [
+      { x: freqs, y: mag, name: 'Magnitude (dB)', type: 'scatter', line: {color:'#03a87c'} },
+      { x: freqs, y: phase, name: 'Phase (°)', yaxis: 'y2', type: 'scatter', line: {color:'#dc3545', dash:'dot'} }
+    ], {
+      xaxis: { type: 'log', title: 'Frequency (rad/s)' },
+      yaxis: { title: 'Magnitude (dB)' },
+      yaxis2: { title: 'Phase (°)', overlaying: 'y', side: 'right' },
+      margin: { t: 20, r: 60 }, legend: { orientation: 'h' },
+      paper_bgcolor: '#f8f9fa', plot_bgcolor: '#f8f9fa'
+    }, { responsive: true });
+  }
+
+  ['bode-kp','bode-ti','bode-td'].forEach(id => document.getElementById(id)?.addEventListener('input', drawBode));
+  drawBode();
+}
+</script>

@@ -101,7 +101,15 @@ defaults:
       path: "_pages"
     values:
       layout: page
-      
+
+  # Course index pages
+  - scope:
+      path: "_courses"
+      type: "courses"
+    values:
+      layout: lesson
+      author: Duc-Tri VO
+
 # Syntax
 markdown: kramdown
 highlighter: rouge
@@ -128,3 +136,8 @@ toc:
 
 # Exclude metadata and development time dependencies (like Grunt plugins)
 exclude: [README.markdown, package.json, grunt.js, Gruntfile.js, Gruntfile.coffee, node_modules]
+
+collections:
+  courses:
+    output: true
+    permalink: /courses/:path/

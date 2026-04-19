@@ -1,0 +1,116 @@
+{% comment %}Usage: {%- include robot-arm.html joints=2 l1=150 l2=120 -%}{% endcomment %}
+{%- assign n_joints = include.joints | default: 2 -%}
+{%- assign l1 = include.l1 | default: 150 -%}
+{%- assign l2 = include.l2 | default: 120 -%}
+{%- assign l3 = include.l3 | default: 100 -%}
+
+<div class="interactive-widget my-4 p-3 border rounded">
+  <h6 class="text-muted text-uppercase small">🔬 Interactive: Robot Arm Simulator</h6>
+
+  <div class="d-flex flex-wrap align-items-start">
+    <svg id="robot-svg" width="320" height="320"
+      style="border:1px solid #dee2e6; border-radius:4px; background:#f8f9fa">
+      <line x1="160" y1="0" x2="160" y2="320" stroke="#dee2e6" stroke-dasharray="4"/>
+      <line x1="0" y1="160" x2="320" y2="160" stroke="#dee2e6" stroke-dasharray="4"/>
+      <line id="link1" stroke="#343a40" stroke-width="6" stroke-linecap="round"/>
+      <line id="link2" stroke="#495057" stroke-width="5" stroke-linecap="round"/>
+      {%- if n_joints == 3 -%}
+      <line id="link3" stroke="#6c757d" stroke-width="4" stroke-linecap="round"/>
+      {%- endif -%}
+      <circle id="j0" cx="160" cy="160" r="7" fill="#212529"/>
+      <circle id="j1" r="6" fill="#495057"/>
+      <circle id="j2" r="5" fill="#6c757d"/>
+      {%- if n_joints == 3 -%}
+      <circle id="j3" r="5" fill="#03a87c"/>
+      {%- endif -%}
+      <circle id="ee" r="8" fill="none" stroke="#03a87c" stroke-width="2"/>
+      <text id="ee-label" font-size="11" fill="#03a87c"/>
+    </svg>
+
+    <div class="ml-3 mt-2" style="min-width:200px">
+      <div class="mb-3">
+        <label>θ₁ = <span id="val-t1">0°</span></label>
+        <input type="range" id="slider-t1" min="-180" max="180" value="0" class="form-control-range">
+      </div>
+      <div class="mb-3">
+        <label>θ₂ = <span id="val-t2">0°</span></label>
+        <input type="range" id="slider-t2" min="-180" max="180" value="0" class="form-control-range">
+      </div>
+      {%- if n_joints == 3 -%}
+      <div class="mb-3">
+        <label>θ₃ = <span id="val-t3">0°</span></label>
+        <input type="range" id="slider-t3" min="-180" max="180" value="0" class="form-control-range">
+      </div>
+      {%- endif -%}
+      <small class="text-muted">
+        End-effector:<br>
+        x = <span id="ee-x" class="font-weight-bold">0.00</span><br>
+        y = <span id="ee-y" class="font-weight-bold">0.00</span>
+      </small>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const L = [0, {{ l1 }}, {{ l2 }}{%- if n_joints == 3 -%}, {{ l3 }}{%- endif -%}];
+  const N = {{ n_joints }};
+  const SCALE = 160 / (L[1] + L[2] + (N > 2 ? L[3] : 0));
+  const CX = 160, CY = 160;
+
+  function deg2rad(d) { return d * Math.PI / 180; }
+
+  function update() {
+    const thetas = [
+      deg2rad(parseFloat(document.getElementById('slider-t1').value)),
+      deg2rad(parseFloat(document.getElementById('slider-t2').value)),
+      N > 2 ? deg2rad(parseFloat(document.getElementById('slider-t3').value)) : 0
+    ];
+
+    let angle = 0;
+    let px = CX, py = CY;
+    const points = [[px, py]];
+
+    for (let i = 0; i < N; i++) {
+      angle += thetas[i];
+      px += L[i+1] * SCALE * Math.cos(angle);
+      py -= L[i+1] * SCALE * Math.sin(angle);
+      points.push([px, py]);
+    }
+
+    for (let i = 1; i <= N; i++) {
+      const link = document.getElementById('link' + i);
+      if (link) {
+        link.setAttribute('x1', points[i-1][0]);
+        link.setAttribute('y1', points[i-1][1]);
+        link.setAttribute('x2', points[i][0]);
+        link.setAttribute('y2', points[i][1]);
+      }
+    }
+    for (let i = 0; i <= N; i++) {
+      const j = document.getElementById('j' + i);
+      if (j) { j.setAttribute('cx', points[i][0]); j.setAttribute('cy', points[i][1]); }
+    }
+
+    const [ex, ey] = points[N];
+    const ee = document.getElementById('ee');
+    ee.setAttribute('cx', ex); ee.setAttribute('cy', ey);
+    const lbl = document.getElementById('ee-label');
+    lbl.setAttribute('x', ex + 10); lbl.setAttribute('y', ey - 4);
+
+    const rx = ((ex - CX) / SCALE).toFixed(1);
+    const ry = ((CY - ey) / SCALE).toFixed(1);
+    document.getElementById('ee-x').textContent = rx;
+    document.getElementById('ee-y').textContent = ry;
+    document.getElementById('val-t1').textContent = document.getElementById('slider-t1').value + '°';
+    document.getElementById('val-t2').textContent = document.getElementById('slider-t2').value + '°';
+    if (N > 2) document.getElementById('val-t3').textContent = document.getElementById('slider-t3').value + '°';
+  }
+
+  ['slider-t1', 'slider-t2', 'slider-t3'].forEach(function(id) {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', update);
+  });
+  update();
+})();
+</script>
