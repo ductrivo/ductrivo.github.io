@@ -10,7 +10,7 @@ image: "https://i.imgur.com/CWIBlLM.png"
 toc: true
 side_toc: True
 lang: vi
-permalink: /vi/dong-luc-hoc-robot-phang-voi-khop-quay/
+permalink: /vi/dynamics-of-planar-robots-with-revolute-joints/
 intro: >
     Trong bài viết này, chúng ta tập trung vào động lực học của một **cánh tay máy phẳng 2R**. Sử dụng **phương pháp Lagrange**, chúng ta xây dựng các phương trình chuyển động từng bước một, bắt đầu từ định nghĩa năng lượng cho đến dạng ma trận thu gọn được sử dụng rộng rãi trong robot.
 

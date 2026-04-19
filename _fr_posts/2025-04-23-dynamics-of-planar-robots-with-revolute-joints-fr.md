@@ -14,7 +14,7 @@ intro: >
 
 description: Dans cet article, nous nous concentrons sur la dynamique d'un manipulateur planaire 2R. En utilisant la formulation lagrangienne, nous dérivons les équations du mouvement étape par étape, en partant des définitions de l'énergie jusqu'à la forme matricielle compacte largement utilisée en robotique.
 lang: fr
-permalink: /fr/dynamics-planar-robots/
+permalink: /fr/dynamics-of-planar-robots-with-revolute-joints/
 ---
 
 > Cet article fait partie de ma série de tutoriels [Modélisation, Contrôle et Conception en Robotique](/robotics.html).

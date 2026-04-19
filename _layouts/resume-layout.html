@@ -1,11 +1,13 @@
 ---
 layout: default
 ---
+{% assign lang = page.lang | default: "en" %}
+{% assign i18n = site.data.i18n[lang] %}
+{% assign resume_data = site.data[lang] %}
+
 {% assign meta = "" | split: "" %}
-{% for yml_file in site.data %}
-{% unless yml_file[0] == "images" or yml_file[0] == "courses" or yml_file[0] == "i18n" %}
+{% for yml_file in resume_data %}
 {% assign meta = meta | push:yml_file[1] %}
-{% endunless %}
 {% endfor %}
 {% assign meta = meta | sort: 'listing-order' %}
 
@@ -66,7 +68,7 @@ layout: default
     <br>
     <h3 style="font-weight: bold;">{{ site.job }}</h3>
     <br>
-    <h3>Téléchargements: <a href="{{'assets/pdf/VO_Duc_Tri_CV_FR.pdf' | prepend: site.baseurl }}">Curriculum Vitae</a>
+    <h3>{{ i18n.resume_download }}: <a href="{{'assets/pdf/' | append: i18n.cv_filename | prepend: site.baseurl }}">{{ i18n.resume_title }}</a>
     </h3>
   </div>
 </div>
@@ -119,7 +121,7 @@ layout: default
 
 <div id="resume-footer">
   <span>
-    Made with <a target="_blank" class="text-dark font-weight-bold"
+    {{ i18n.resume_footer }} <a target="_blank" class="text-dark font-weight-bold"
       href="https://github.com/byanko55/jekyll-professional-resume"> Jekyll Professional Resume </a>.
   </span>
 </div>

@@ -1,6 +1,7 @@
 ---
 title: "Contact"
 permalink: "/contact.html"
+lang: en
 ---
 
 <form action="https://formspree.io/f/mnnnoybp" method="POST">    

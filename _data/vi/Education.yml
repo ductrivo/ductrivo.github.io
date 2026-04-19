@@ -1,0 +1,16 @@
+subject: Học vấn
+listing-order: 2
+icon: "/assets/images/resume/graduation-cap.svg"
+contents:
+  - role: Đại học Grenoble Alpes, hợp tác với CEA Marcoule
+    title: Tiến sĩ về Tự động hóa Nâng cao
+    date: 2021 - 2024
+
+  - role: Chương trình Đào tạo Kỹ sư Chất lượng cao tại Việt Nam (PFIEV) -- Đại học Bách Khoa TP.HCM và Grenoble INP (UGA)
+    title: Kỹ sư Cơ điện tử (Tự động hóa)
+    description:
+      - "Chương trình 268 tín chỉ này được công nhận bởi Ủy ban Bằng cấp Kỹ sư (CTI, Pháp) và được chỉ định là *chương trình Thạc sĩ kỹ thuật châu Âu (EUR-ACE Master)* được công nhận bởi Mạng lưới Công nhận Giáo dục Kỹ thuật Châu Âu (ENAEE)."
+      - "**Điểm trung bình:** 8.53/10 **<span style='color:red;'>(Thủ khoa đầu ra)</span>**."
+      - "**Thực tập:** Phòng thí nghiệm Điều khiển và Tự động hóa (2017-2020)."
+      - "**Đồ án tốt nghiệp:** [Thiết kế hệ thống siết đai ốc tự động cho xe đạp.](https://github.com/ductrivo/automated-nut-running-system-for-bicycles)"
+    date: 2015 - 2020

@@ -1,14 +1,14 @@
 ---
-title: "Categories"
+title: "Catégories"
 layout: default
-permalink: "/categories.html"
-lang: en
+permalink: "/fr/categories.html"
+lang: fr
 ---
 
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <h1 class="font-weight-bold title h1 text-uppercase mb-4">Categories</h1>
+      <h1 class="font-weight-bold title h1 text-uppercase mb-4">Catégories</h1>
 
       {% for category in site.categories %}
       {% assign posts_in_lang = category[1] | where: "lang", page.lang %}

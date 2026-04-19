@@ -1,0 +1,21 @@
+subject: Kinh nghiệm
+listing-order: 1
+icon: "/assets/images/resume/briefcase.svg"
+contents:
+  - role: Đại học Grenoble Alpes, hợp tác với CEA Marcoule (Pháp)
+    title: "Nghiên cứu viên về Tự động hóa Nâng cao **<span style='color:red;'>(Nghiên cứu sinh CIFRE)</span>**"
+    description:
+      - "**Đề tài:** [Điều khiển nâng cao các quy trình phân tách: kết nối tương tác và lặp lại giữa phân tích trực tuyến và điều khiển](https://theses.fr/s306232)."
+      - "**Báo cáo bảo vệ:** [Truy cập](/assets/pdf/Rapport-de-soutenance_Comments.pdf)."
+      - "**<span style='color:red;'>Phân tích, thiết kế, triển khai và xác nhận thực nghiệm</span>** các chiến lược điều khiển nâng cao cho xử lý nhiên liệu hạt nhân đã qua sử dụng."
+      - "Lập kế hoạch **<span style='color:red;'>chiến dịch thực nghiệm 100 giờ, liên tục 24/7 (ca 3x8)</span>**, với đội ngũ 6 người."
+      - "Phát triển ứng dụng (sử dụng `Python`, `Qt`, và `SQLite3`) để triển khai các thuật toán điều khiển, cho phép trực quan hóa thời gian thực và hậu xử lý dữ liệu mô phỏng và thực nghiệm."
+      - "Phối hợp các hoạt động nghiên cứu giữa các phòng thí nghiệm đại học và công nghiệp."
+    date: 2021 - 2024
+
+  - role: Techtronic Industries Manufacturing (TTI Group, Việt Nam)
+    title: Kỹ sư Giới thiệu Sản phẩm Mới (NPI)
+    description:
+      - Phối hợp với các nhóm khác để phát triển và giải quyết vấn đề sản phẩm, từ khi bắt đầu dự án đến khi sản xuất hàng loạt.
+      - Chuẩn bị các tài liệu kỹ thuật cần thiết cho việc phát triển sản phẩm.
+    date: 2020 - 2021

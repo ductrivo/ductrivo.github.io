@@ -6,7 +6,7 @@ image: "/assets/images/screenshot.jpg"
 comments: true
 toc: false
 side_toc: True
-
+lang: en
 ---
 This tutorial series started with an idea: [`EXPREDCO`](https://github.com/ductrivo/nextpredco), a flexible control and optimziation framework. From there, I specialize it into a class of application *Robotics Modeling, Control, and Design*, starting with planar *robot arms, then mobile robots*, and finally extending the concepts to *industrial robot* systems.
 

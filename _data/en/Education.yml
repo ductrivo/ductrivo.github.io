@@ -1,0 +1,16 @@
+subject: Education
+listing-order: 2
+icon: "/assets/images/resume/graduation-cap.svg"
+contents:
+  - role: University Grenoble Alpes, in collaboration with CEA Marcoule
+    title: PhD in Advanced Automation
+    date: 2021 - 2024
+
+  - role: Program for Training Excellence Engineers in Vietnam (PFIEV) -- HCM City University of Technology and Grenoble INP (UGA)
+    title: Engineer's Degree in Mechatronics (Automation)
+    description:
+      - "This 268-credit program is accredited by the Commission des Titres d'Ingénieur (CTI, France) and is designated as *a European engineering Master's program (EUR-ACE Master)* accredited by the European Network for Accreditation of Engineering Education (ENAEE)."
+      - "**GPA:** 8.53/10 **<span style='color:red;'>(Valedictorian)</span>**."
+      - "**Internship:** Control and Automation Lab (2017-2020)."
+      - "**Final Project:** [Design of an automated nut-running system for bicycles.](https://github.com/ductrivo/automated-nut-running-system-for-bicycles)"
+    date: 2015 - 2020

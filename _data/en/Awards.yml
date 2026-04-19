@@ -1,0 +1,22 @@
+subject: Awards
+listing-order: 7
+icon: "/assets/images/resume/trophy.svg"
+contents:
+  - title: "Best Student Paper Award"
+    description: "At the [20th International Conference on Informatics in Control, Automation and Robotics](https://icinco.scitevents.org/PreviousAwards.aspx), Rome, Italy."
+    date: 2023
+
+  - title: Top 30 -- National Award for Students of Excellence
+    date: 2021
+
+  - title: Odon Valet Scholarship
+    date: 2020
+
+  - title: NIDEC-TOSOK Corporation Scholarship
+    date: 2019
+
+  - title: National Prize for Modeling and Simulation
+    date: 2018 and 2019
+
+  - title: Sunflower Mission -- Engineering and Technology
+    date: 2018

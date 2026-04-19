@@ -1,0 +1,21 @@
+subject: Experience
+listing-order: 1
+icon: "/assets/images/resume/briefcase.svg"
+contents:
+  - role: University Grenoble Alpes, in collaboration with CEA Marcoule (France)
+    title: "Researcher in Advanced Automation **<span style='color:red;'>(CIFRE PhD)</span>**"
+    description:
+      - "**Title:** [Advanced control of separation processes: interactive and iterative coupling between online analysis and control](https://theses.fr/s306232)."
+      - "**Defense reports:** [Access](/assets/pdf/Rapport-de-soutenance_Comments.pdf)."
+      - "**<span style='color:red;'>Analyzed, designed, implemented, and experimentally validated</span>** advanced control strategies for spent nuclear fuel treatment."
+      - "Planned **<span style='color:red;'>a 100-hour experimental campaign, 24/7 (3x8 shifts)</span>**, with a team of 6 people."
+      - "Developed an application (using `Python`, `Qt`, and `SQLite3`) to implement control algorithms, enable real-time visualization, and post-processing of simulation and experimental data."
+      - "Coordinated research activities between academic and industrial laboratories."
+    date: 2021 - 2024
+
+  - role: Techtronic Industries Manufacturing (TTI Group, Vietnam)
+    title: New Product Introduction Engineer
+    description:
+      - Coordinated with other teams for product development and problem-solving, from project start to mass production.
+      - Prepared technical documents required for product development.
+    date: 2020 - 2021

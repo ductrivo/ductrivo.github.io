@@ -1,0 +1,10 @@
+subject: Dự án
+listing-order: 5
+icon: "/assets/images/resume/clipboard-list.svg"
+contents:
+  - title: "[**NEXT-PRED-CO** (NEXT PREDictive COntroller)](https://github.com/ductrivo/nextpredco)"
+    image: <img src="/assets/nextpredco/project_logo.webp" alt="nextpredco_logo" width="200"/>
+    description: 
+      - "Nền tảng mô-đun và có thể mở rộng để *phát triển*, *mô phỏng* và *triển khai* các phương pháp điều khiển nâng cao, tập trung vào điều khiển dự báo."
+      - "Hỗ trợ *thu thập*, *xử lý*, *trực quan hóa dữ liệu* và *tạo báo cáo* để tối ưu hóa việc phát triển và giám sát các hệ thống điều khiển."
+      - "Tích hợp các kỹ thuật *machine learning* để nâng cao các chiến lược điều khiển với khả năng *thích nghi*, *chịu lỗi* và *chẩn đoán*."

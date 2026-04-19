@@ -14,7 +14,7 @@ intro: >
 
 description: Dans ce tutoriel, nous examinons la cinématique directe et inverse des robots planaires avec N liaisons pivots. En parcourant ce cas simple, les lecteurs peuvent acquérir une compréhension intuitive de la cinématique avant de passer à des méthodes plus générales telles que les paramètres de Denavit-Hartenberg (DH) ou le Produit d'Exponentielles (PoE), qui seront introduits au Chapitre 3.
 lang: fr
-permalink: /fr/kinematics-planar-robots/
+permalink: /fr/kinematics-of-planar-robots-with-revolute-joints/
 ---
 
 > Cet article fait partie de ma série de tutoriels [Modélisation, Contrôle et Conception en Robotique](/robotics.html).

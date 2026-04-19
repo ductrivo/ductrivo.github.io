@@ -1,0 +1,62 @@
+subject: Certifications
+listing-order: 8
+icon: "/assets/images/resume/trophy.svg"
+contents:
+  - title: "[IGNITION 8.1 Credentials](https://inductiveuniversity.com/courses/ignition/ignition-overview/8.1)"
+    date: 2025
+    description:
+      - Acquired general knowledge on the IGNITION 8.1 development platform.
+      - Training provided by [Inductive University](https://inductiveuniversity.com/courses/ignition/ignition-overview/8.1)
+
+  - title: "[Complete Software Engineering Course : Build Better Software](https://www.udemy.com/certificate/UC-1645b868-4958-416f-8346-e5ba23e35f85/)"
+    date: 2025
+    description:
+      - Software engineering methods, tools, strategies, principles, and guidelines.
+      - Software development models such as Waterfall, Iterative, Incremental, Spiral, V-Model, Agile, etc.
+      - Industry best practices in software engineering.
+
+  - title: "[Google Advanced Data Analytics Professional Certificate](https://github.com/ductrivo/google-advanced-data-analytics)"
+    date: 2024
+    description:
+      - Gained hands-on experience with advanced data analytics tools and workflows, including Python, R, and Tableau.
+      - Mastered exploratory analysis, statistics, regression, data modeling, and machine learning basics.
+
+  - title: "[Google Data Analytics Professional Certificate](https://github.com/ductrivo/google-data-analytics)"
+    date: 2024
+    description:
+      - Gained hands-on experience with essential data analytics tools: spreadsheets, SQL, R, and Python.
+      - Completed the creation and presentation of analytical results via dashboards, presentations, and visualization platforms.
+      - Developed the ability to effectively communicate data-driven recommendations to stakeholders.
+
+  - title: "[Google Project Management Professional Certificate](https://github.com/ductrivo/google-project-management)"
+    date: 2024
+    description:
+      - Mastered project planning, documentation, and management.
+      - Gained foundational knowledge of Agile and Scrum practices.
+      - Developed skills in problem-solving, communication, and stakeholder management.
+      - Performed practical application of project management strategies.
+
+  - title: "[Deep Learning Specialization Certificate](https://github.com/ductrivo/deep-learning-specialization)"
+    date: 2024
+    description:
+      - Designed and trained deep neural networks, optimizing key parameters for various applications.
+      - Applied best practices for training, variance analysis, and optimization with TensorFlow.
+      - Designed, trained, and deployed CNNs and RNNs for various tasks.
+
+  - title: "[TensorFlow for Deep Learning Certificate](https://github.com/ductrivo/tensorflow-for-deep-learning-bootcamp)"
+    date: 2024
+    description:
+      - Application of deep learning techniques for time series forecasting.
+      - Developed skills in creating, training, and evaluating models as a TensorFlow Developer.
+
+  - title: "[Taking Python to Production: A Professional Guide](https://github.com/ductrivo/taking-python-to-production)"
+    date: 2024
+    description:
+      - "Acquired best practices for writing clean, maintainable, and well-documented code: testing, linting, formatting, and type checking."
+      - Developed expertise in publishing production-ready Python packages with versioning, CI/CD pipelines, GitHub Actions, and PyPI.
+
+  - title: "[Google IT Automation with Python Professional Certificate](https://github.com/ductrivo/google-it-automation-with-python)"
+    date: 2024
+    description:
+      - Implemented problem-solving strategies for real-world challenges.
+      - Use of Git and GitHub for version control.

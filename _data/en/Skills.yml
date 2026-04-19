@@ -1,0 +1,51 @@
+subject: Skills
+listing-order: 3
+icon: "/assets/images/resume/screwdriver-wrench.svg"
+contents:
+  - title: Areas of Expertise
+    description: 
+      - Data Analysis and Modeling
+      - Statistics and Machine Learning
+      - Automation and Signal Processing
+      - Simulation and Optimization
+      - Embedded and Real-Time Systems
+  
+  - title: Programming
+    description: "
+      ![devicon](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg)
+      ![devicon](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg)
+      ![devicon](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fortran/fortran-original.svg)
+      ![devicon](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/qt/qt-original.svg)
+      ![devicon](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matlab/matlab-original.svg)
+      ![devicon](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rstudio/rstudio-original.svg)
+      ![devicon](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original-wordmark.svg)
+      ![devicon](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original-wordmark.svg)
+      ![devicon](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg)
+      ![devicon](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg)
+    "
+
+  - title: Frameworks
+    description: "
+      ![devicon](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original-wordmark.svg)
+      ![devicon](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg)
+      ![devicon](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original-wordmark.svg)
+      ![devicon](/assets/images/resume/seaborn-logo.svg)
+      ![devicon](/assets/images/resume/statsmodels-logo.svg)
+      ![devicon](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/numpy/numpy-original-wordmark.svg)
+      ![devicon](/assets/images/resume/scipy-logo.svg)
+      ![devicon](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original-wordmark.svg)
+      ![devicon](https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original-wordmark.svg)
+    "
+
+  - title: Industrial Communication
+    description:
+      - PLC (Siemens S7-1200)
+      - STM32, Raspberry Pi
+      - OPC-UA
+      - Modbus
+      - TCP/IP
+  
+  - title: Office
+    description:
+      - Latex
+      - Microsoft Office Suite

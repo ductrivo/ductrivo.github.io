@@ -1,0 +1,62 @@
+subject: Chứng chỉ
+listing-order: 8
+icon: "/assets/images/resume/trophy.svg"
+contents:
+  - title: "[IGNITION 8.1 Credentials](https://inductiveuniversity.com/courses/ignition/ignition-overview/8.1)"
+    date: 2025
+    description:
+      - Đạt được kiến thức tổng quát về nền tảng phát triển IGNITION 8.1.
+      - Đào tạo bởi [Inductive University](https://inductiveuniversity.com/courses/ignition/ignition-overview/8.1)
+
+  - title: "[Complete Software Engineering Course : Build Better Software](https://www.udemy.com/certificate/UC-1645b868-4958-416f-8346-e5ba23e35f85/)"
+    date: 2025
+    description:
+      - Các phương pháp, công cụ, chiến lược, nguyên tắc và hướng dẫn trong kỹ thuật phần mềm.
+      - Các mô hình phát triển phần mềm như Waterfall, Iterative, Incremental, Spiral, V-Model, Agile, v.v.
+      - Các thực hành tốt nhất trong ngành kỹ thuật phần mềm.
+
+  - title: "[Google Advanced Data Analytics Professional Certificate](https://github.com/ductrivo/google-advanced-data-analytics)"
+    date: 2024
+    description:
+      - Tích lũy kinh nghiệm thực hành với các công cụ và quy trình phân tích dữ liệu nâng cao, bao gồm Python, R và Tableau.
+      - Thành thạo phân tích khám phá, thống kê, hồi quy, mô hình hóa dữ liệu và cơ bản về machine learning.
+
+  - title: "[Google Data Analytics Professional Certificate](https://github.com/ductrivo/google-data-analytics)"
+    date: 2024
+    description:
+      - Tích lũy kinh nghiệm thực hành với các công cụ phân tích dữ liệu thiết yếu: bảng tính, SQL, R và Python.
+      - Hoàn thành việc tạo và trình bày kết quả phân tích thông qua dashboard, bài thuyết trình và nền tảng trực quan hóa.
+      - Phát triển khả năng truyền đạt hiệu quả các đề xuất dựa trên dữ liệu cho các bên liên quan.
+
+  - title: "[Google Project Management Professional Certificate](https://github.com/ductrivo/google-project-management)"
+    date: 2024
+    description:
+      - Thành thạo lập kế hoạch, tài liệu và quản lý dự án.
+      - Đạt được kiến thức nền tảng về các thực hành Agile và Scrum.
+      - Phát triển kỹ năng giải quyết vấn đề, giao tiếp và quản lý các bên liên quan.
+      - Thực hiện ứng dụng thực tế các chiến lược quản lý dự án.
+
+  - title: "[Deep Learning Specialization Certificate](https://github.com/ductrivo/deep-learning-specialization)"
+    date: 2024
+    description:
+      - Thiết kế và huấn luyện các mạng nơ-ron sâu, tối ưu hóa các thông số chính cho các ứng dụng khác nhau.
+      - Áp dụng các thực hành tốt nhất về huấn luyện, phân tích phương sai và tối ưu hóa với TensorFlow.
+      - Thiết kế, huấn luyện và triển khai CNN và RNN cho các nhiệm vụ khác nhau.
+
+  - title: "[TensorFlow for Deep Learning Certificate](https://github.com/ductrivo/tensorflow-for-deep-learning-bootcamp)"
+    date: 2024
+    description:
+      - Ứng dụng các kỹ thuật deep learning cho dự báo chuỗi thời gian.
+      - Phát triển kỹ năng tạo, huấn luyện và đánh giá mô hình với tư cách là TensorFlow Developer.
+
+  - title: "[Taking Python to Production: A Professional Guide](https://github.com/ductrivo/taking-python-to-production)"
+    date: 2024
+    description:
+      - "Tiếp thu các thực hành tốt nhất để viết mã sạch, dễ bảo trì và được tài liệu hóa tốt: kiểm thử, linting, định dạng và kiểm tra kiểu dữ liệu."
+      - Phát triển chuyên môn trong việc xuất bản các gói Python sẵn sàng cho sản xuất với quản lý phiên bản, pipeline CI/CD, GitHub Actions và PyPI.
+
+  - title: "[Google IT Automation with Python Professional Certificate](https://github.com/ductrivo/google-it-automation-with-python)"
+    date: 2024
+    description:
+      - Triển khai các chiến lược giải quyết vấn đề cho các thách thức thực tế.
+      - Sử dụng Git và GitHub để quản lý phiên bản.

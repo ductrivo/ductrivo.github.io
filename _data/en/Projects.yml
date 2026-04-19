@@ -1,0 +1,10 @@
+subject: Projects
+listing-order: 5
+icon: "/assets/images/resume/clipboard-list.svg"
+contents:
+  - title: "[**NEXT-PRED-CO** (NEXT PREDictive COntroller)](https://github.com/ductrivo/nextpredco)"
+    image: <img src="/assets/nextpredco/project_logo.webp" alt="nextpredco_logo" width="200"/>
+    description: 
+      - "Modular and scalable platform for the *development*, *simulation*, and *deployment* of advanced control methods, with a focus on predictive control."
+      - "Supports *acquisition*, *processing*, *data visualization*, and *report generation* to optimize development and supervision of control systems."
+      - "Integrates *machine learning* techniques to enhance control strategies with *adaptive*, *fault-tolerant*, and *diagnostic* capabilities."

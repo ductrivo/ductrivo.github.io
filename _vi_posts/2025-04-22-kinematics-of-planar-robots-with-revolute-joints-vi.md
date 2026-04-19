@@ -10,7 +10,7 @@ image: "https://i.imgur.com/3jfOT0D.png"
 toc: true
 side_toc: True
 lang: vi
-permalink: /vi/dong-hoc-robot-phang-voi-khop-quay/
+permalink: /vi/kinematics-of-planar-robots-with-revolute-joints/
 intro: >
     Trong hướng dẫn này, chúng ta sẽ xem xét **động học thuận và nghịch** của các robot phẳng với **N khớp quay**. Bằng cách đi qua trường hợp đơn giản này, người đọc có thể có được sự hiểu biết trực quan về động học trước khi chuyển sang các phương pháp tổng quát hơn như tham số Denavit-Hartenberg (DH) hoặc Tích các ma trận mũ (PoE), sẽ được giới thiệu trong Chương 3.
 
