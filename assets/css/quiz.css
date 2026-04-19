@@ -53,8 +53,8 @@
   background: #fff;
 }
 .quiz-choice-label:hover {
-  border-color: #03a87c;
-  background: #e8f3ec;
+  border-color: var(--accent);
+  background: var(--accent-light);
 }
 .quiz-choice-input { margin-top: 3px; flex-shrink: 0; }
 .quiz-choice-text { flex: 1; line-height: 1.5; }

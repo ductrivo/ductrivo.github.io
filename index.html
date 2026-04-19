@@ -18,13 +18,13 @@ enabled: true
 
         {%- assign first = featured_posts[0] -%}
         <div class="col-md-6">
-            <div class="card border-0 mb-4 box-shadow">
+            <div class="card bg-transparent border-0 mb-4 box-shadow">
                 <a href="{{site.baseurl}}{{first.url}}">
                     <div class="topfirstimage"
                         style="background-image:url('{{ first.image }}'); height:200px; background-size:contain;background-position:center; background-repeat:no-repeat;">
                     </div>
                 </a>
-                <div class="card-body px-0 pb-0 d-flex flex-column">
+                <div class="card-body bg-transparent px-0 pb-0 d-flex flex-column">
                     <h2 class="h2 font-weight-bold">
                         <a class="text-dark" href="{{site.baseurl}}{{first.url}}">{{ first.title }}</a>
                     </h2>

@@ -71,7 +71,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
     .nav-pills .nav-link.active,
     .nav-pills .show > .nav-link {
       color: #fff;
-      background-color: #03a87c; }
+      background-color: var(--accent); }
     
     .nav-fill .nav-item {
       flex: 1 1 auto;

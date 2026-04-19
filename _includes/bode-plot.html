@@ -52,7 +52,7 @@ function initBode() {
     document.getElementById('bode-td-val').textContent = Td.toFixed(2);
     const { freqs, mag, phase } = pidBode(Kp, Ti, Td);
     Plotly.react('bode-plot', [
-      { x: freqs, y: mag, name: 'Magnitude (dB)', type: 'scatter', line: {color:'#03a87c'} },
+      { x: freqs, y: mag, name: 'Magnitude (dB)', type: 'scatter', line: {color:'#007ee5'} },
       { x: freqs, y: phase, name: 'Phase (°)', yaxis: 'y2', type: 'scatter', line: {color:'#dc3545', dash:'dot'} }
     ], {
       xaxis: { type: 'log', title: 'Frequency (rad/s)' },
