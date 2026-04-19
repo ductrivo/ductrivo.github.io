@@ -6,7 +6,7 @@ permalink: /fr/
 ---
 
 {% assign t = site.data.i18n[page.lang] %}
-{% assign posts = site.posts | where: "lang", "fr" %}
+{% assign posts = site.fr_posts | sort: "date" | reverse %}
 
 <div class="container">
 

@@ -82,6 +82,16 @@ defaults:
       author: sal
       avatar: /assets/images/avatar1.jpg
       lang: en
+
+  # French posts collection
+  - scope:
+      path: "_fr_posts"
+      type: "fr_posts"
+    values:
+      layout: post-sidebar
+      author: ductri
+      avatar: /assets/images/avatar1.jpg
+      lang: fr
       
   # all pages
   - scope:
@@ -127,5 +137,7 @@ exclude: [README.markdown, package.json, grunt.js, Gruntfile.js, Gruntfile.coffe
 
 collections:
   courses:
+    output: true
+  fr_posts:
     output: true
     permalink: /courses/:path/
