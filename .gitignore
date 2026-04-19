@@ -4,3 +4,4 @@ _site
 .bundle/
 node_modules
 Gemfile.lock
+*:Zone.Identifier

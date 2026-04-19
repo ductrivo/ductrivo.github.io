@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theme Unification + Dark Mode + i18n — expred.co</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #f7f5f0;
+  --surface: #ffffff;
+  --surface2: #f0ede6;
+  --border: #e2ddd4;
+  --accent: #1a6b4a;
+  --accent-light: #e8f3ed;
+  --accent2: #c84b2f;
+  --text: #1a1a18;
+  --muted: #7a7568;
+  --code-bg: #1e1e1a;
+  --code-text: #e8e4d9;
+  --p1: #1a6b4a;
+  --p2: #2255a8;
+  --p3: #a85c22;
+  --p4: #7c2299;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* ── Shell ── */
+.shell { display: flex; min-height: 100vh; }
+
+nav.sidebar {
+  width: 260px; min-width: 260px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 28px 0;
+  position: sticky; top: 0; height: 100vh;
+  overflow-y: auto; flex-shrink: 0;
+}
+nav.sidebar .logo {
+  font-size: 0.95rem; font-weight: 800;
+  color: var(--accent);
+  padding: 0 22px 22px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 14px;
+  letter-spacing: 0.02em;
+}
+nav.sidebar .logo span {
+  color: var(--muted); font-weight: 400;
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  display: block; font-size: 0.82rem; margin-top: 2px;
+}
+nav.sidebar .nav-section {
+  font-size: 0.65rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--muted); padding: 14px 22px 5px;
+}
+nav.sidebar a {
+  display: block; padding: 6px 22px;
+  color: var(--muted); text-decoration: none;
+  font-size: 0.81rem; transition: all 0.12s;
+  border-left: 2px solid transparent;
+}
+nav.sidebar a:hover { color: var(--text); background: var(--surface2); }
+nav.sidebar a.active { color: var(--accent); border-left-color: var(--accent); background: var(--accent-light); }
+
+main {
+  flex: 1; padding: 60px 68px;
+  max-width: 920px;
+}
+
+/* ── Typography ── */
+h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 3rem; font-weight: 400;
+  line-height: 1.1; color: var(--text);
+  margin-bottom: 14px;
+}
+h1 em { color: var(--accent); font-style: italic; }
+
+h2 {
+  font-size: 1.5rem; font-weight: 700;
+  color: var(--text); margin: 56px 0 18px;
+  padding-top: 56px; border-top: 1px solid var(--border);
+}
+h2.no-border { border-top: none; padding-top: 0; margin-top: 32px; }
+
+h3 { font-size: 1.05rem; font-weight: 600; color: var(--text); margin: 28px 0 10px; }
+h4 { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin: 20px 0 7px; }
+
+p { margin-bottom: 14px; color: #3a3830; }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--text); font-weight: 600; }
+em { font-family: 'Instrument Serif', serif; font-style: italic; }
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(135deg, var(--accent-light) 0%, #e8edf8 100%);
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 36px 40px; margin-bottom: 40px;
+}
+.hero .pills { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+.hero .pill {
+  font-size: 0.75rem; font-weight: 600;
+  padding: 4px 12px; border-radius: 20px;
+  background: white; border: 1px solid var(--border); color: var(--muted);
+}
+
+/* ── Phase badge ── */
+.phase-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 3px 10px; border-radius: 4px; margin-bottom: 14px;
+}
+.p1 { background: rgba(26,107,74,0.1); color: var(--p1); }
+.p2 { background: rgba(34,85,168,0.1); color: var(--p2); }
+.p3 { background: rgba(168,92,34,0.1); color: var(--p3); }
+.p4 { background: rgba(124,34,153,0.1); color: var(--p4); }
+
+/* ── Code ── */
+pre {
+  background: var(--code-bg); border-radius: 8px;
+  padding: 20px 24px; overflow-x: auto;
+  margin: 14px 0 20px; position: relative;
+  border: 1px solid #2a2a25;
+}
+pre .lang {
+  position: absolute; top: 9px; right: 14px;
+  font-size: 0.65rem; font-family: 'IBM Plex Mono', monospace;
+  color: #6b6b60; text-transform: uppercase; letter-spacing: 0.08em;
+}
+code {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem; line-height: 1.75;
+  color: var(--code-text);
+}
+p code, li code {
+  background: var(--surface2); border: 1px solid var(--border);
+  padding: 1px 5px; border-radius: 3px;
+  font-size: 0.78rem; color: var(--accent2);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Syntax */
+.k { color: #89ddff; } .s { color: #c3e88d; } .c { color: #4a4a40; font-style: italic; }
+.n { color: #ffcb6b; } .v { color: #f78c6c; } .t { color: #80cbc4; }
+.cm { color: #c792ea; } .p2c { color: #89ddff; } .f { color: #82aaff; }
+
+/* ── Diff ── */
+.diff { background: var(--code-bg); border: 1px solid #2a2a25; border-radius: 8px; overflow: hidden; margin: 14px 0 20px; }
+.diff-header { background: #252520; padding: 8px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: #6b6b60; border-bottom: 1px solid #2a2a25; }
+.diff pre { border: none; border-radius: 0; margin: 0; }
+.del { color: #ff8888; background: rgba(255,100,100,0.08); display: block; margin: 0 -24px; padding: 0 24px; }
+.add { color: #88e0aa; background: rgba(100,220,130,0.08); display: block; margin: 0 -24px; padding: 0 24px; }
+
+/* ── Callouts ── */
+.callout {
+  border-radius: 6px; padding: 14px 18px; margin: 18px 0;
+  border-left: 3px solid; font-size: 0.88rem;
+}
+.callout.warn { background: rgba(168,92,34,0.07); border-color: var(--p3); color: #7a4010; }
+.callout.info { background: rgba(34,85,168,0.06); border-color: var(--p2); color: #1a3878; }
+.callout.tip  { background: rgba(26,107,74,0.07); border-color: var(--p1); color: #0d4a30; }
+.callout.key  { background: rgba(124,34,153,0.07); border-color: var(--p4); color: #4a1060; }
+.callout strong { font-weight: 600; }
+
+/* ── File tree ── */
+.file-tree {
+  background: var(--code-bg); border: 1px solid #2a2a25; border-radius: 8px;
+  padding: 16px 20px; margin: 14px 0;
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; line-height: 1.9;
+}
+.file-tree .dir { color: #ffcb6b; }
+.file-tree .file { color: #c3e88d; }
+.file-tree .mod { color: #f78c6c; }
+.file-tree .mod::after { content: "  ← EDIT"; font-size: 0.62rem; color: #f78c6c; opacity: 0.6; }
+.file-tree .new { color: #89ddff; }
+.file-tree .new::after { content: "  ← NEW"; font-size: 0.62rem; color: #89ddff; opacity: 0.6; }
+.file-tree .cmt { color: #4a4a40; font-style: italic; }
+
+/* ── Steps ── */
+.step-list { list-style: none; counter-reset: s; }
+.step-list li { counter-increment: s; padding-left: 42px; margin-bottom: 22px; position: relative; }
+.step-list li::before {
+  content: counter(s);
+  position: absolute; left: 0; top: 1px;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--accent-light); border: 1px solid var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.72rem; font-weight: 700; color: var(--accent);
+  font-family: 'IBM Plex Mono', monospace;
+}
+.step-list li strong { display: block; margin-bottom: 3px; }
+
+/* ── Cards ── */
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: 22px 26px; margin: 16px 0;
+}
+.card h3 { margin-top: 0; }
+
+/* ── Two-col ── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0; }
+.two-col .col { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; }
+.two-col .col h4 { margin-top: 0; }
+
+/* ── Checklist ── */
+.checklist { list-style: none; }
+.checklist li { padding: 7px 0 7px 26px; position: relative; border-bottom: 1px solid var(--border); font-size: 0.88rem; color: #3a3830; }
+.checklist li:last-child { border-bottom: none; }
+.checklist li::before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+/* ── Table ── */
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.84rem; }
+th { background: var(--surface2); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); padding: 9px 13px; text-align: left; border-bottom: 2px solid var(--border); }
+td { padding: 9px 13px; border-bottom: 1px solid var(--border); color: #3a3830; vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+@media (max-width: 900px) {
+  .shell { flex-direction: column; }
+  nav.sidebar { width: 100%; height: auto; position: relative; }
+  main { padding: 28px 18px; }
+  .two-col { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- ═══════════════ SIDEBAR ═══════════════ -->
+<nav class="sidebar">
+  <div class="logo">Unified Theme Guide<span>expred.co — Duc-Tri VO</span></div>
+
+  <div class="nav-section">Understanding the Problem</div>
+  <a href="#diagnosis" class="active">Diagnosis</a>
+  <a href="#strategy">Unification Strategy</a>
+
+  <div class="nav-section">Part 1 — Design Tokens</div>
+  <a href="#css-vars">CSS Variables system</a>
+  <a href="#dark-mode">Dark mode toggle</a>
+  <a href="#typography">Unified typography</a>
+
+  <div class="nav-section">Part 2 — Layouts</div>
+  <a href="#default-layout">default.html overhaul</a>
+  <a href="#resume-layout">resume-layout.html fix</a>
+  <a href="#navbar">Unified navbar</a>
+
+  <div class="nav-section">Part 3 — i18n</div>
+  <a href="#i18n-strategy">Strategy (no plugin)</a>
+  <a href="#i18n-data">_data/i18n/ files</a>
+  <a href="#i18n-config">_config.yml languages</a>
+  <a href="#i18n-templates">Templates</a>
+  <a href="#i18n-switcher">Language switcher</a>
+
+  <div class="nav-section">Part 4 — _config.yml</div>
+  <a href="#config-overview">Full annotated config</a>
+  <a href="#config-site">Site identity</a>
+  <a href="#config-nav">Navigation</a>
+  <a href="#config-resume">Resume data</a>
+  <a href="#config-seo">SEO settings</a>
+  <a href="#config-features">Feature toggles</a>
+
+  <div class="nav-section">Summary</div>
+  <a href="#checklist">Final checklist</a>
+</nav>
+
+<!-- ═══════════════ MAIN ═══════════════ -->
+<main>
+
+<div class="hero">
+  <h1>Theme <em>Unification</em>,<br>Dark Mode & i18n</h1>
+  <p style="color:var(--muted); margin-top:8px;">A complete guide to merging your two visual worlds, adding dark mode, multilingual support, and understanding every knob in <code>_config.yml</code>.</p>
+  <div class="pills">
+    <span class="pill">Jekyll 4</span>
+    <span class="pill">CSS Custom Properties</span>
+    <span class="pill">No extra plugins</span>
+    <span class="pill">localStorage dark mode</span>
+    <span class="pill">FR / EN / VI</span>
+  </div>
+</div>
+
+<!-- ══ Diagnosis ══ -->
+<section id="diagnosis">
+  <h2 class="no-border">The Problem: Two Visual Worlds</h2>
+
+  <p>Your site currently has a split personality. The blog/tutorial side uses the <strong>Mundana theme</strong> (Bootstrap 4, Lora serif font, white backgrounds, teal accent <code>#03a87c</code>). The resume page uses the <strong>Jekyll Professional Resume</strong> theme (completely custom CSS in <code>style.scss</code>, warm earth tones like <code>#7FA093</code>, a separate sidebar, its own font stack).</p>
+
+  <p>The clash is deep — they share almost no CSS variables, use different color philosophies, and the resume layout even has its own duplicate <code>&lt;html&gt;</code>, navbar, and MathJax block. Here's what's visually inconsistent:</p>
+
+  <table>
+    <tr><th>Property</th><th>Blog/Tutorial (Mundana)</th><th>Resume (jekyll-resume)</th></tr>
+    <tr><td>Background</td><td><code>#fff</code> pure white</td><td><code>#fffdfb</code> warm ivory</td></tr>
+    <tr><td>Primary accent</td><td><code>#03a87c</code> teal-green</td><td><code>#7FA093</code> muted sage</td></tr>
+    <tr><td>Font family</td><td>Lora + Poppins</td><td>Poppins only</td></tr>
+    <tr><td>Headings</td><td>Georgia serif</td><td>Poppins sans-serif</td></tr>
+    <tr><td>Link color</td><td>teal <code>#03a87c</code></td><td>dark sage <code>#3D725D</code></td></tr>
+    <tr><td>Layout system</td><td>Bootstrap 4 grid</td><td>Custom CSS grid + fixed sidebar</td></tr>
+    <tr><td>Dark mode</td><td>None</td><td>None</td></tr>
+    <tr><td>Multilingual</td><td>None</td><td>None</td></tr>
+  </table>
+</section>
+
+<!-- ══ Strategy ══ -->
+<section id="strategy">
+  <h2>Unification Strategy</h2>
+
+  <p>The approach: <strong>keep Bootstrap 4 as the layout backbone</strong> (the blog side wins because it's the majority of the site), and fold the resume's visual personality into a shared CSS variable system. We don't rewrite the resume layout from scratch — we replace its hardcoded colors with the same variables the blog uses, fix the duplicate HTML problem, and route it through <code>default.html</code>.</p>
+
+  <div class="two-col">
+    <div class="col">
+      <h4>What we keep</h4>
+      <ul style="list-style:none; font-size:0.85rem; color:#3a3830; line-height:2">
+        <li>✓ Bootstrap 4 grid (main.css)</li>
+        <li>✓ Lunr search</li>
+        <li>✓ Resume data structure (_data/*.yml)</li>
+        <li>✓ Resume sidebar animation (main.js)</li>
+        <li>✓ MathJax for posts</li>
+        <li>✓ jekyll-scholar BibTeX</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h4>What we change</h4>
+      <ul style="list-style:none; font-size:0.85rem; color:#3a3830; line-height:2">
+        <li>✗ Duplicate &lt;html&gt; in resume layout</li>
+        <li>✗ Hardcoded hex colors everywhere</li>
+        <li>✗ Two separate font stacks</li>
+        <li>✗ style.scss warm palette (absorbed into variables)</li>
+        <li>✗ http:// MathJax in resume-layout.html</li>
+        <li>✗ Dead rawgit CDN (already covered)</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>The result will be: one <code>_config.yml</code> master list of CSS variables, one <code>default.html</code> that both blog and resume route through, one dark mode toggle that works everywhere, and a language switcher that reads from <code>_data/i18n/</code>.</p>
+</section>
+
+<!-- ═══ PART 1: DESIGN TOKENS ═══ -->
+<h2 style="color:var(--p1)">Part 1 — Design Tokens</h2>
+
+<section id="css-vars">
+  <span class="phase-badge p1">Step 1.1</span>
+  <h3>Create the CSS Variable System</h3>
+
+  <p>Replace the hardcoded colors in both themes with a single source of truth. Create a new file <code>assets/css/tokens.css</code>. This will be loaded in <code>default.html</code> before everything else.</p>
+
+  <pre><code><span class="c">/* assets/css/tokens.css
+   Single source of truth for all design decisions.
+   Edit ONLY this file to retheme the whole site. */</span>
+
+<span class="t">:root</span> {
+  <span class="c">/* ── Brand ── */</span>
+  <span class="n">--accent</span>:        <span class="v">#03a87c</span>;  <span class="c">/* your teal — kept from Mundana */</span>
+  <span class="n">--accent-hover</span>:  <span class="v">#028f6a</span>;
+  <span class="n">--accent-light</span>:  <span class="v">#e8f3ec</span>;
+  <span class="n">--accent-dark</span>:   <span class="v">#025c44</span>;
+
+  <span class="c">/* ── Surfaces ── */</span>
+  <span class="n">--bg</span>:            <span class="v">#ffffff</span>;
+  <span class="n">--bg-subtle</span>:     <span class="v">#f8f9fa</span>;
+  <span class="n">--surface</span>:       <span class="v">#ffffff</span>;
+  <span class="n">--surface-raised</span>:<span class="v">#f4f6f8</span>;
+  <span class="n">--border</span>:        <span class="v">#e9ecef</span>;
+  <span class="n">--border-strong</span>: <span class="v">#ced4da</span>;
+
+  <span class="c">/* ── Text ── */</span>
+  <span class="n">--text-primary</span>:  <span class="v">#212529</span>;
+  <span class="n">--text-secondary</span>:<span class="v">#6c757d</span>;
+  <span class="n">--text-muted</span>:    <span class="v">#adb5bd</span>;
+  <span class="n">--text-inverse</span>:  <span class="v">#ffffff</span>;
+
+  <span class="c">/* ── Typography ── */</span>
+  <span class="n">--font-body</span>:     <span class="v">"Poppins"</span>, <span class="v">"Segoe UI"</span>, sans-serif;
+  <span class="n">--font-serif</span>:    <span class="v">"Lora"</span>, Georgia, serif;
+  <span class="n">--font-mono</span>:     <span class="v">"Fira Code"</span>, <span class="v">"Courier New"</span>, monospace;
+  <span class="n">--font-size-base</span>:<span class="v">1rem</span>;
+  <span class="n">--line-height</span>:   <span class="v">1.65</span>;
+
+  <span class="c">/* ── Resume-specific (absorbed from style.scss) ── */</span>
+  <span class="n">--resume-profile-bg</span>:  <span class="v">#7FA093</span>;  <span class="c">/* sage green band */</span>
+  <span class="n">--resume-accent</span>:      <span class="v">#03a87c</span>;  <span class="c">/* now same as main accent */</span>
+  <span class="n">--resume-timeline</span>:    <span class="v">#c8d8d2</span>;
+  <span class="n">--resume-sidebar-bg</span>:  <span class="v">#f0f5f3</span>;
+  <span class="n">--resume-icon-filter</span>: <span class="v">invert(40%) sepia(30%) saturate(400%) hue-rotate(120deg)</span>;
+
+  <span class="c">/* ── Navbar ── */</span>
+  <span class="n">--navbar-bg</span>:     <span class="v">var(--surface)</span>;
+  <span class="n">--navbar-border</span>: <span class="v">var(--border)</span>;
+  <span class="n">--navbar-text</span>:   <span class="v">var(--text-secondary)</span>;
+
+  <span class="c">/* ── Shadows ── */</span>
+  <span class="n">--shadow-sm</span>: <span class="v">0 1px 3px rgba(0,0,0,0.08)</span>;
+  <span class="n">--shadow-md</span>: <span class="v">0 4px 12px rgba(0,0,0,0.10)</span>;
+
+  <span class="c">/* ── Transitions ── */</span>
+  <span class="n">--transition</span>: <span class="v">0.2s ease</span>;
+}
+
+<span class="c">/* ════════════════════════════════════════
+   DARK MODE — toggled by data-theme="dark"
+   on &lt;html&gt;. All other CSS is unchanged.
+   ════════════════════════════════════════ */</span>
+<span class="t">[data-theme="dark"]</span> {
+  <span class="n">--bg</span>:            <span class="v">#0f1117</span>;
+  <span class="n">--bg-subtle</span>:     <span class="v">#161b26</span>;
+  <span class="n">--surface</span>:       <span class="v">#1a1f2e</span>;
+  <span class="n">--surface-raised</span>:<span class="v">#222840</span>;
+  <span class="n">--border</span>:        <span class="v">#2a3045</span>;
+  <span class="n">--border-strong</span>: <span class="v">#3a4060</span>;
+
+  <span class="n">--text-primary</span>:  <span class="v">#e8eaed</span>;
+  <span class="n">--text-secondary</span>:<span class="v">#9aa3b2</span>;
+  <span class="n">--text-muted</span>:    <span class="v">#5c6478</span>;
+  <span class="n">--text-inverse</span>:  <span class="v">#0f1117</span>;
+
+  <span class="n">--accent</span>:        <span class="v">#05d4a0</span>;  <span class="c">/* slightly brighter on dark bg */</span>
+  <span class="n">--accent-hover</span>:  <span class="v">#04b88c</span>;
+  <span class="n">--accent-light</span>:  <span class="v">#0a2e24</span>;
+
+  <span class="n">--navbar-bg</span>:     <span class="v">#12161f</span>;
+  <span class="n">--navbar-border</span>: <span class="v">#1e2436</span>;
+  <span class="n">--navbar-text</span>:   <span class="v">#9aa3b2</span>;
+
+  <span class="n">--resume-profile-bg</span>:  <span class="v">#1e3a30</span>;
+  <span class="n">--resume-sidebar-bg</span>:  <span class="v">#161b26</span>;
+  <span class="n">--resume-timeline</span>:    <span class="v">#2a3a35</span>;
+  <span class="n">--resume-icon-filter</span>: <span class="v">invert(70%) sepia(20%) saturate(300%) hue-rotate(100deg)</span>;
+}
+
+<span class="c">/* ── Apply tokens to Bootstrap overrides ── */</span>
+<span class="t">body</span> {
+  background-color: <span class="f">var</span>(<span class="n">--bg</span>);
+  color: <span class="f">var</span>(<span class="n">--text-primary</span>);
+  transition: background-color <span class="f">var</span>(<span class="n">--transition</span>), color <span class="f">var</span>(<span class="n">--transition</span>);
+}
+<span class="t">a</span> { color: <span class="f">var</span>(<span class="n">--accent</span>); }
+<span class="t">a</span>:<span class="t">hover</span> { color: <span class="f">var</span>(<span class="n">--accent-hover</span>); }
+<span class="t">.bg-white</span>, <span class="t">.card</span> {
+  background-color: <span class="f">var</span>(<span class="n">--surface</span>) <span class="v">!important</span>;
+  color: <span class="f">var</span>(<span class="n">--text-primary</span>);
+}
+<span class="t">.text-muted</span> { color: <span class="f">var</span>(<span class="n">--text-secondary</span>) <span class="v">!important</span>; }
+<span class="t">.border</span>, <span class="t">.border-top</span>, <span class="t">.border-bottom</span> {
+  border-color: <span class="f">var</span>(<span class="n">--border</span>) <span class="v">!important</span>;
+}
+<span class="t">.bg-lightblue</span> { background-color: <span class="f">var</span>(<span class="n">--accent-light</span>) <span class="v">!important</span>; }
+<span class="t">.spanborder</span> { border-bottom-color: <span class="f">var</span>(<span class="n">--accent-light</span>) <span class="v">!important</span>; }</code></pre>
+
+  <div class="callout tip"><strong>How it works:</strong> Every color reference in both themes is replaced by a CSS variable. When you toggle <code>data-theme="dark"</code> on <code>&lt;html&gt;</code>, the dark-mode block overrides all those variables at once. Bootstrap's hardcoded <code>bg-white</code>, <code>.text-muted</code> etc. are patched at the bottom.</div>
+</section>
+
+<!-- ── Dark Mode ── -->
+<section id="dark-mode">
+  <span class="phase-badge p1">Step 1.2</span>
+  <h3>Dark Mode Toggle</h3>
+
+  <p>Add this to <code>assets/js/theme.js</code> (your existing theme file — add at the bottom, don't replace):</p>
+
+  <pre><code><span class="c">// ── Dark Mode (append to existing assets/js/theme.js) ──</span>
+(<span class="k">function</span>() {
+  <span class="k">const</span> <span class="n">html</span>  = <span class="f">document</span>.documentElement;
+  <span class="k">const</span> <span class="n">KEY</span>   = <span class="s">'expred-theme'</span>;
+
+  <span class="c">// 1. Restore saved preference (instant, before paint)</span>
+  <span class="k">const</span> <span class="n">saved</span> = <span class="f">localStorage</span>.<span class="f">getItem</span>(<span class="n">KEY</span>);
+  <span class="k">if</span> (<span class="n">saved</span>) {
+    <span class="n">html</span>.<span class="f">setAttribute</span>(<span class="s">'data-theme'</span>, <span class="n">saved</span>);
+  } <span class="k">else if</span> (<span class="f">window</span>.<span class="f">matchMedia</span>(<span class="s">'(prefers-color-scheme: dark)'</span>).<span class="n">matches</span>) {
+    <span class="n">html</span>.<span class="f">setAttribute</span>(<span class="s">'data-theme'</span>, <span class="s">'dark'</span>);
+  }
+
+  <span class="c">// 2. Toggle function called by the button in the navbar</span>
+  <span class="k">window</span>.toggleTheme = <span class="k">function</span>() {
+    <span class="k">const</span> <span class="n">current</span> = <span class="n">html</span>.<span class="f">getAttribute</span>(<span class="s">'data-theme'</span>);
+    <span class="k">const</span> <span class="n">next</span>    = <span class="n">current</span> === <span class="s">'dark'</span> ? <span class="s">'light'</span> : <span class="s">'dark'</span>;
+    <span class="n">html</span>.<span class="f">setAttribute</span>(<span class="s">'data-theme'</span>, <span class="n">next</span>);
+    <span class="f">localStorage</span>.<span class="f">setItem</span>(<span class="n">KEY</span>, <span class="n">next</span>);
+    <span class="c">// Update button icon</span>
+    <span class="k">const</span> <span class="n">btn</span> = <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'theme-toggle'</span>);
+    <span class="k">if</span> (<span class="n">btn</span>) <span class="n">btn</span>.textContent = <span class="n">next</span> === <span class="s">'dark'</span> ? <span class="s">'☀'</span> : <span class="s">'☽'</span>;
+  };
+
+  <span class="c">// 3. Sync OS-level changes</span>
+  <span class="f">window</span>.<span class="f">matchMedia</span>(<span class="s">'(prefers-color-scheme: dark)'</span>)
+    .<span class="f">addEventListener</span>(<span class="s">'change'</span>, <span class="k">function</span>(<span class="n">e</span>) {
+      <span class="k">if</span> (!<span class="f">localStorage</span>.<span class="f">getItem</span>(<span class="n">KEY</span>)) {  <span class="c">// only if user hasn't set manual pref</span>
+        <span class="n">html</span>.<span class="f">setAttribute</span>(<span class="s">'data-theme'</span>, <span class="n">e</span>.matches ? <span class="s">'dark'</span> : <span class="s">'light'</span>);
+      }
+    });
+})();</code></pre>
+
+  <div class="callout warn"><strong>FOUC prevention:</strong> This script must run before the first paint. Place <code>&lt;script src=".../theme.js"&gt;&lt;/script&gt;</code> in the <code>&lt;head&gt;</code> of <code>default.html</code> — <em>before</em> the CSS link tags. This is the only JavaScript that should be in the head.</div>
+
+  <p>The toggle button to add to your navbar (see Step 2.3):</p>
+  <pre><code><span class="t">&lt;button</span> <span class="n">id</span>=<span class="s">"theme-toggle"</span>
+  <span class="n">onclick</span>=<span class="s">"toggleTheme()"</span>
+  <span class="n">class</span>=<span class="s">"btn btn-sm btn-outline-secondary ml-2"</span>
+  <span class="n">aria-label</span>=<span class="s">"Toggle dark mode"</span>
+  <span class="n">title</span>=<span class="s">"Toggle dark mode"</span>
+  <span class="n">style</span>=<span class="s">"border-radius:50%;width:34px;height:34px;padding:0;font-size:1rem"</span><span class="t">&gt;</span>
+  ☽
+<span class="t">&lt;/button&gt;</span></code></pre>
+
+  <p>The icon switches between ☽ (moon = click for dark) and ☀ (sun = click for light). Since the script runs in <code>&lt;head&gt;</code> before the button exists in the DOM, we sync the icon on DOMContentLoaded:</p>
+
+  <pre><code><span class="c">// Also in theme.js, at the end:</span>
+<span class="f">document</span>.<span class="f">addEventListener</span>(<span class="s">'DOMContentLoaded'</span>, <span class="k">function</span>() {
+  <span class="k">const</span> <span class="n">btn</span> = <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'theme-toggle'</span>);
+  <span class="k">if</span> (<span class="n">btn</span>) {
+    <span class="n">btn</span>.textContent = <span class="f">document</span>.documentElement.<span class="f">getAttribute</span>(<span class="s">'data-theme'</span>) === <span class="s">'dark'</span> ? <span class="s">'☀'</span> : <span class="s">'☽'</span>;
+  }
+});</code></pre>
+</section>
+
+<!-- ── Typography ── -->
+<section id="typography">
+  <span class="phase-badge p1">Step 1.3</span>
+  <h3>Unified Typography</h3>
+
+  <p>The blog uses Lora (serif) for post headlines and Poppins for body. The resume uses only Poppins. Unify this in <code>tokens.css</code> by standardizing the font-family tokens, then update the key places that hardcode font families.</p>
+
+  <p>In <code>assets/css/theme.css</code>, find and replace the hardcoded font references:</p>
+
+  <div class="diff">
+    <div class="diff-header">assets/css/theme.css — hardcoded font families</div>
+    <pre><code><span class="del">- .navbar-brand { font-family: "Poppins", Georgia, "Times New Roman", serif; }</span>
+<span class="add">+ .navbar-brand { font-family: var(--font-body); }</span>
+
+<span class="del">- article { font-family: "Poppins", sans-serif; }</span>
+<span class="add">+ article { font-family: var(--font-body); }</span>
+
+<span class="del">- .article-headline { font-family: "Poppins", Georgia, Times, "Times New Roman", serif; }</span>
+<span class="add">+ .article-headline { font-family: var(--font-serif); }</span>
+
+<span class="del">- .jumbotron-home h1 { font-family: Georgia, Times, "Times New Roman", serif; }</span>
+<span class="add">+ .jumbotron-home h1 { font-family: var(--font-serif); }</span></code></pre>
+  </div>
+
+  <p>In <code>assets/css/style.scss</code>, find the body font declaration:</p>
+  <div class="diff">
+    <div class="diff-header">assets/css/style.scss — body font</div>
+    <pre><code><span class="del">- font-family: "Poppins", "Segoe UI", "Helvetica Neue", "Arial";</span>
+<span class="add">+ font-family: var(--font-body);</span></code></pre>
+  </div>
+
+  <p>Also update the Google Fonts link in <code>default.html</code> to load both fonts together efficiently:</p>
+  <div class="diff">
+    <div class="diff-header">_layouts/default.html — Google Fonts</div>
+    <pre><code><span class="del">- &lt;link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700" rel="stylesheet"&gt;</span>
+<span class="del">- &lt;link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet"&gt;</span>
+<span class="add">+ &lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;</span>
+<span class="add">+ &lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;</span>
+<span class="add">+ &lt;link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&amp;family=Poppins:wght@400;500;600&amp;display=swap" rel="stylesheet"&gt;</span></code></pre>
+  </div>
+  <div class="callout info">The combined URL loads both fonts in one request instead of two. The <code>display=swap</code> prevents invisible text while fonts load — critical for your math-heavy posts which take a moment to render MathJax anyway.</div>
+</section>
+
+<!-- ═══ PART 2: LAYOUTS ═══ -->
+<h2 style="color:var(--p2)">Part 2 — Layout Unification</h2>
+
+<section id="default-layout">
+  <span class="phase-badge p2">Step 2.1</span>
+  <h3>default.html — Add tokens, remove duplicates</h3>
+
+  <p>Your <code>default.html</code> needs four changes: load <code>tokens.css</code> first, fix the MathJax, fix the rawgit CDN, and add the theme toggle script to <code>&lt;head&gt;</code>.</p>
+
+  <p>The key structure of the updated <code>&lt;head&gt;</code> block (full relevant section):</p>
+
+  <pre><code><span class="t">&lt;head&gt;</span>
+  <span class="t">&lt;meta</span> <span class="n">charset</span>=<span class="s">"utf-8"</span><span class="t">&gt;</span>
+  <span class="t">&lt;meta</span> <span class="n">name</span>=<span class="s">"viewport"</span> <span class="n">content</span>=<span class="s">"width=device-width, initial-scale=1, shrink-to-fit=no"</span><span class="t">&gt;</span>
+  <span class="t">&lt;meta</span> <span class="n">http-equiv</span>=<span class="s">"X-UA-Compatible"</span> <span class="n">content</span>=<span class="s">"ie=edge"</span><span class="t">&gt;</span>
+
+  <span class="c">&lt;!-- DARK MODE: must run BEFORE CSS to prevent flash --&gt;</span>
+  <span class="t">&lt;script&gt;</span>
+    (<span class="k">function</span>(){
+      <span class="k">var</span> <span class="n">t</span> = <span class="f">localStorage</span>.<span class="f">getItem</span>(<span class="s">'expred-theme'</span>)
+           || (<span class="f">window</span>.<span class="f">matchMedia</span>(<span class="s">'(prefers-color-scheme:dark)'</span>).<span class="n">matches</span> ? <span class="s">'dark'</span> : <span class="s">'light'</span>);
+      <span class="f">document</span>.documentElement.<span class="f">setAttribute</span>(<span class="s">'data-theme'</span>, <span class="n">t</span>);
+    })();
+  <span class="t">&lt;/script&gt;</span>
+
+  <span class="c">&lt;!-- SEO (jekyll-seo-tag) --&gt;</span>
+  <span class="t">{%</span> seo <span class="t">%}</span>
+  <span class="t">&lt;link</span> <span class="n">rel</span>=<span class="s">"canonical"</span> <span class="n">href</span>=<span class="s">"{{ page.url | absolute_url }}"</span><span class="t">&gt;</span>
+  <span class="t">&lt;link</span> <span class="n">rel</span>=<span class="s">"shortcut icon"</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}/{{site.favicon}}"</span><span class="t">&gt;</span>
+
+  <span class="c">&lt;!-- Fonts --&gt;</span>
+  <span class="t">&lt;link</span> <span class="n">rel</span>=<span class="s">"preconnect"</span> <span class="n">href</span>=<span class="s">"https://fonts.googleapis.com"</span><span class="t">&gt;</span>
+  <span class="t">&lt;link</span> <span class="n">rel</span>=<span class="s">"preconnect"</span> <span class="n">href</span>=<span class="s">"https://fonts.gstatic.com"</span> <span class="n">crossorigin</span><span class="t">&gt;</span>
+  <span class="t">&lt;link</span> <span class="n">href</span>=<span class="s">"https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&amp;family=Poppins:wght@400;500;600&amp;display=swap"</span> <span class="n">rel</span>=<span class="s">"stylesheet"</span><span class="t">&gt;</span>
+  <span class="t">&lt;link</span> <span class="n">rel</span>=<span class="s">"stylesheet"</span> <span class="n">href</span>=<span class="s">"https://use.fontawesome.com/releases/v5.3.1/css/all.css"</span> <span class="n">crossorigin</span>=<span class="s">"anonymous"</span><span class="t">&gt;</span>
+
+  <span class="c">&lt;!-- CSS: tokens FIRST, then Bootstrap, then theme overrides --&gt;</span>
+  <span class="t">&lt;link</span> <span class="n">rel</span>=<span class="s">"stylesheet"</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}/assets/css/tokens.css"</span><span class="t">&gt;</span>
+  <span class="t">&lt;link</span> <span class="n">rel</span>=<span class="s">"stylesheet"</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}/assets/css/main.css"</span><span class="t">&gt;</span>
+  <span class="t">&lt;link</span> <span class="n">rel</span>=<span class="s">"stylesheet"</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}/assets/css/theme.css"</span><span class="t">&gt;</span>
+  <span class="t">&lt;link</span> <span class="n">rel</span>=<span class="s">"stylesheet"</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}/assets/css/monokai.css"</span><span class="t">&gt;</span>
+  <span class="c">&lt;!-- style.css (resume) loaded only on resume page --&gt;</span>
+  <span class="t">{%</span> <span class="k">if</span> page.layout == <span class="s">"resume-layout"</span> <span class="t">%}</span>
+  <span class="t">&lt;link</span> <span class="n">rel</span>=<span class="s">"stylesheet"</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}/assets/css/style.css"</span><span class="t">&gt;</span>
+  <span class="t">{%</span> <span class="k">endif</span> <span class="t">%}</span>
+
+  <span class="c">&lt;!-- Bootstrap TOC (fixed CDN) --&gt;</span>
+  <span class="t">&lt;link</span> <span class="n">rel</span>=<span class="s">"stylesheet"</span> <span class="n">href</span>=<span class="s">"https://cdn.jsdelivr.net/npm/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.css"</span><span class="t">/&gt;</span>
+
+  <span class="c">&lt;!-- MathJax v3 (replaces broken v2) --&gt;</span>
+  <span class="t">&lt;script&gt;</span>
+    <span class="k">window</span>.MathJax = {
+      <span class="n">tex</span>: { inlineMath: [[<span class="s">'$'</span>,<span class="s">'$'</span>],[<span class="s">'\\('</span>,<span class="s">'\\)'</span>]], tags: <span class="s">'ams'</span> },
+      <span class="n">svg</span>: { fontCache: <span class="s">'global'</span> }
+    };
+  <span class="t">&lt;/script&gt;</span>
+  <span class="t">&lt;script</span> <span class="n">id</span>=<span class="s">"MathJax-script"</span> <span class="n">async</span>
+    <span class="n">src</span>=<span class="s">"https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"</span><span class="t">&gt;&lt;/script&gt;</span>
+
+  <span class="c">&lt;!-- jQuery (keep in head for Bootstrap) --&gt;</span>
+  <span class="t">&lt;script</span> <span class="n">src</span>=<span class="s">"https://code.jquery.com/jquery-3.3.1.min.js"</span> <span class="n">crossorigin</span>=<span class="s">"anonymous"</span><span class="t">&gt;&lt;/script&gt;</span>
+  <span class="t">&lt;script</span> <span class="n">src</span>=<span class="s">"https://cdn.jsdelivr.net/npm/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.js"</span><span class="t">&gt;&lt;/script&gt;</span>
+
+  <span class="t">{%</span> include tracking-header.html <span class="t">%}</span>
+<span class="t">&lt;/head&gt;</span></code></pre>
+</section>
+
+<!-- ── Resume layout ── -->
+<section id="resume-layout">
+  <span class="phase-badge p2">Step 2.2</span>
+  <h3>Fix resume-layout.html — remove the duplicate HTML</h3>
+
+  <p>The resume layout currently declares its own <code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>, and has its own copy of MathJax (using <code>http://</code> — not even https). This means the resume page is entirely cut off from <code>default.html</code> — dark mode, the shared navbar fixes, and tokens.css don't apply to it.</p>
+
+  <p>The fix: convert <code>resume-layout.html</code> to a layout that inherits from <code>default.html</code>, just like <code>post.html</code> does. Replace the <strong>entire file</strong> with:</p>
+
+  <pre><code><span class="c">---
+layout: default
+---</span>
+<span class="c">{%- assign meta = "" | split: "" -%}
+{%- for yml_file in site.data -%}
+  {%- unless yml_file[0] == "images" or yml_file[0] == "courses" -%}
+    {%- assign meta = meta | push: yml_file[1] -%}
+  {%- endunless -%}
+{%- endfor -%}
+{%- assign meta = meta | sort: 'listing-order' -%}</span>
+
+<span class="t">&lt;div</span> <span class="n">id</span>=<span class="s">"sidebar"</span><span class="t">&gt;</span>
+  <span class="t">&lt;ul</span> <span class="n">class</span>=<span class="s">"toc-box"</span><span class="t">&gt;&lt;/ul&gt;</span>
+<span class="t">&lt;/div&gt;</span>
+
+<span class="t">&lt;div</span> <span class="n">id</span>=<span class="s">"about"</span><span class="t">&gt;</span>
+  <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"profile-zone"</span><span class="t">&gt;</span>
+    <span class="t">&lt;img</span> <span class="n">class</span>=<span class="s">"profile-img"</span>
+      <span class="n">src</span>=<span class="s">"{{ site.profile_img | prepend: site.baseurl }}"</span>
+      <span class="n">alt</span>=<span class="s">"{{ site.name }}"</span><span class="t">&gt;</span>
+    <span class="t">&lt;ul</span> <span class="n">class</span>=<span class="s">"personal-info"</span><span class="t">&gt;</span>
+      <span class="c">{%- if site.phone_number -%}</span>
+      <span class="t">&lt;li&gt;&lt;a</span> <span class="n">aria-label</span>=<span class="s">"Phone"</span><span class="t">&gt;</span>
+        <span class="t">&lt;img</span> <span class="n">src</span>=<span class="s">"{{site.baseurl}}/assets/images/resume/phone.svg"</span> <span class="n">alt</span>=<span class="s">"Phone"</span><span class="t">&gt;</span>
+        <span class="t">&lt;div&gt;&lt;span&gt;</span>{{ site.phone_number }}<span class="t">&lt;/span&gt;&lt;/div&gt;</span>
+      <span class="t">&lt;/a&gt;&lt;/li&gt;</span>
+      <span class="c">{%- endif -%}</span>
+      <span class="c">{%- if site.address -%}</span>
+      <span class="t">&lt;li&gt;&lt;a</span> <span class="n">href</span>=<span class="s">"https://www.google.com/maps/search/{{ site.address }}"</span><span class="t">&gt;</span>
+        <span class="t">&lt;img</span> <span class="n">src</span>=<span class="s">"{{site.baseurl}}/assets/images/resume/location-dot.svg"</span> <span class="n">alt</span>=<span class="s">"Address"</span><span class="t">&gt;</span>
+        <span class="t">&lt;div&gt;&lt;span&gt;</span>{{ site.address }}<span class="t">&lt;/span&gt;&lt;/div&gt;</span>
+      <span class="t">&lt;/a&gt;&lt;/li&gt;</span>
+      <span class="c">{%- endif -%}</span>
+      <span class="c">{%- if site.email -%}</span>
+      <span class="t">&lt;li&gt;&lt;a</span> <span class="n">href</span>=<span class="s">"mailto:{{ site.email }}"</span><span class="t">&gt;</span>
+        <span class="t">&lt;img</span> <span class="n">src</span>=<span class="s">"{{site.baseurl}}/assets/images/resume/envelope.svg"</span> <span class="n">alt</span>=<span class="s">"Email"</span><span class="t">&gt;</span>
+        <span class="t">&lt;div&gt;&lt;span&gt;</span>{{ site.email }}<span class="t">&lt;/span&gt;&lt;/div&gt;</span>
+      <span class="t">&lt;/a&gt;&lt;/li&gt;</span>
+      <span class="c">{%- endif -%}</span>
+      <span class="c">{%- if site.linkedin_username -%}</span>
+      <span class="t">&lt;li&gt;&lt;a</span> <span class="n">href</span>=<span class="s">"https://www.linkedin.com/in/{{ site.linkedin_username }}"</span><span class="t">&gt;</span>
+        <span class="t">&lt;img</span> <span class="n">src</span>=<span class="s">"{{site.baseurl}}/assets/images/resume/linkedin.svg"</span> <span class="n">alt</span>=<span class="s">"LinkedIn"</span><span class="t">&gt;</span>
+        <span class="t">&lt;div&gt;&lt;span&gt;</span>@{{ site.linkedin_username }}<span class="t">&lt;/span&gt;&lt;/div&gt;</span>
+      <span class="t">&lt;/a&gt;&lt;/li&gt;</span>
+      <span class="c">{%- endif -%}</span>
+      <span class="c">{%- if site.github_username -%}</span>
+      <span class="t">&lt;li&gt;&lt;a</span> <span class="n">href</span>=<span class="s">"https://github.com/{{ site.github_username }}"</span><span class="t">&gt;</span>
+        <span class="t">&lt;img</span> <span class="n">src</span>=<span class="s">"{{site.baseurl}}/assets/images/resume/github.svg"</span> <span class="n">alt</span>=<span class="s">"GitHub"</span><span class="t">&gt;</span>
+        <span class="t">&lt;div&gt;&lt;span&gt;</span>@{{ site.github_username }}<span class="t">&lt;/span&gt;&lt;/div&gt;</span>
+      <span class="t">&lt;/a&gt;&lt;/li&gt;</span>
+      <span class="c">{%- endif -%}</span>
+      <span class="c">{%- if site.youtube_username -%}</span>
+      <span class="t">&lt;li&gt;&lt;a</span> <span class="n">href</span>=<span class="s">"https://www.youtube.com/@{{ site.youtube_username }}"</span><span class="t">&gt;</span>
+        <span class="t">&lt;img</span> <span class="n">src</span>=<span class="s">"{{site.baseurl}}/assets/images/resume/youtube.svg"</span> <span class="n">alt</span>=<span class="s">"YouTube"</span><span class="t">&gt;</span>
+        <span class="t">&lt;div&gt;&lt;span&gt;</span>@{{ site.youtube_username }}<span class="t">&lt;/span&gt;&lt;/div&gt;</span>
+      <span class="t">&lt;/a&gt;&lt;/li&gt;</span>
+      <span class="c">{%- endif -%}</span>
+    <span class="t">&lt;/ul&gt;</span>
+  <span class="t">&lt;/div&gt;</span>
+
+  <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"name-zone"</span><span class="t">&gt;</span>
+    <span class="t">&lt;h1&gt;&lt;strong&gt;</span>{{ site.name }}<span class="t">&lt;/strong&gt;&lt;/h1&gt;</span>
+    <span class="t">&lt;h3&gt;</span>{{ site.job }}<span class="t">&lt;/h3&gt;</span>
+    <span class="c">&lt;!-- Language-aware CV download (see Part 3) --&gt;</span>
+    <span class="t">&lt;h3&gt;</span>
+      <span class="c">{%- assign t = site.i18n[page.lang | default: site.default_lang] -%}</span>
+      {{ t.resume_download }}: <span class="t">&lt;a</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}/assets/pdf/{{ t.cv_filename }}"</span><span class="t">&gt;</span>
+        Curriculum Vitae
+      <span class="t">&lt;/a&gt;</span>
+    <span class="t">&lt;/h3&gt;</span>
+  <span class="t">&lt;/div&gt;</span>
+<span class="t">&lt;/div&gt;</span>
+
+<span class="t">&lt;div</span> <span class="n">id</span>=<span class="s">"contents"</span><span class="t">&gt;</span>
+  <span class="t">&lt;ul&gt;</span>
+    <span class="c">{%- for subject in meta -%}</span>
+    <span class="t">&lt;li</span> <span class="n">class</span>=<span class="s">"subject"</span> <span class="n">id</span>=<span class="s">"{{ subject.subject }}"</span><span class="t">&gt;</span>
+      <span class="t">&lt;h2</span> <span class="n">class</span>=<span class="s">"subject-name"</span><span class="t">&gt;</span>
+        <span class="t">&lt;div&gt;&lt;img</span> <span class="n">class</span>=<span class="s">"subject-icon"</span>
+          <span class="n">src</span>=<span class="s">"{{ subject.icon | prepend: site.baseurl }}"</span>
+          <span class="n">alt</span>=<span class="s">"{{ subject.subject }}"</span><span class="t">&gt;&lt;/div&gt;</span>
+        <span class="t">&lt;b</span> <span class="n">style</span>=<span class="s">"text-transform:uppercase;font-size:1.5rem"</span><span class="t">&gt;</span>{{ subject.subject }}<span class="t">&lt;/b&gt;</span>
+      <span class="t">&lt;/h2&gt;</span>
+      <span class="t">&lt;ul&gt;</span>
+        <span class="c">{%- for member in subject.contents -%}</span>
+        <span class="t">&lt;li</span> <span class="n">class</span>=<span class="s">"item"</span><span class="t">&gt;</span>
+          <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"content-header"</span><span class="t">&gt;</span>
+            {{ member.title | markdownify }}
+            <span class="c">{%- if member.date -%}</span>
+            <span class="t">&lt;span</span> <span class="n">class</span>=<span class="s">"content-date"</span><span class="t">&gt;</span>
+              <span class="t">&lt;img</span> <span class="n">src</span>=<span class="s">"{{site.baseurl}}/assets/images/resume/calendar.webp"</span> <span class="n">alt</span>=<span class="s">"date"</span><span class="t">&gt;</span>
+              {{ member.date }}
+            <span class="t">&lt;/span&gt;</span>
+            <span class="c">{%- endif -%}</span>
+          <span class="t">&lt;/div&gt;</span>
+          <span class="c">{%- for item in member -%}</span>
+          <span class="c">{%- unless item[0] == "title" or item[0] == "date" -%}</span>
+          <span class="c">{%- if item[1].first -%}</span>
+          <span class="t">&lt;ul&gt;</span>
+            <span class="c">{%- for subitem in item[1] -%}</span>
+            <span class="t">&lt;li</span> <span class="n">class</span>=<span class="s">"subitem"</span><span class="t">&gt;</span>{{ subitem | markdownify }}<span class="t">&lt;/li&gt;</span>
+            <span class="c">{%- endfor -%}</span>
+          <span class="t">&lt;/ul&gt;</span>
+          <span class="c">{%- else -%}</span>
+          {{ item[1] | markdownify }}
+          <span class="c">{%- endif -%}</span>
+          <span class="c">{%- endunless -%}</span>
+          <span class="c">{%- endfor -%}</span>
+        <span class="t">&lt;/li&gt;</span>
+        <span class="c">{%- endfor -%}</span>
+      <span class="t">&lt;/ul&gt;</span>
+    <span class="t">&lt;/li&gt;</span>
+    <span class="c">{%- endfor -%}</span>
+  <span class="t">&lt;/ul&gt;</span>
+<span class="t">&lt;/div&gt;</span>
+
+<span class="t">&lt;div</span> <span class="n">id</span>=<span class="s">"footer"</span><span class="t">&gt;</span>
+  <span class="t">&lt;span&gt;</span>{{ site.name }} · {{ site.url }}<span class="t">&lt;/span&gt;</span>
+<span class="t">&lt;/div&gt;</span>
+
+<span class="t">&lt;script</span> <span class="n">src</span>=<span class="s">"{{ site.baseurl }}/assets/js/main.js"</span><span class="t">&gt;&lt;/script&gt;</span></code></pre>
+
+  <div class="callout tip">The only three differences from the original: (1) <code>layout: default</code> at the top replaces the entire duplicate HTML shell; (2) the <code>data-theme</code> attribute set in <code>default.html</code> now applies to the resume too; (3) <code>i18n</code> is used for the CV download text.</div>
+
+  <p>Now update <code>assets/css/style.scss</code> to use CSS variables instead of hardcoded colors. The key replacements:</p>
+
+  <div class="diff">
+    <div class="diff-header">assets/css/style.scss — color variable migration</div>
+    <pre><code><span class="c">/* profile-zone background */</span>
+<span class="del">- background-color: var(--theme4-medium);   /* old: #7FA093 */</span>
+<span class="add">+ background-color: var(--resume-profile-bg);</span>
+
+<span class="c">/* profile image border */</span>
+<span class="del">- border: 4px solid var(--theme3-dark);     /* old: #A8955A */</span>
+<span class="add">+ border: 4px solid var(--accent);</span>
+
+<span class="c">/* timeline line */</span>
+<span class="del">- background: var(--theme3-medium);         /* old: #EBDFBB */</span>
+<span class="add">+ background: var(--resume-timeline);</span>
+
+<span class="c">/* sidebar background */</span>
+<span class="del">- background: var(--theme3-medium);</span>
+<span class="add">+ background: var(--resume-sidebar-bg);</span>
+
+<span class="c">/* sidebar active/hover */</span>
+<span class="del">- background: var(--theme1-medium);         /* old: #D0A694 */</span>
+<span class="add">+ background: var(--accent-light);</span>
+
+<span class="c">/* content links */</span>
+<span class="del">- color: var(--theme4-dark);               /* old: #3D725D */</span>
+<span class="add">+ color: var(--accent);</span>
+
+<span class="c">/* footer background */</span>
+<span class="del">- background: var(--theme3-medium);</span>
+<span class="add">+ background: var(--surface-raised);</span>
+<span class="add">+ border-top: 1px solid var(--border);</span>
+
+<span class="c">/* icon filter */</span>
+<span class="del">- filter: invert(27%) sepia(2%) saturate(3297%) hue-rotate(8deg);</span>
+<span class="add">+ filter: var(--resume-icon-filter);</span>
+
+<span class="c">/* dark mode: body background override */</span>
+<span class="del">- background: var(--color-background);     /* #fffdfb — breaks dark mode */</span>
+<span class="add">+ background: var(--bg);</span>
+
+<span class="c">/* content text */</span>
+<span class="del">- color: var(--font-dark);                 /* #202424 */</span>
+<span class="add">+ color: var(--text-primary);</span></code></pre>
+  </div>
+</section>
+
+<!-- ── Navbar ── -->
+<section id="navbar">
+  <span class="phase-badge p2">Step 2.3</span>
+  <h3>Unified Navbar with Dark Mode + Language Toggle</h3>
+
+  <p>Update <code>_includes/menu-header.html</code> to add the dark mode button and language switcher. Also fix the duplicate IDs (from the Phase 1 tutorial). The full updated file:</p>
+
+  <pre><code><span class="c">&lt;!-- _includes/menu-header.html --&gt;</span>
+
+<span class="t">&lt;li</span> <span class="n">class</span>=<span class="s">"nav-item"</span><span class="t">&gt;</span>
+  <span class="t">&lt;a</span> <span class="n">class</span>=<span class="s">"nav-link"</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}/index.html"</span><span class="t">&gt;</span>Home<span class="t">&lt;/a&gt;</span>
+<span class="t">&lt;/li&gt;</span>
+
+<span class="t">&lt;li</span> <span class="n">class</span>=<span class="s">"nav-item"</span><span class="t">&gt;</span>
+  <span class="t">&lt;a</span> <span class="n">class</span>=<span class="s">"nav-link"</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}/resume.html"</span> <span class="n">style</span>=<span class="s">"color:var(--accent)"</span><span class="t">&gt;</span>
+    Résumé
+  <span class="t">&lt;/a&gt;</span>
+<span class="t">&lt;/li&gt;</span>
+
+<span class="t">&lt;li</span> <span class="n">class</span>=<span class="s">"nav-item"</span><span class="t">&gt;</span>
+  <span class="t">&lt;a</span> <span class="n">class</span>=<span class="s">"nav-link"</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}/courses/"</span><span class="t">&gt;</span>Courses<span class="t">&lt;/a&gt;</span>
+<span class="t">&lt;/li&gt;</span>
+
+<span class="t">&lt;li</span> <span class="n">class</span>=<span class="s">"nav-item dropdown"</span><span class="t">&gt;</span>
+  <span class="t">&lt;a</span> <span class="n">class</span>=<span class="s">"nav-link dropdown-toggle"</span> <span class="n">href</span>=<span class="s">"#"</span>
+    <span class="n">id</span>=<span class="s">"navbarDropdownTutorials"</span>
+    <span class="n">role</span>=<span class="s">"button"</span> <span class="n">data-toggle</span>=<span class="s">"dropdown"</span>
+    <span class="n">style</span>=<span class="s">"color:var(--accent)"</span><span class="t">&gt;</span>Tutorials
+  <span class="t">&lt;/a&gt;</span>
+  <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"dropdown-menu"</span> <span class="n">aria-labelledby</span>=<span class="s">"navbarDropdownTutorials"</span><span class="t">&gt;</span>
+    <span class="t">&lt;a</span> <span class="n">class</span>=<span class="s">"dropdown-item"</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}/robotics.html"</span><span class="t">&gt;</span>Robotics<span class="t">&lt;/a&gt;</span>
+  <span class="t">&lt;/div&gt;</span>
+<span class="t">&lt;/li&gt;</span>
+
+<span class="t">&lt;li</span> <span class="n">class</span>=<span class="s">"nav-item dropdown"</span><span class="t">&gt;</span>
+  <span class="t">&lt;a</span> <span class="n">class</span>=<span class="s">"nav-link dropdown-toggle"</span> <span class="n">href</span>=<span class="s">"#"</span>
+    <span class="n">id</span>=<span class="s">"navbarDropdownCategories"</span>
+    <span class="n">role</span>=<span class="s">"button"</span> <span class="n">data-toggle</span>=<span class="s">"dropdown"</span><span class="t">&gt;</span>Categories
+  <span class="t">&lt;/a&gt;</span>
+  <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"dropdown-menu"</span> <span class="n">aria-labelledby</span>=<span class="s">"navbarDropdownCategories"</span><span class="t">&gt;</span>
+    <span class="t">&lt;a</span> <span class="n">class</span>=<span class="s">"dropdown-item"</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}/categories.html#programming"</span><span class="t">&gt;</span>Programming<span class="t">&lt;/a&gt;</span>
+    <span class="t">&lt;a</span> <span class="n">class</span>=<span class="s">"dropdown-item"</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}/categories.html#control%20system"</span><span class="t">&gt;</span>Control System<span class="t">&lt;/a&gt;</span>
+  <span class="t">&lt;/div&gt;</span>
+<span class="t">&lt;/li&gt;</span>
+
+<span class="t">&lt;li</span> <span class="n">class</span>=<span class="s">"nav-item"</span><span class="t">&gt;</span>
+  <span class="t">&lt;a</span> <span class="n">class</span>=<span class="s">"nav-link"</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}/contact.html"</span><span class="t">&gt;</span>Contact<span class="t">&lt;/a&gt;</span>
+<span class="t">&lt;/li&gt;</span>
+
+<span class="c">&lt;!-- ── RIGHT side controls (go in the ml-auto ul in default.html) ── --&gt;</span>
+<span class="c">&lt;!-- Add this block INSIDE the &lt;ul class="navbar-nav ml-auto"&gt; --&gt;</span>
+<span class="t">&lt;li</span> <span class="n">class</span>=<span class="s">"nav-item d-flex align-items-center"</span><span class="t">&gt;</span>
+
+  <span class="c">&lt;!-- Language switcher (see Part 3) --&gt;</span>
+  <span class="t">{%</span> include lang-switcher.html <span class="t">%}</span>
+
+  <span class="c">&lt;!-- Dark mode toggle --&gt;</span>
+  <span class="t">&lt;button</span>
+    <span class="n">id</span>=<span class="s">"theme-toggle"</span>
+    <span class="n">onclick</span>=<span class="s">"toggleTheme()"</span>
+    <span class="n">class</span>=<span class="s">"btn btn-sm btn-outline-secondary ml-2"</span>
+    <span class="n">aria-label</span>=<span class="s">"Toggle dark mode"</span>
+    <span class="n">style</span>=<span class="s">"border-radius:50%;width:34px;height:34px;padding:0;font-size:1rem;line-height:1;border-color:var(--border);color:var(--text-primary)"</span><span class="t">&gt;</span>
+    ☽
+  <span class="t">&lt;/button&gt;</span>
+<span class="t">&lt;/li&gt;</span></code></pre>
+
+  <p>Patch the Bootstrap navbar elements in <code>default.html</code> to use CSS variables:</p>
+  <div class="diff">
+    <div class="diff-header">_layouts/default.html — navbar class</div>
+    <pre><code><span class="del">- &lt;nav class="topnav navbar navbar-expand-lg navbar-light bg-white fixed-top"&gt;</span>
+<span class="add">+ &lt;nav class="topnav navbar navbar-expand-lg fixed-top"</span>
+<span class="add">+      style="background-color:var(--navbar-bg);border-bottom:1px solid var(--navbar-border)"&gt;</span></code></pre>
+  </div>
+</section>
+
+<!-- ═══ PART 3: i18n ═══ -->
+<h2 style="color:var(--p3)">Part 3 — Multilingual (i18n)</h2>
+
+<section id="i18n-strategy">
+  <span class="phase-badge p3">Step 3.1</span>
+  <h3>Strategy — no plugins, pure Liquid</h3>
+
+  <p>The cleanest approach for a static site with 2–3 languages is <strong>data-file translation</strong>: all UI strings live in <code>_data/i18n/</code>, each layout reads from the correct language file based on a <code>lang:</code> front matter variable. Posts and lessons keep their own language files in separate subdirectories.</p>
+
+  <div class="two-col">
+    <div class="col">
+      <h4>Supported languages</h4>
+      <ul style="list-style:none;font-size:0.85rem;line-height:2;color:#3a3830">
+        <li>🇫🇷 <strong>fr</strong> — French (your default)</li>
+        <li>🇬🇧 <strong>en</strong> — English</li>
+        <li>🇻🇳 <strong>vi</strong> — Vietnamese</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h4>What gets translated</h4>
+      <ul style="list-style:none;font-size:0.85rem;line-height:2;color:#3a3830">
+        <li>UI strings (navbar, buttons, labels)</li>
+        <li>Resume section labels</li>
+        <li>Course/lesson UI text</li>
+        <li>Post dates, meta text</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout info">Blog post content itself (the Markdown) is <em>not</em> auto-translated — you write separate posts for each language. But the surrounding UI (navbar, "read more", "published on", etc.) will switch language automatically.</div>
+</section>
+
+<section id="i18n-data">
+  <span class="phase-badge p3">Step 3.2</span>
+  <h3>Create _data/i18n/ files</h3>
+
+  <div class="file-tree">
+    <span class="dir">_data/</span><br>
+    &nbsp;&nbsp;<span class="dir">i18n/</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="new">fr.yml</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="new">en.yml</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="new">vi.yml</span>
+  </div>
+
+  <pre><code><span class="c"># _data/i18n/fr.yml  (French — your default)</span>
+<span class="t">lang_name</span>:       <span class="s">"Français"</span>
+<span class="t">lang_flag</span>:       <span class="s">"🇫🇷"</span>
+
+<span class="c"># Navigation</span>
+<span class="t">nav_home</span>:        <span class="s">"Accueil"</span>
+<span class="t">nav_resume</span>:      <span class="s">"Résumé"</span>
+<span class="t">nav_courses</span>:     <span class="s">"Cours"</span>
+<span class="t">nav_tutorials</span>:   <span class="s">"Tutoriels"</span>
+<span class="t">nav_categories</span>:  <span class="s">"Catégories"</span>
+<span class="t">nav_contact</span>:     <span class="s">"Contact"</span>
+
+<span class="c"># Common</span>
+<span class="t">read_more</span>:       <span class="s">"Lire la suite"</span>
+<span class="t">published_on</span>:    <span class="s">"Publié le"</span>
+<span class="t">min_read</span>:        <span class="s">"min de lecture"</span>
+<span class="t">share_this</span>:      <span class="s">"Partager"</span>
+<span class="t">all_posts</span>:       <span class="s">"Tous les articles"</span>
+<span class="t">featured</span>:        <span class="s">"À la une"</span>
+<span class="t">search_placeholder</span>: <span class="s">"Rechercher..."</span>
+
+<span class="c"># Resume</span>
+<span class="t">resume_download</span>: <span class="s">"Télécharger"</span>
+<span class="t">cv_filename</span>:     <span class="s">"VO_Duc_Tri_CV_FR.pdf"</span>
+
+<span class="c"># Courses</span>
+<span class="t">course_start</span>:    <span class="s">"Commencer"</span>
+<span class="t">lesson_complete</span>: <span class="s">"Marquer comme terminé ✓"</span>
+<span class="t">lesson_completed</span>:<span class="s">"✓ Terminé"</span>
+<span class="t">quiz_title</span>:      <span class="s">"📝 Quiz de compréhension"</span>
+<span class="t">quiz_correct</span>:    <span class="s">"✓ Correct !"</span>
+<span class="t">quiz_wrong</span>:      <span class="s">"✗ Pas tout à fait."</span>
+<span class="t">quiz_retry</span>:      <span class="s">"Réessayer"</span>
+
+<span class="c"># 404</span>
+<span class="t">not_found_title</span>: <span class="s">"Page introuvable"</span>
+<span class="t">not_found_text</span>:  <span class="s">"La page que vous cherchez n'existe pas."</span>
+<span class="t">go_home</span>:         <span class="s">"Retour à l'accueil"</span></code></pre>
+
+  <pre><code><span class="c"># _data/i18n/en.yml  (English)</span>
+<span class="t">lang_name</span>:       <span class="s">"English"</span>
+<span class="t">lang_flag</span>:       <span class="s">"🇬🇧"</span>
+
+<span class="t">nav_home</span>:        <span class="s">"Home"</span>
+<span class="t">nav_resume</span>:      <span class="s">"Résumé"</span>
+<span class="t">nav_courses</span>:     <span class="s">"Courses"</span>
+<span class="t">nav_tutorials</span>:   <span class="s">"Tutorials"</span>
+<span class="t">nav_categories</span>:  <span class="s">"Categories"</span>
+<span class="t">nav_contact</span>:     <span class="s">"Contact"</span>
+
+<span class="t">read_more</span>:       <span class="s">"Read more"</span>
+<span class="t">published_on</span>:    <span class="s">"Published on"</span>
+<span class="t">min_read</span>:        <span class="s">"min read"</span>
+<span class="t">share_this</span>:      <span class="s">"Share this"</span>
+<span class="t">all_posts</span>:       <span class="s">"All Posts"</span>
+<span class="t">featured</span>:        <span class="s">"Featured"</span>
+<span class="t">search_placeholder</span>: <span class="s">"Search..."</span>
+
+<span class="t">resume_download</span>: <span class="s">"Download"</span>
+<span class="t">cv_filename</span>:     <span class="s">"VO_Duc_Tri_CV_EN.pdf"</span>
+
+<span class="t">course_start</span>:    <span class="s">"Start Course"</span>
+<span class="t">lesson_complete</span>: <span class="s">"Mark as Complete ✓"</span>
+<span class="t">lesson_completed</span>:<span class="s">"✓ Completed"</span>
+<span class="t">quiz_title</span>:      <span class="s">"📝 Knowledge Check"</span>
+<span class="t">quiz_correct</span>:    <span class="s">"✓ Correct!"</span>
+<span class="t">quiz_wrong</span>:      <span class="s">"✗ Not quite."</span>
+<span class="t">quiz_retry</span>:      <span class="s">"Try Again"</span>
+
+<span class="t">not_found_title</span>: <span class="s">"Page not found"</span>
+<span class="t">not_found_text</span>:  <span class="s">"The page you're looking for doesn't exist."</span>
+<span class="t">go_home</span>:         <span class="s">"Go Home"</span></code></pre>
+
+  <pre><code><span class="c"># _data/i18n/vi.yml  (Vietnamese)</span>
+<span class="t">lang_name</span>:       <span class="s">"Tiếng Việt"</span>
+<span class="t">lang_flag</span>:       <span class="s">"🇻🇳"</span>
+
+<span class="t">nav_home</span>:        <span class="s">"Trang chủ"</span>
+<span class="t">nav_resume</span>:      <span class="s">"Sơ yếu lý lịch"</span>
+<span class="t">nav_courses</span>:     <span class="s">"Khoá học"</span>
+<span class="t">nav_tutorials</span>:   <span class="s">"Hướng dẫn"</span>
+<span class="t">nav_categories</span>:  <span class="s">"Danh mục"</span>
+<span class="t">nav_contact</span>:     <span class="s">"Liên hệ"</span>
+
+<span class="t">read_more</span>:       <span class="s">"Đọc thêm"</span>
+<span class="t">published_on</span>:    <span class="s">"Đăng ngày"</span>
+<span class="t">min_read</span>:        <span class="s">"phút đọc"</span>
+<span class="t">share_this</span>:      <span class="s">"Chia sẻ"</span>
+<span class="t">all_posts</span>:       <span class="s">"Tất cả bài viết"</span>
+<span class="t">featured</span>:        <span class="s">"Nổi bật"</span>
+<span class="t">search_placeholder</span>: <span class="s">"Tìm kiếm..."</span>
+
+<span class="t">resume_download</span>: <span class="s">"Tải xuống"</span>
+<span class="t">cv_filename</span>:     <span class="s">"VO_Duc_Tri_CV_VI.pdf"</span>
+
+<span class="t">course_start</span>:    <span class="s">"Bắt đầu khoá học"</span>
+<span class="t">lesson_complete</span>: <span class="s">"Đánh dấu hoàn thành ✓"</span>
+<span class="t">lesson_completed</span>:<span class="s">"✓ Đã hoàn thành"</span>
+<span class="t">quiz_title</span>:      <span class="s">"📝 Kiểm tra kiến thức"</span>
+<span class="t">quiz_correct</span>:    <span class="s">"✓ Chính xác!"</span>
+<span class="t">quiz_wrong</span>:      <span class="s">"✗ Chưa đúng."</span>
+<span class="t">quiz_retry</span>:      <span class="s">"Thử lại"</span>
+
+<span class="t">not_found_title</span>: <span class="s">"Không tìm thấy trang"</span>
+<span class="t">not_found_text</span>:  <span class="s">"Trang bạn tìm kiếm không tồn tại."</span>
+<span class="t">go_home</span>:         <span class="s">"Về trang chủ"</span></code></pre>
+</section>
+
+<section id="i18n-config">
+  <span class="phase-badge p3">Step 3.3</span>
+  <h3>Add language config to _config.yml</h3>
+
+  <pre><code><span class="c"># Add to _config.yml</span>
+
+<span class="c"># Default language for the site</span>
+<span class="t">default_lang</span>: fr
+
+<span class="c"># Supported languages (used by the language switcher)</span>
+<span class="t">languages</span>:
+  - fr
+  - en
+  - vi
+
+<span class="c"># Inline i18n shortcut (so layouts can do site.i18n.fr.nav_home)</span>
+<span class="c"># This works because _data/i18n/fr.yml etc are loaded as site.data.i18n.fr</span>
+<span class="c"># In Liquid: assign t = site.data.i18n[page.lang | default: site.default_lang]</span></code></pre>
+
+  <div class="callout info">Jekyll automatically loads <code>_data/i18n/fr.yml</code> as <code>site.data.i18n.fr</code>. So to get a translated string in any layout, you write: <code>{%- assign t = site.data.i18n[page.lang | default: site.default_lang] -%}</code> and then use <code>{{ t.nav_home }}</code> anywhere in the template.</div>
+</section>
+
+<section id="i18n-templates">
+  <span class="phase-badge p3">Step 3.4</span>
+  <h3>Use translations in templates</h3>
+
+  <p>Add the translation lookup to the top of <code>_layouts/default.html</code> (just after the <code>&lt;body&gt;</code> tag, before the navbar):</p>
+
+  <pre><code><span class="c">{%- assign t = site.data.i18n[page.lang | default: site.default_lang] -%}</span></code></pre>
+
+  <p>Then in the navbar <code>&lt;ul&gt;</code> (replacing the hardcoded English text):</p>
+
+  <pre><code><span class="t">&lt;a</span> <span class="n">class</span>=<span class="s">"nav-link"</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}/index.html"</span><span class="t">&gt;</span>{{ t.nav_home }}<span class="t">&lt;/a&gt;</span>
+<span class="t">&lt;a</span> <span class="n">class</span>=<span class="s">"nav-link"</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}/resume.html"</span><span class="t">&gt;</span>{{ t.nav_resume }}<span class="t">&lt;/a&gt;</span>
+<span class="t">&lt;a</span> <span class="n">class</span>=<span class="s">"nav-link"</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}/courses/"</span><span class="t">&gt;</span>{{ t.nav_courses }}<span class="t">&lt;/a&gt;</span></code></pre>
+
+  <p>In your post layouts, use translation strings for meta text:</p>
+
+  <pre><code><span class="c">{%- assign t = site.data.i18n[page.lang | default: site.default_lang] -%}</span>
+
+<span class="c">&lt;!-- Replace hardcoded "Share this" --&gt;</span>
+<span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"text-muted"</span><span class="t">&gt;</span>{{ t.share_this }}<span class="t">&lt;/div&gt;</span>
+
+<span class="c">&lt;!-- Replace hardcoded "All Posts" --&gt;</span>
+<span class="t">&lt;h3</span> <span class="n">class</span>=<span class="s">"spanborder"</span><span class="t">&gt;&lt;span&gt;</span>{{ t.all_posts }}<span class="t">&lt;/span&gt;&lt;/h3&gt;</span>
+
+<span class="c">&lt;!-- Replace hardcoded "Featured" --&gt;</span>
+<span class="t">&lt;h3</span> <span class="n">class</span>=<span class="s">"spanborder"</span><span class="t">&gt;&lt;span&gt;</span>{{ t.featured }}<span class="t">&lt;/span&gt;&lt;/h3&gt;</span>
+
+<span class="c">&lt;!-- Date line in post header --&gt;</span>
+<span class="t">&lt;span&gt;</span>{{ t.published_on }} {{ page.date | date: '%d %b %Y' }}<span class="t">&lt;/span&gt;</span></code></pre>
+
+  <p>For posts themselves, add <code>lang: fr</code> (or <code>en</code> / <code>vi</code>) to their front matter. If omitted, <code>site.default_lang</code> (fr) applies:</p>
+
+  <pre><code><span class="c">---
+title: "Kinematics of Planar Robots"
+lang: en                  # ← add this
+categories: [Robotics]
+---</span></code></pre>
+</section>
+
+<section id="i18n-switcher">
+  <span class="phase-badge p3">Step 3.5</span>
+  <h3>Language Switcher include</h3>
+
+  <p>Create <code>_includes/lang-switcher.html</code>. This renders a small dropdown showing the current language and links to switch. The switcher stores the preference in <code>localStorage</code> and redirects to the same-path URL with <code>?lang=</code> prefix — or simply reloads the page and lets the <code>lang</code> front matter variable control the display.</p>
+
+  <pre><code><span class="c">&lt;!-- _includes/lang-switcher.html --&gt;</span>
+<span class="c">{%- assign t = site.data.i18n[page.lang | default: site.default_lang] -%}</span>
+<span class="c">{%- assign current_lang = page.lang | default: site.default_lang -%}</span>
+
+<span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"nav-item dropdown ml-2"</span><span class="t">&gt;</span>
+  <span class="t">&lt;button</span> <span class="n">class</span>=<span class="s">"btn btn-sm btn-outline-secondary dropdown-toggle"</span>
+    <span class="n">type</span>=<span class="s">"button"</span> <span class="n">id</span>=<span class="s">"langDropdown"</span>
+    <span class="n">data-toggle</span>=<span class="s">"dropdown"</span>
+    <span class="n">aria-expanded</span>=<span class="s">"false"</span>
+    <span class="n">style</span>=<span class="s">"border-color:var(--border);color:var(--text-primary);font-size:0.78rem"</span><span class="t">&gt;</span>
+    {{ t.lang_flag }} {{ t.lang_name }}
+  <span class="t">&lt;/button&gt;</span>
+  <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"dropdown-menu dropdown-menu-right"</span>
+    <span class="n">aria-labelledby</span>=<span class="s">"langDropdown"</span>
+    <span class="n">style</span>=<span class="s">"min-width:120px;background:var(--surface)"</span><span class="t">&gt;</span>
+    <span class="c">{%- for lang in site.languages -%}</span>
+    <span class="c">{%- assign lt = site.data.i18n[lang] -%}</span>
+    <span class="t">&lt;a</span> <span class="n">class</span>=<span class="s">"dropdown-item{% if lang == current_lang %} active{% endif %}"</span>
+      <span class="n">href</span>=<span class="s">"javascript:void(0)"</span>
+      <span class="n">onclick</span>=<span class="s">"switchLang('{{ lang }}')"</span>
+      <span class="n">style</span>=<span class="s">"font-size:0.85rem"</span><span class="t">&gt;</span>
+      {{ lt.lang_flag }} {{ lt.lang_name }}
+    <span class="t">&lt;/a&gt;</span>
+    <span class="c">{%- endfor -%}</span>
+  <span class="t">&lt;/div&gt;</span>
+<span class="t">&lt;/div&gt;</span>
+
+<span class="t">&lt;script&gt;</span>
+<span class="k">function</span> <span class="f">switchLang</span>(<span class="n">lang</span>) {
+  <span class="c">// Save preference</span>
+  <span class="f">localStorage</span>.<span class="f">setItem</span>(<span class="s">'expred-lang'</span>, <span class="n">lang</span>);
+
+  <span class="c">// Try to find equivalent page in new language.
+  // Convention: /en/posts/..., /fr/posts/..., or ?lang= query param.
+  // Simplest approach for a mostly French site: redirect to homepage
+  // of the target language, letting readers navigate from there.</span>
+  <span class="k">const</span> <span class="n">langPaths</span> = {
+    <span class="s">'fr'</span>: <span class="s">'{{ site.baseurl }}/'</span>,
+    <span class="s">'en'</span>: <span class="s">'{{ site.baseurl }}/en/'</span>,
+    <span class="s">'vi'</span>: <span class="s">'{{ site.baseurl }}/vi/'</span>
+  };
+  <span class="c">// If same language, do nothing</span>
+  <span class="k">if</span> (<span class="n">lang</span> === <span class="s">'{{ current_lang }}'</span>) <span class="k">return</span>;
+  <span class="f">window</span>.location.href = <span class="n">langPaths</span>[<span class="n">lang</span>] || <span class="s">'{{ site.baseurl }}/'</span>;
+}
+<span class="t">&lt;/script&gt;</span></code></pre>
+
+  <div class="callout key"><strong>Language routing strategy:</strong> The simplest approach for your site is: French content stays at <code>/</code> (root, your current setup unchanged), English content lives at <code>/en/</code>, Vietnamese at <code>/vi/</code>. Create <code>_pages/en/index.html</code> and <code>_pages/vi/index.html</code> with <code>lang: en</code> front matter. Posts in English go in <code>_posts/en/</code> folder and set <code>lang: en</code>. The language switcher redirects to those roots. This way you can add multilingual content gradually without touching existing French URLs.</div>
+</section>
+
+<!-- ═══ PART 4: _config.yml ═══ -->
+<h2 style="color:var(--p4)">Part 4 — Mastering _config.yml</h2>
+
+<section id="config-overview">
+  <span class="phase-badge p4">Overview</span>
+  <h3>The complete annotated _config.yml</h3>
+  <p>Here is your full <code>_config.yml</code> rewritten with every option explained. Edit this file directly to configure the site — most day-to-day customization happens here.</p>
+
+  <pre><code><span class="c"># ════════════════════════════════════════════════════
+# _config.yml — expred.co / ductrivo.github.io
+# WHAT IS THIS FILE?
+# Jekyll reads this once at build time. Anything you
+# set here becomes available in templates as {{ site.X }}
+# ════════════════════════════════════════════════════</span>
+
+<span class="c"># ──────────────────────────────────────────────────
+# 1. SITE IDENTITY
+# These appear in the navbar, SEO tags, footer, and
+# the resume page. Change these first when personalizing.
+# ──────────────────────────────────────────────────</span>
+<span class="t">name</span>:         <span class="s">'Duc-Tri VO'</span>           <span class="c"># displayed in navbar brand</span>
+<span class="t">description</span>:  <span class="s">"Your site tagline here"</span> <span class="c"># used by jekyll-seo-tag</span>
+<span class="t">url</span>:          <span class="s">"https://expred.co"</span>     <span class="c"># full URL, no trailing slash</span>
+<span class="t">baseurl</span>:      <span class="s">''</span>                       <span class="c"># '' for root, '/subdir' if served under a subpath</span>
+<span class="t">logo</span>:         <span class="s">'assets/images/avatar1.jpg'</span>
+<span class="t">favicon</span>:      <span class="s">'assets/images/favicon_VDT.png'</span>
+<span class="t">email</span>:        <span class="s">'duc-tri.vo@outlook.fr'</span>
+
+<span class="c"># ──────────────────────────────────────────────────
+# 2. RESUME PAGE SETTINGS
+# Used by _layouts/resume-layout.html
+# ──────────────────────────────────────────────────</span>
+<span class="t">title_resume</span>: <span class="s">'Résumé — Duc-Tri VO'</span>
+<span class="t">profile_img</span>:  <span class="s">'/assets/images/resume/photo.jpg'</span>
+<span class="t">icon_img</span>:     <span class="s">'/assets/images/resume/icon.webp'</span>
+<span class="t">job</span>:          <span class="s">"Ingénieur en Informatique Industrielle"</span>
+<span class="t">phone_number</span>: <span class="s">'+33 07 65 80 35 49'</span>  <span class="c"># remove line to hide phone</span>
+<span class="t">address</span>:      <span class="s">'Valence, France'</span>
+
+<span class="c"># ──────────────────────────────────────────────────
+# 3. SOCIAL LINKS
+# Each appears in the resume sidebar. Comment out
+# any you don't want to show.
+# ──────────────────────────────────────────────────</span>
+<span class="t">linkedin_username</span>:  <span class="s">voductri97</span>
+<span class="t">github_username</span>:    <span class="s">ductrivo</span>
+<span class="t">youtube_username</span>:   <span class="s">ductrivo.official</span>
+<span class="t">blog_url</span>:           <span class="s">https://expred.co</span>
+<span class="c"># twitter_username:   twitter   # commented = not shown</span>
+<span class="c"># instagram_username: instagram</span>
+<span class="c"># facebook_username:  facebook</span>
+
+<span class="c"># ──────────────────────────────────────────────────
+# 4. MULTILINGUAL
+# ──────────────────────────────────────────────────</span>
+<span class="t">default_lang</span>: fr
+<span class="t">languages</span>: [fr, en, vi]
+
+<span class="c"># ──────────────────────────────────────────────────
+# 5. JEKYLL CORE
+# ──────────────────────────────────────────────────</span>
+<span class="t">include</span>: [<span class="s">"_pages"</span>]
+<span class="t">permalink</span>: /:title/           <span class="c"># URL style for posts (/my-post-title/)</span>
+<span class="t">excerpt_separator</span>: <span class="s">"&lt;!-- excerpt --&gt;"</span>  <span class="c"># put this in posts to control excerpt</span>
+
+<span class="t">markdown</span>: kramdown
+<span class="t">highlighter</span>: rouge
+<span class="t">kramdown</span>:
+  <span class="t">syntax_highlighter_opts</span>:
+    <span class="t">block</span>:
+      <span class="t">line_numbers</span>: <span class="k">true</span>
+
+<span class="c"># ──────────────────────────────────────────────────
+# 6. PAGINATION
+# Controls how many posts appear per page on index.html
+# ──────────────────────────────────────────────────</span>
+<span class="t">paginate</span>: <span class="v">10</span>                    <span class="c"># change to 6 or 8 for a tighter layout</span>
+
+<span class="c"># ──────────────────────────────────────────────────
+# 7. TABLE OF CONTENTS (jekyll-toc)
+# Controls which headings appear in the post TOC
+# ──────────────────────────────────────────────────</span>
+<span class="t">toc</span>:
+  <span class="t">min_level</span>: <span class="v">2</span>   <span class="c"># h2 is the first TOC level</span>
+  <span class="t">max_level</span>: <span class="v">4</span>   <span class="c"># h4 is the deepest. Set to 3 to keep it simpler</span>
+  <span class="t">no_toc_section_class</span>: no_toc
+  <span class="t">list_class</span>: toc-list
+  <span class="t">sublist_class</span>: toc-sublist
+  <span class="t">item_class</span>: toc-item
+
+<span class="c"># ──────────────────────────────────────────────────
+# 8. PLUGINS
+# ──────────────────────────────────────────────────</span>
+<span class="t">plugins</span>:
+  - jekyll-feed       <span class="c"># generates /feed.xml for RSS readers</span>
+  - jekyll-sitemap    <span class="c"># generates /sitemap.xml for search engines</span>
+  - jekyll-paginate   <span class="c"># enables paginator in index.html</span>
+  - jekyll-seo-tag    <span class="c"># {% seo %} tag generates all meta/OG tags</span>
+  - jekyll-toc        <span class="c"># {% toc %} tag in post layouts</span>
+  - jekyll-scholar    <span class="c"># {% bibliography %} tag for BibTeX references</span>
+
+<span class="c"># ──────────────────────────────────────────────────
+# 9. JEKYLL-SCHOLAR (academic references)
+# Customize how citations render
+# ──────────────────────────────────────────────────</span>
+<span class="t">scholar</span>:
+  <span class="t">bibliography_template</span>: bib-custom
+  <span class="t">citation_template</span>: citation
+  <span class="t">backlink</span>: <span class="s">"↩"</span>
+  <span class="c"># style: apa       # uncomment to use APA citation style</span>
+  <span class="c"># locale: en</span>
+  <span class="c"># link_citations: true</span>
+
+<span class="c"># ──────────────────────────────────────────────────
+# 10. AUTHORS
+# Used in post front matter as: author: ductri
+# Each post byline is pulled from this block
+# ──────────────────────────────────────────────────</span>
+<span class="t">authors</span>:
+  <span class="t">ductri</span>:
+    <span class="t">name</span>:   <span class="s">Duc-Tri</span>
+    <span class="t">site</span>:   <span class="s">https://expred.co</span>
+    <span class="t">avatar</span>: <span class="s">"https://i.imgur.com/QSMPgex.jpg"</span>
+    <span class="t">bio</span>:    <span class="s">"Researcher in advanced control systems, robotics, and industrial automation."</span>
+    <span class="t">email</span>:  <span class="s">duc-tri.vo@outlook.fr</span>
+
+<span class="c"># ──────────────────────────────────────────────────
+# 11. DEFAULTS
+# Saves you from repeating front matter in every file.
+# These are the fallback values if the file doesn't set them.
+# ──────────────────────────────────────────────────</span>
+<span class="t">defaults</span>:
+  <span class="c"># All posts in _posts/</span>
+  - <span class="t">scope</span>:
+      <span class="t">path</span>: <span class="s">"_posts"</span>
+    <span class="t">values</span>:
+      <span class="t">layout</span>: post-sidebar      <span class="c"># default layout for posts</span>
+      <span class="t">author</span>: ductri             <span class="c"># default author</span>
+      <span class="t">lang</span>: fr                   <span class="c"># default language for posts</span>
+      <span class="t">toc</span>: <span class="k">true</span>
+      <span class="t">comments</span>: <span class="k">true</span>
+
+  <span class="c"># All pages in _pages/</span>
+  - <span class="t">scope</span>:
+      <span class="t">path</span>: <span class="s">"_pages"</span>
+    <span class="t">values</span>:
+      <span class="t">layout</span>: page
+
+  <span class="c"># Course lessons in _courses/</span>
+  - <span class="t">scope</span>:
+      <span class="t">path</span>: <span class="s">"_courses"</span>
+      <span class="t">type</span>: <span class="s">"courses"</span>
+    <span class="t">values</span>:
+      <span class="t">layout</span>: lesson
+      <span class="t">author</span>: ductri
+      <span class="t">lang</span>: fr
+
+<span class="c"># ──────────────────────────────────────────────────
+# 12. COLLECTIONS (for courses)
+# ──────────────────────────────────────────────────</span>
+<span class="t">collections</span>:
+  <span class="t">courses</span>:
+    <span class="t">output</span>: <span class="k">true</span>
+    <span class="t">permalink</span>: /courses/:path/
+
+<span class="c"># ──────────────────────────────────────────────────
+# 13. EXCLUDE FROM BUILD
+# Files Jekyll should not copy to _site/
+# ──────────────────────────────────────────────────</span>
+<span class="t">exclude</span>:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - docker-compose.yml
+  - run.sh
+  - Makefile
+  - <span class="s">"*.sh"</span>
+  - node_modules
+  - vendor
+
+<span class="c"># ──────────────────────────────────────────────────
+# 14. COMMENTS (Disqus — optional)
+# Uncomment and add your Disqus shortname to enable.
+# Controls whether comments appear on posts.
+# ──────────────────────────────────────────────────</span>
+<span class="c"># disqus: your-disqus-shortname</span>
+
+<span class="c"># ──────────────────────────────────────────────────
+# 15. NEWSLETTER (Mailchimp — optional)
+# Uncomment and paste your Mailchimp form action URL
+# to show a subscribe form at the bottom of each post.
+# ──────────────────────────────────────────────────</span>
+<span class="c"># mailchimp-list: 'https://yourlist.us11.list-manage.com/...'</span></code></pre>
+</section>
+
+<section id="config-site">
+  <span class="phase-badge p4">Quick Ref</span>
+  <h3>What to edit for common tasks</h3>
+
+  <table>
+    <tr><th>You want to…</th><th>Edit this in _config.yml</th></tr>
+    <tr><td>Change the site name in navbar</td><td><code>name:</code></td></tr>
+    <tr><td>Change the site description for SEO</td><td><code>description:</code></td></tr>
+    <tr><td>Update your job title on resume</td><td><code>job:</code></td></tr>
+    <tr><td>Add/remove social icons on resume</td><td>Comment/uncomment the <code>linkedin_username</code>, <code>github_username</code>, etc. lines</td></tr>
+    <tr><td>Add a new author for guest posts</td><td>Add a block under <code>authors:</code>, use the key in post front matter</td></tr>
+    <tr><td>Change posts per page</td><td><code>paginate:</code> (default 10)</td></tr>
+    <tr><td>Make TOC deeper/shallower</td><td><code>toc.max_level:</code></td></tr>
+    <tr><td>Enable Disqus comments</td><td>Uncomment <code>disqus:</code> line</td></tr>
+    <tr><td>Enable Mailchimp form</td><td>Uncomment <code>mailchimp-list:</code> line</td></tr>
+    <tr><td>Change default post layout</td><td>Under <code>defaults: - scope: path: _posts</code>, change <code>layout:</code></td></tr>
+    <tr><td>Change the default language</td><td><code>default_lang:</code></td></tr>
+    <tr><td>Add a new language</td><td>Add to <code>languages:</code>, create <code>_data/i18n/xx.yml</code></td></tr>
+    <tr><td>Change post URL format</td><td><code>permalink:</code> — options: <code>/:year/:month/:day/:title/</code>, <code>/:categories/:title/</code>, <code>/:title/</code></td></tr>
+  </table>
+</section>
+
+<section id="config-resume">
+  <span class="phase-badge p4">Quick Ref</span>
+  <h3>How _data/*.yml maps to the resume page</h3>
+
+  <p>Your resume content is driven entirely by YAML files in <code>_data/</code>. The <code>listing-order</code> key controls the display order (lower number = first). Here's the map:</p>
+
+  <table>
+    <tr><th>File</th><th>Controls</th><th>listing-order</th></tr>
+    <tr><td><code>_data/Experience.yml</code></td><td>Work experience section</td><td>1</td></tr>
+    <tr><td><code>_data/Education.yml</code></td><td>Education section</td><td>2</td></tr>
+    <tr><td><code>_data/Skills.yml</code></td><td>Skills section</td><td>3</td></tr>
+    <tr><td><code>_data/Publications.yml</code></td><td>Publications section</td><td>4</td></tr>
+    <tr><td><code>_data/Projects.yml</code></td><td>Projects section</td><td>5–6</td></tr>
+    <tr><td><code>_data/Awards.yml</code></td><td>Awards section</td><td>7</td></tr>
+    <tr><td><code>_data/Certifications.yml</code></td><td>Certifications section</td><td>8</td></tr>
+    <tr><td><code>_data/Languages.yml</code></td><td>Language skills section</td><td>9</td></tr>
+  </table>
+
+  <p>To add a new section, create a new YAML file like <code>_data/OpenSource.yml</code> with <code>listing-order: 6</code> and the same structure as the others. It will automatically appear in the resume.</p>
+
+  <p>To reorder sections, just change the <code>listing-order</code> numbers. To hide a section temporarily, add <code>listing-order: 99</code> or delete the file.</p>
+</section>
+
+<!-- ── Summary ── -->
+<section id="checklist">
+  <h2>Final Checklist</h2>
+
+  <div class="card">
+    <h3 style="margin-top:0;color:var(--p1)">Part 1 — Design Tokens</h3>
+    <ul class="checklist">
+      <li>Create <code>assets/css/tokens.css</code> with all CSS variables + dark mode block</li>
+      <li>Replace hardcoded font families in <code>theme.css</code> and <code>style.scss</code></li>
+      <li>Add dark mode toggle logic to <code>assets/js/theme.js</code></li>
+      <li>Update Google Fonts link to combined URL with <code>display=swap</code></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0;color:var(--p2)">Part 2 — Layout Unification</h3>
+    <ul class="checklist">
+      <li>Update <code>_layouts/default.html</code> — add inline FOUC script, load tokens.css first, fix MathJax, fix rawgit CDN</li>
+      <li>Replace <code>_layouts/resume-layout.html</code> entirely with the <code>layout: default</code> version</li>
+      <li>Migrate hardcoded colors in <code>style.scss</code> to CSS variables</li>
+      <li>Update navbar in <code>default.html</code> to use <code>var(--navbar-bg)</code></li>
+      <li>Add dark mode button to <code>menu-header.html</code></li>
+      <li>Fix duplicate <code>id="navbarDropdown"</code> (from Phase 1 tutorial)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0;color:var(--p3)">Part 3 — i18n</h3>
+    <ul class="checklist">
+      <li>Create <code>_data/i18n/fr.yml</code>, <code>en.yml</code>, <code>vi.yml</code></li>
+      <li>Add <code>default_lang: fr</code> and <code>languages: [fr, en, vi]</code> to <code>_config.yml</code></li>
+      <li>Add <code>{%- assign t = site.data.i18n[page.lang | default: site.default_lang] -%}</code> to <code>default.html</code>, <code>post.html</code>, <code>post-sidebar.html</code></li>
+      <li>Replace hardcoded UI strings with <code>{{ t.key }}</code></li>
+      <li>Create <code>_includes/lang-switcher.html</code></li>
+      <li>Add <code>lang: fr</code> to existing posts' front matter defaults in <code>_config.yml</code></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0;color:var(--p4)">Part 4 — _config.yml</h3>
+    <ul class="checklist">
+      <li>Replace <code>_config.yml</code> with the fully annotated version above</li>
+      <li>Rename <code>Gemfile_.lock</code> → <code>Gemfile.lock</code> and pin gem versions</li>
+      <li>Add <code>lang: fr</code> under the <code>_posts</code> defaults block</li>
+      <li>Add <code>_courses</code> collection block</li>
+      <li>Update exclude list to remove build artifacts</li>
+    </ul>
+  </div>
+
+  <div class="callout tip" style="margin-top:24px">
+    <strong>Recommended order of implementation:</strong><br>
+    1. Create <code>tokens.css</code> and load it in <code>default.html</code> — this already makes dark mode work on the blog side.<br>
+    2. Fix the resume layout (replace the file) — this unifies the HTML shell.<br>
+    3. Migrate colors in <code>style.scss</code> — this makes dark mode work on the resume too.<br>
+    4. Add i18n files and the translation lookup — the switcher can come last.<br>
+    After step 2, you can verify dark mode works on both pages by adding <code>data-theme="dark"</code> manually to the <code>&lt;html&gt;</code> tag in DevTools.
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+const sections = document.querySelectorAll('section[id], h2[id]');
+const navLinks = document.querySelectorAll('nav.sidebar a');
+const obs = new IntersectionObserver(e => {
+  e.forEach(en => {
+    if (en.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const a = document.querySelector(`nav a[href="#${en.target.id}"]`);
+      if (a) a.classList.add('active');
+    }
+  });
+}, { rootMargin: '-15% 0px -72% 0px' });
+sections.forEach(s => obs.observe(s));
+</script>
+</body>
+</html>

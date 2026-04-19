@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jekyll eLearning Tutorial — expred.co</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&family=DM+Sans:wght@400;500&display=swap');
+
+  :root {
+    --bg: #0e0f11;
+    --surface: #161719;
+    --surface2: #1e2024;
+    --border: #2a2d33;
+    --accent: #00d4a0;
+    --accent2: #ff6b6b;
+    --accent3: #f5c542;
+    --text: #e8eaed;
+    --muted: #8b9099;
+    --code-bg: #12141a;
+    --phase1: #00d4a0;
+    --phase2: #6c8fff;
+    --phase3: #f5a623;
+    --phase4: #e55b8a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  /* ── Layout ── */
+  .shell { display: flex; min-height: 100vh; }
+
+  nav.sidebar {
+    width: 270px;
+    min-width: 270px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 28px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+
+  nav.sidebar .logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent);
+    padding: 0 24px 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+  }
+  nav.sidebar .logo span { color: var(--muted); font-weight: 300; font-style: italic; display: block; font-size: 0.8rem; margin-top: 2px; }
+
+  nav.sidebar a {
+    display: block;
+    padding: 7px 24px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.82rem;
+    transition: all 0.15s;
+    border-left: 2px solid transparent;
+  }
+  nav.sidebar a:hover { color: var(--text); background: var(--surface2); }
+  nav.sidebar a.active { color: var(--accent); border-left-color: var(--accent); background: rgba(0,212,160,0.06); }
+
+  nav.sidebar .nav-section {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    padding: 16px 24px 6px;
+  }
+
+  main {
+    flex: 1;
+    padding: 60px 64px;
+    max-width: 900px;
+  }
+
+  /* ── Typography ── */
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  h1 .accent { color: var(--accent); }
+
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 56px 0 20px;
+    padding-top: 56px;
+    border-top: 1px solid var(--border);
+  }
+  h2:first-of-type { margin-top: 40px; border-top: none; padding-top: 0; }
+
+  h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text);
+    margin: 32px 0 12px;
+  }
+
+  h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin: 24px 0 8px;
+  }
+
+  p { margin-bottom: 14px; color: #cdd0d6; }
+  p:last-child { margin-bottom: 0; }
+
+  strong { color: var(--text); font-weight: 500; }
+
+  /* ── Hero ── */
+  .hero {
+    background: linear-gradient(135deg, rgba(0,212,160,0.08) 0%, rgba(108,143,255,0.06) 100%);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 36px 40px;
+    margin-bottom: 40px;
+  }
+  .hero .subtitle {
+    color: var(--muted);
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+  .hero .meta {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .hero .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    background: var(--surface2);
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+  }
+  .hero .meta-item .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* ── Phase badges ── */
+  .phase-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .phase-badge.p1 { background: rgba(0,212,160,0.12); color: var(--phase1); border: 1px solid rgba(0,212,160,0.2); }
+  .phase-badge.p2 { background: rgba(108,143,255,0.12); color: var(--phase2); border: 1px solid rgba(108,143,255,0.2); }
+  .phase-badge.p3 { background: rgba(245,166,35,0.12); color: var(--phase3); border: 1px solid rgba(245,166,35,0.2); }
+  .phase-badge.p4 { background: rgba(229,91,138,0.12); color: var(--phase4); border: 1px solid rgba(229,91,138,0.2); }
+
+  /* ── Code blocks ── */
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    overflow-x: auto;
+    margin: 16px 0 20px;
+    position: relative;
+  }
+  pre .lang-label {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    font-size: 0.68rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: #e8eaed;
+  }
+  p code, li code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: var(--accent);
+  }
+
+  /* Syntax highlight tokens */
+  .k { color: #c792ea; } /* keyword */
+  .s { color: #c3e88d; } /* string */
+  .c { color: #546e7a; font-style: italic; } /* comment */
+  .n { color: #82aaff; } /* name/variable */
+  .p { color: #89ddff; } /* punctuation */
+  .v { color: #f78c6c; } /* value/number */
+  .f { color: #ffcb6b; } /* function */
+  .t { color: #00d4a0; } /* tag/key */
+  .h { color: #ff6b6b; } /* highlight */
+
+  /* ── Callout boxes ── */
+  .callout {
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 20px 0;
+    border-left: 3px solid;
+    font-size: 0.9rem;
+  }
+  .callout.warn { background: rgba(245,197,66,0.07); border-color: var(--accent3); color: #ddc97a; }
+  .callout.info { background: rgba(108,143,255,0.07); border-color: var(--phase2); color: #9fb3ff; }
+  .callout.tip  { background: rgba(0,212,160,0.07); border-color: var(--accent); color: #80e8c8; }
+  .callout.danger { background: rgba(255,107,107,0.07); border-color: var(--accent2); color: #ff9e9e; }
+  .callout strong { color: inherit; font-weight: 600; }
+
+  /* ── File tree ── */
+  .file-tree {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    line-height: 2;
+  }
+  .file-tree .dir { color: var(--accent); }
+  .file-tree .file { color: #cdd0d6; }
+  .file-tree .new { color: var(--accent3); }
+  .file-tree .new::after { content: " ← NEW"; font-size: 0.65rem; color: var(--accent3); opacity: 0.7; }
+  .file-tree .comment { color: var(--muted); font-style: italic; }
+
+  /* ── Step list ── */
+  .step-list { list-style: none; counter-reset: steps; }
+  .step-list li {
+    counter-increment: steps;
+    position: relative;
+    padding-left: 44px;
+    margin-bottom: 24px;
+  }
+  .step-list li::before {
+    content: counter(steps);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .step-list li strong { display: block; color: var(--text); margin-bottom: 4px; }
+
+  /* ── Check list ── */
+  .check-list { list-style: none; }
+  .check-list li {
+    padding: 6px 0 6px 28px;
+    position: relative;
+    color: #cdd0d6;
+    border-bottom: 1px solid var(--border);
+  }
+  .check-list li:last-child { border-bottom: none; }
+  .check-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ── Diff view ── */
+  .diff { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin: 16px 0 20px; }
+  .diff-header { background: var(--surface2); padding: 8px 16px; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); border-bottom: 1px solid var(--border); }
+  .diff pre { border: none; border-radius: 0; margin: 0; padding: 16px 20px; }
+  .del { color: #ff8888; background: rgba(255,107,107,0.08); display: block; margin: 0 -20px; padding: 0 20px; }
+  .add { color: #88ffbb; background: rgba(0,212,160,0.08); display: block; margin: 0 -20px; padding: 0 20px; }
+
+  /* ── Section cards ── */
+  .section-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin: 20px 0;
+  }
+  .section-card h3 { margin-top: 0; }
+
+  /* ── Two-col ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .two-col .col { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; }
+  .two-col .col h4 { margin-top: 0; }
+
+  /* ── Progress bar ── */
+  .roadmap {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 24px 0;
+  }
+  .roadmap-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .roadmap-item .track {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    flex-shrink: 0;
+  }
+  .roadmap-item .dot-ring {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: var(--bg);
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+  .roadmap-item .line {
+    width: 2px;
+    flex: 1;
+    min-height: 24px;
+    background: var(--border);
+    margin: 4px 0;
+  }
+  .roadmap-item:last-child .line { display: none; }
+  .roadmap-item .body { padding-bottom: 28px; flex: 1; }
+  .roadmap-item .body strong { color: var(--text); }
+  .roadmap-item .body p { margin: 4px 0 0; font-size: 0.85rem; color: var(--muted); }
+
+  /* ── Table ── */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.85rem; }
+  th { background: var(--surface2); color: var(--accent); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 10px 14px; text-align: left; border-bottom: 2px solid var(--border); }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: #cdd0d6; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td code { font-size: 0.76rem; }
+
+  /* ── Scrollbar ── */
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ── Print / mobile ── */
+  @media (max-width: 900px) {
+    .shell { flex-direction: column; }
+    nav.sidebar { width: 100%; height: auto; position: relative; }
+    main { padding: 32px 20px; }
+    .two-col { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+<!-- ════════════ SIDEBAR ════════════ -->
+<nav class="sidebar">
+  <div class="logo">Jekyll eLearning Guide<span>for expred.co / ductrivo</span></div>
+
+  <div class="nav-section">Overview</div>
+  <a href="#overview" class="active">Introduction</a>
+  <a href="#stack">Current Stack Analysis</a>
+
+  <div class="nav-section">Phase 1 — Bug Fixes</div>
+  <a href="#fix-robots">1.1 robots.txt</a>
+  <a href="#fix-mathjax">1.2 MathJax → v3</a>
+  <a href="#fix-rawgit">1.3 Dead CDN (rawgit)</a>
+  <a href="#fix-nav-ids">1.4 Duplicate nav IDs</a>
+  <a href="#fix-index">1.5 Hardcoded index.html</a>
+  <a href="#fix-svgs">1.6 SVG bloat</a>
+
+  <div class="nav-section">Phase 2 — Courses</div>
+  <a href="#courses-collection">2.1 _courses collection</a>
+  <a href="#courses-data">2.2 YAML data structure</a>
+  <a href="#courses-layout">2.3 Course layout</a>
+  <a href="#courses-lesson">2.4 Lesson layout</a>
+  <a href="#courses-progress">2.5 Progress with localStorage</a>
+  <a href="#courses-nav">2.6 Navigation</a>
+
+  <div class="nav-section">Phase 3 — Quizzes</div>
+  <a href="#quiz-frontmatter">3.1 Quiz in front matter</a>
+  <a href="#quiz-include">3.2 quiz.html include</a>
+  <a href="#quiz-js">3.3 Quiz JavaScript</a>
+  <a href="#quiz-usage">3.4 Usage examples</a>
+
+  <div class="nav-section">Phase 4 — Interactives</div>
+  <a href="#interactive-robot">4.1 SVG Robot Arm</a>
+  <a href="#interactive-bode">4.2 Bode Plot (Plotly)</a>
+  <a href="#interactive-pyodide">4.3 Python in Browser</a>
+  <a href="#interactive-include">4.4 Clean include pattern</a>
+
+  <div class="nav-section">Phase 5 — Polish</div>
+  <a href="#seo">5.1 SEO &amp; Performance</a>
+  <a href="#gemfile">5.2 Gemfile cleanup</a>
+  <a href="#deploy">5.3 GitHub Actions deploy</a>
+</nav>
+
+<!-- ════════════ MAIN ════════════ -->
+<main>
+
+<!-- ── Overview ── -->
+<section id="overview">
+  <div class="hero">
+    <h1>Jekyll <span class="accent">eLearning</span> Guide</h1>
+    <p class="subtitle">A step-by-step tutorial to fix your current issues and build a full course platform — all on static Jekyll + GitHub Pages.</p>
+    <div class="meta">
+      <div class="meta-item"><span class="dot"></span> Jekyll 4 + GitHub Pages</div>
+      <div class="meta-item"><span class="dot" style="background:var(--phase2)"></span> Bootstrap 4 (your existing CSS)</div>
+      <div class="meta-item"><span class="dot" style="background:var(--accent3)"></span> Vanilla JS only</div>
+      <div class="meta-item"><span class="dot" style="background:var(--phase4)"></span> No backend needed</div>
+    </div>
+  </div>
+
+  <p>This guide covers everything in order: first fix the bugs that are silently hurting your site right now, then layer on the eLearning infrastructure. Each section gives you exact code — not pseudocode — that slots directly into your existing structure.</p>
+
+  <div class="roadmap">
+    <div class="roadmap-item">
+      <div class="track"><div class="dot-ring" style="border-color:var(--phase1)"></div><div class="line"></div></div>
+      <div class="body"><strong>Phase 1 — Bug Fixes</strong> (1–2 hours)<p>Fix MathJax, dead CDNs, duplicate IDs, robots.txt, SVG bloat, hardcoded index</p></div>
+    </div>
+    <div class="roadmap-item">
+      <div class="track"><div class="dot-ring" style="border-color:var(--phase2)"></div><div class="line"></div></div>
+      <div class="body"><strong>Phase 2 — Course Structure</strong> (half a day)<p>New _courses collection, YAML metadata, course/lesson layouts, localStorage progress</p></div>
+    </div>
+    <div class="roadmap-item">
+      <div class="track"><div class="dot-ring" style="border-color:var(--phase3)"></div><div class="line"></div></div>
+      <div class="body"><strong>Phase 3 — Quizzes</strong> (1–2 hours)<p>Front matter-driven quizzes, scoring, answer reveal — zero server needed</p></div>
+    </div>
+    <div class="roadmap-item">
+      <div class="track"><div class="dot-ring" style="border-color:var(--phase4)"></div><div class="line"></div></div>
+      <div class="body"><strong>Phase 4 — Interactive Activities</strong> (ongoing)<p>SVG robot arm simulator, Bode plot explorer, Python sandbox via Pyodide</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Stack ── -->
+<section id="stack">
+  <h2>Current Stack Analysis</h2>
+  <p>Your site is a <strong>Jekyll 4</strong> site using the <strong>Mundana theme</strong> (Bootstrap 4 base), with jekyll-scholar for academic references, jekyll-toc for table of contents, and Lunr.js for client-side search. Here's what's actually running:</p>
+
+  <table>
+    <tr><th>Component</th><th>Current version</th><th>Status</th></tr>
+    <tr><td>Jekyll</td><td>Gemfile (unversioned)</td><td>✅ Fine</td></tr>
+    <tr><td>Bootstrap CSS</td><td>4.2.1 compiled in main.css</td><td>⚠️ Old but usable</td></tr>
+    <tr><td>jQuery</td><td>3.3.1 from CDN</td><td>⚠️ Old, fine functionally</td></tr>
+    <tr><td>MathJax</td><td>v2 from <code>cdn.mathjax.org</code></td><td>🔴 Decommissioned CDN</td></tr>
+    <tr><td>Bootstrap TOC</td><td>v1 from <code>cdn.rawgit.com</code></td><td>🔴 Shut down — silently broken</td></tr>
+    <tr><td>FontAwesome</td><td>5.3.1 (2018)</td><td>⚠️ Works but outdated icons</td></tr>
+    <tr><td>robots.txt</td><td>Saved as <code>robot.txt</code></td><td>🔴 Wrong filename — ignored by crawlers</td></tr>
+    <tr><td>SVG icons</td><td>2,037 files in /resources/svgs</td><td>🔴 Massive repo bloat</td></tr>
+  </table>
+</section>
+
+<!-- ════════════ PHASE 1 ════════════ -->
+<h2 id="phase1-heading" style="color:var(--phase1)">Phase 1 — Bug Fixes</h2>
+
+<!-- 1.1 robots.txt -->
+<section id="fix-robots">
+  <span class="phase-badge p1">Phase 1.1</span>
+  <h3>Fix robots.txt filename</h3>
+  <p>You have <code>robot.txt</code> (missing the <em>s</em>). Search engine crawlers look for <code>robots.txt</code> exactly — your current file is invisible to them.</p>
+
+  <h4>Action</h4>
+  <p>In your repo root, rename the file:</p>
+  <pre><code><span class="c"># In terminal / git</span>
+git mv robot.txt robots.txt
+git commit -m "fix: rename robot.txt to robots.txt"</code></pre>
+
+  <p>Then verify the file content. It should read:</p>
+  <pre><code><span class="t">User-agent</span>: *
+<span class="t">Allow</span>: /
+<span class="t">Sitemap</span>: https://expred.co/sitemap.xml</code></pre>
+
+  <div class="callout tip">The sitemap line is important — jekyll-sitemap generates <code>/sitemap.xml</code> automatically, and adding it to robots.txt tells Google where to find it without waiting for discovery.</div>
+</section>
+
+<!-- 1.2 MathJax -->
+<section id="fix-mathjax">
+  <span class="phase-badge p1">Phase 1.2</span>
+  <h3>Migrate MathJax v2 → v3</h3>
+
+  <p><code>cdn.mathjax.org</code> was decommissioned in 2017. Depending on your browser cache, equations may be rendering via a redirect to jsDelivr, or silently broken for some users. MathJax v3 is also 60–80% faster to load.</p>
+
+  <h4>In <code>_layouts/default.html</code>, replace the entire MathJax block</h4>
+
+  <div class="diff">
+    <div class="diff-header">_layouts/default.html — MathJax section</div>
+    <pre><code><span class="del">- &lt;script type="text/x-mathjax-config"&gt;</span>
+<span class="del">-   MathJax.Hub.Config({</span>
+<span class="del">-     "HTML-CSS": { linebreaks: { automatic: true } },</span>
+<span class="del">-     SVG: { linebreaks: { automatic: true } },</span>
+<span class="del">-     TeX: { equationNumbers: { autoNumber: "AMS" } }</span>
+<span class="del">-   });</span>
+<span class="del">- &lt;/script&gt;</span>
+<span class="del">- &lt;script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js</span>
+<span class="del">-   ?config=TeX-AMS-MML_HTMLorMML"&gt;&lt;/script&gt;</span>
+
+<span class="add">+ &lt;script&gt;</span>
+<span class="add">+   window.MathJax = {</span>
+<span class="add">+     tex: {</span>
+<span class="add">+       inlineMath: [['$', '$'], ['\\(', '\\)']],</span>
+<span class="add">+       displayMath: [['$$', '$$'], ['\\[', '\\]']],</span>
+<span class="add">+       tags: 'ams'  // automatic equation numbering</span>
+<span class="add">+     },</span>
+<span class="add">+     svg: { fontCache: 'global' },</span>
+<span class="add">+     options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }</span>
+<span class="add">+   };</span>
+<span class="add">+ &lt;/script&gt;</span>
+<span class="add">+ &lt;script id="MathJax-script" async</span>
+<span class="add">+   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"&gt;</span>
+<span class="add">+ &lt;/script&gt;</span></code></pre>
+  </div>
+
+  <div class="callout info">MathJax v3 uses <code>tex-svg.js</code> instead of the old HTML-CSS renderer. SVG output looks sharper on all screens and handles the complex robotics equations in your posts better. The <code>async</code> attribute means it no longer blocks page rendering.</div>
+
+  <div class="callout warn"><strong>Syntax note:</strong> The v3 config uses <code>tex.tags: 'ams'</code> instead of <code>TeX.equationNumbers</code>. Your existing LaTeX in posts (using <code>$$...$$</code>, <code>\begin{equation}</code> etc.) will continue to work unchanged.</div>
+</section>
+
+<!-- 1.3 rawgit -->
+<section id="fix-rawgit">
+  <span class="phase-badge p1">Phase 1.3</span>
+  <h3>Replace the dead rawgit CDN</h3>
+
+  <p>You're loading Bootstrap TOC from <code>cdn.rawgit.com</code>, which shut down in October 2019. The request silently fails (or 404s), meaning your side TOC in <code>post-sidebar.html</code> may not be auto-populating correctly.</p>
+
+  <div class="diff">
+    <div class="diff-header">_layouts/default.html — Bootstrap TOC</div>
+    <pre><code><span class="del">- &lt;link rel="stylesheet"</span>
+<span class="del">-   href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/&gt;</span>
+<span class="del">- &lt;script</span>
+<span class="del">-   src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"&gt;</span>
+<span class="del">- &lt;/script&gt;</span>
+
+<span class="add">+ &lt;link rel="stylesheet"</span>
+<span class="add">+   href="https://cdn.jsdelivr.net/npm/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.css"/&gt;</span>
+<span class="add">+ &lt;script</span>
+<span class="add">+   src="https://cdn.jsdelivr.net/npm/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.js"&gt;</span>
+<span class="add">+ &lt;/script&gt;</span></code></pre>
+  </div>
+
+  <p>Same library, same version — just served from a working CDN.</p>
+</section>
+
+<!-- 1.4 nav IDs -->
+<section id="fix-nav-ids">
+  <span class="phase-badge p1">Phase 1.4</span>
+  <h3>Fix duplicate dropdown IDs in navigation</h3>
+
+  <p>Both dropdown items in <code>_includes/menu-header.html</code> share <code>id="navbarDropdown"</code>. This violates HTML spec (IDs must be unique per page), breaks ARIA accessibility, and can cause Bootstrap's JS to attach click handlers to only the first match.</p>
+
+  <div class="diff">
+    <div class="diff-header">_includes/menu-header.html</div>
+    <pre><code><span class="c">&lt;!-- Tutorials dropdown --&gt;</span>
+&lt;a class="nav-link dropdown-toggle" href="#"
+<span class="del">-   id="navbarDropdown"</span>
+<span class="add">+   id="navbarDropdownTutorials"</span>
+   role="button" data-toggle="dropdown"
+<span class="del">-   aria-labelledby="navbarDropdown"&gt;</span>
+<span class="add">+   aria-labelledby="navbarDropdownTutorials"&gt;</span>
+   Tutorials
+&lt;/a&gt;
+<span class="del">- &lt;div class="dropdown-menu" aria-labelledby="navbarDropdown"&gt;</span>
+<span class="add">+ &lt;div class="dropdown-menu" aria-labelledby="navbarDropdownTutorials"&gt;</span>
+
+<span class="c">&lt;!-- Categories dropdown --&gt;</span>
+&lt;a class="nav-link dropdown-toggle" href="#"
+<span class="del">-   id="navbarDropdown"</span>
+<span class="add">+   id="navbarDropdownCategories"</span>
+   role="button" data-toggle="dropdown"
+<span class="del">-   aria-labelledby="navbarDropdown"&gt;</span>
+<span class="add">+   aria-labelledby="navbarDropdownCategories"&gt;</span>
+   Categories
+&lt;/a&gt;
+<span class="del">- &lt;div class="dropdown-menu" aria-labelledby="navbarDropdown"&gt;</span>
+<span class="add">+ &lt;div class="dropdown-menu" aria-labelledby="navbarDropdownCategories"&gt;</span></code></pre>
+  </div>
+</section>
+
+<!-- 1.5 index -->
+<section id="fix-index">
+  <span class="phase-badge p1">Phase 1.5</span>
+  <h3>Fix hardcoded posts in index.html</h3>
+
+  <p>Your <code>index.html</code> hardcodes <code>site.posts[0]</code> through <code>site.posts[3]</code> as four separate copy-pasted blocks. This is fragile — if a post has no image, some blocks silently render nothing. Replace with a clean loop.</p>
+
+  <p>Find the large "Begin post excerpts" section and replace the entire thing with:</p>
+
+  <pre><code><span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"row remove-site-content-margin"</span><span class="t">&gt;</span>
+  <span class="c">{%- assign featured_posts = site.posts | slice: 0, 4 -%}</span>
+
+  <span class="c">{%- assign first = featured_posts[0] -%}</span>
+  <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"col-md-6"</span><span class="t">&gt;</span>
+    <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"card border-0 mb-4 box-shadow"</span><span class="t">&gt;</span>
+      <span class="t">&lt;a</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}{{first.url}}"</span><span class="t">&gt;</span>
+        <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"topfirstimage"</span>
+          <span class="n">style</span>=<span class="s">"background-image:url({{ first.image }});
+                 height:200px; background-size:contain;
+                 background-position:center; background-repeat:no-repeat;"</span><span class="t">&gt;&lt;/div&gt;</span>
+      <span class="t">&lt;/a&gt;</span>
+      <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"card-body px-0 pb-0 d-flex flex-column"</span><span class="t">&gt;</span>
+        <span class="t">&lt;h2</span> <span class="n">class</span>=<span class="s">"h2 font-weight-bold"</span><span class="t">&gt;</span>
+          <span class="t">&lt;a</span> <span class="n">class</span>=<span class="s">"text-dark"</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}{{first.url}}"</span><span class="t">&gt;</span>{{ first.title }}<span class="t">&lt;/a&gt;</span>
+        <span class="t">&lt;/h2&gt;</span>
+        <span class="t">&lt;p</span> <span class="n">class</span>=<span class="s">"excerpt"</span><span class="t">&gt;</span>{{ first.description | strip_html | truncate: 136 }}<span class="t">&lt;/p&gt;</span>
+        <span class="t">&lt;small</span> <span class="n">class</span>=<span class="s">"text-muted"</span><span class="t">&gt;</span>{{ first.date | date: '%b %d, %Y' }}<span class="t">&lt;/small&gt;</span>
+      <span class="t">&lt;/div&gt;</span>
+    <span class="t">&lt;/div&gt;</span>
+  <span class="t">&lt;/div&gt;</span>
+
+  <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"col-md-6"</span><span class="t">&gt;</span>
+    <span class="c">{%- for post in featured_posts offset: 1 -%}</span>
+    <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"mb-3 d-flex align-items-center"</span><span class="t">&gt;</span>
+      <span class="c">{%- if post.image -%}</span>
+      <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"col-md-4 pl-0"</span><span class="t">&gt;</span>
+        <span class="t">&lt;a</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}{{post.url}}"</span><span class="t">&gt;</span>
+          <span class="t">&lt;img</span> <span class="n">class</span>=<span class="s">"w-100"</span> <span class="n">src</span>=<span class="s">"{{ post.image }}"</span> <span class="n">alt</span>=<span class="s">"{{ post.title }}"</span> <span class="n">loading</span>=<span class="s">"lazy"</span><span class="t">&gt;</span>
+        <span class="t">&lt;/a&gt;</span>
+      <span class="t">&lt;/div&gt;</span>
+      <span class="c">{%- endif -%}</span>
+      <span class="t">&lt;div&gt;</span>
+        <span class="t">&lt;h2</span> <span class="n">class</span>=<span class="s">"mb-2 h3 font-weight-bold"</span><span class="t">&gt;</span>
+          <span class="t">&lt;a</span> <span class="n">class</span>=<span class="s">"text-dark"</span> <span class="n">href</span>=<span class="s">"{{site.baseurl}}{{post.url}}"</span><span class="t">&gt;</span>{{ post.title }}<span class="t">&lt;/a&gt;</span>
+        <span class="t">&lt;/h2&gt;</span>
+        <span class="t">&lt;small</span> <span class="n">class</span>=<span class="s">"text-muted"</span><span class="t">&gt;</span>{{ post.date | date: '%b %d, %Y' }}<span class="t">&lt;/small&gt;</span>
+      <span class="t">&lt;/div&gt;</span>
+    <span class="t">&lt;/div&gt;</span>
+    <span class="c">{%- endfor -%}</span>
+  <span class="t">&lt;/div&gt;</span>
+<span class="t">&lt;/div&gt;</span></code></pre>
+
+  <div class="callout tip">The key improvements: uses <code>slice</code> + <code>offset</code> instead of hardcoded indices, adds <code>loading="lazy"</code> to thumbnails, and gracefully handles posts without images in all slots.</div>
+</section>
+
+<!-- 1.6 SVGs -->
+<section id="fix-svgs">
+  <span class="phase-badge p1">Phase 1.6</span>
+  <h3>Remove unused SVG bloat</h3>
+
+  <p>You have 2,037 FontAwesome SVG files (~600KB+) in <code>resources/svgs/</code> shipped in your repo. These inflate clone times, GitHub storage, and GitHub Pages build times. You're already loading FontAwesome from a CDN in <code>default.html</code>, so these local files are never referenced.</p>
+
+  <pre><code><span class="c"># Check if any template actually references the local svgs folder</span>
+grep -r <span class="s">"resources/svgs"</span> _layouts/ _includes/ _pages/ _posts/
+
+<span class="c"># If no output (nothing uses them), safe to delete:</span>
+git rm -r resources/svgs/
+git commit -m <span class="s">"chore: remove unused local FontAwesome SVGs (using CDN)"</span></code></pre>
+
+  <div class="callout warn">Run the <code>grep</code> first. If your resume layout or any custom template references <code>resources/svgs/</code>, keep only those specific files and delete the rest.</div>
+</section>
+
+<!-- ════════════ PHASE 2 ════════════ -->
+<h2 style="color:var(--phase2)">Phase 2 — Course Structure</h2>
+
+<section id="courses-collection">
+  <span class="phase-badge p2">Phase 2.1</span>
+  <h3>Add the _courses collection</h3>
+
+  <p>Jekyll collections are the right tool here — they're like <code>_posts</code> but without the date-in-filename requirement, so you get clean URLs like <code>/courses/robotics/kinematics/</code>.</p>
+
+  <h4>Step 1 — Add to _config.yml</h4>
+  <pre><code><span class="c"># Add this block to _config.yml</span>
+<span class="t">collections</span>:
+  <span class="t">courses</span>:
+    <span class="t">output</span>: <span class="k">true</span>
+    <span class="t">permalink</span>: <span class="s">/courses/:path/</span>
+
+<span class="c"># Also add a default layout for course lessons</span>
+<span class="t">defaults</span>:
+  <span class="c"># ... your existing defaults ...</span>
+
+  <span class="c"># Course index pages</span>
+  - <span class="t">scope</span>:
+      <span class="t">path</span>: <span class="s">"_courses"</span>
+      <span class="t">type</span>: <span class="s">"courses"</span>
+    <span class="t">values</span>:
+      <span class="t">layout</span>: lesson
+      <span class="t">author</span>: ductri</code></pre>
+
+  <h4>Step 2 — Create the directory structure</h4>
+  <div class="file-tree">
+    <span class="dir">_courses/</span><br>
+    &nbsp;&nbsp;<span class="dir">robotics/</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="new">index.md</span> &nbsp;&nbsp;&nbsp;<span class="comment"># Course overview page</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="new">01-introduction.md</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="new">02-kinematics.md</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="new">03-dynamics.md</span><br>
+    &nbsp;&nbsp;<span class="dir">control-systems/</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="new">index.md</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="new">01-pid-control.md</span><br>
+    <span class="new">_data/courses.yml</span><br>
+    <span class="new">_layouts/course.html</span><br>
+    <span class="new">_layouts/lesson.html</span><br>
+    <span class="new">_includes/lesson-sidebar.html</span><br>
+    <span class="new">_includes/quiz.html</span><br>
+    <span class="new">assets/js/quiz.js</span><br>
+    <span class="new">assets/js/progress.js</span>
+  </div>
+</section>
+
+<section id="courses-data">
+  <span class="phase-badge p2">Phase 2.2</span>
+  <h3>Course YAML data structure</h3>
+
+  <p>Create <code>_data/courses.yml</code>. This is your master course catalog — the layouts read from this to build navigation, progress tracking, and the course index page.</p>
+
+  <pre><code><span class="c"># _data/courses.yml</span>
+- <span class="t">id</span>: robotics
+  <span class="t">title</span>: <span class="s">"Robotics Modeling, Control &amp; Design"</span>
+  <span class="t">slug</span>: robotics
+  <span class="t">description</span>: <span class="s">"From kinematics to MPC — build and control a 3R robot arm"</span>
+  <span class="t">level</span>: intermediate
+  <span class="t">duration_hours</span>: <span class="v">20</span>
+  <span class="t">image</span>: <span class="s">"https://i.imgur.com/QlCwtKa.png"</span>
+  <span class="t">modules</span>:
+    - <span class="t">id</span>: kinematics
+      <span class="t">title</span>: <span class="s">"Module 1: Kinematic Modeling"</span>
+      <span class="t">lessons</span>:
+        - <span class="t">slug</span>: <span class="s">"01-introduction"</span>
+          <span class="t">title</span>: <span class="s">"Introduction to Robotics"</span>
+          <span class="t">duration_min</span>: <span class="v">15</span>
+        - <span class="t">slug</span>: <span class="s">"02-kinematics"</span>
+          <span class="t">title</span>: <span class="s">"Forward &amp; Inverse Kinematics"</span>
+          <span class="t">duration_min</span>: <span class="v">45</span>
+          <span class="t">has_quiz</span>: <span class="k">true</span>
+    - <span class="t">id</span>: dynamics
+      <span class="t">title</span>: <span class="s">"Module 2: Dynamics"</span>
+      <span class="t">lessons</span>:
+        - <span class="t">slug</span>: <span class="s">"03-dynamics"</span>
+          <span class="t">title</span>: <span class="s">"Lagrangian Dynamics"</span>
+          <span class="t">duration_min</span>: <span class="v">60</span>
+          <span class="t">has_quiz</span>: <span class="k">true</span>
+          <span class="t">has_interactive</span>: <span class="k">true</span>
+
+- <span class="t">id</span>: control-systems
+  <span class="t">title</span>: <span class="s">"Control Systems Engineering"</span>
+  <span class="t">slug</span>: control-systems
+  <span class="t">description</span>: <span class="s">"PID, MPC, and modern control theory"</span>
+  <span class="t">level</span>: advanced
+  <span class="t">duration_hours</span>: <span class="v">15</span>
+  <span class="t">image</span>: <span class="s">""</span>
+  <span class="t">modules</span>:
+    - <span class="t">id</span>: classical
+      <span class="t">title</span>: <span class="s">"Module 1: Classical Control"</span>
+      <span class="t">lessons</span>:
+        - <span class="t">slug</span>: <span class="s">"01-pid-control"</span>
+          <span class="t">title</span>: <span class="s">"PID Control &amp; Tuning"</span>
+          <span class="t">duration_min</span>: <span class="v">50</span>
+          <span class="t">has_interactive</span>: <span class="k">true</span></code></pre>
+
+  <h4>Lesson front matter</h4>
+  <p>Each file in <code>_courses/</code> uses this front matter:</p>
+  <pre><code><span class="c">---</span>
+<span class="c"># _courses/robotics/02-kinematics.md</span>
+<span class="t">layout</span>: lesson
+<span class="t">title</span>: <span class="s">"Forward &amp; Inverse Kinematics"</span>
+<span class="t">course</span>: robotics              <span class="c"># matches id in courses.yml</span>
+<span class="t">module</span>: kinematics             <span class="c"># matches module id</span>
+<span class="t">lesson_order</span>: <span class="v">2</span>               <span class="c"># for prev/next navigation</span>
+<span class="t">duration_min</span>: <span class="v">45</span>
+<span class="t">toc</span>: <span class="k">true</span>
+<span class="t">has_quiz</span>: <span class="k">true</span>
+<span class="t">has_interactive</span>: <span class="k">false</span>
+
+<span class="t">quiz</span>:
+  - <span class="t">question</span>: <span class="s">"What does FK stand for?"</span>
+    <span class="t">choices</span>: [<span class="s">"Forward Kinematics"</span>, <span class="s">"Final Kinetics"</span>, <span class="s">"Force Kinetics"</span>]
+    <span class="t">answer</span>: <span class="v">0</span>
+    <span class="t">explanation</span>: <span class="s">"FK = Forward Kinematics: given joint angles, find end-effector pose."</span>
+<span class="c">---</span></code></pre>
+</section>
+
+<section id="courses-layout">
+  <span class="phase-badge p2">Phase 2.3</span>
+  <h3>Course index layout</h3>
+
+  <p>Create <code>_layouts/course.html</code>. This renders the course overview page (the <code>index.md</code> in each course folder) with a module/lesson list and overall progress bar.</p>
+
+  <pre><code><span class="c">&lt;!-- _layouts/course.html --&gt;</span>
+---
+<span class="t">layout</span>: default
+---
+<span class="c">{%- assign course_data = site.data.courses | where: "id", page.course_id | first -%}</span>
+
+<span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"container mt-4"</span><span class="t">&gt;</span>
+
+  <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"row"</span><span class="t">&gt;</span>
+    <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"col-md-8"</span><span class="t">&gt;</span>
+
+      <span class="c">&lt;!-- Course header --&gt;</span>
+      <span class="t">&lt;p</span> <span class="n">class</span>=<span class="s">"text-muted text-uppercase small"</span><span class="t">&gt;</span>Course<span class="t">&lt;/p&gt;</span>
+      <span class="t">&lt;h1&gt;</span>{{ course_data.title }}<span class="t">&lt;/h1&gt;</span>
+      <span class="t">&lt;p</span> <span class="n">class</span>=<span class="s">"lead"</span><span class="t">&gt;</span>{{ course_data.description }}<span class="t">&lt;/p&gt;</span>
+
+      <span class="c">&lt;!-- Overall progress bar (filled by progress.js) --&gt;</span>
+      <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"mb-4"</span><span class="t">&gt;</span>
+        <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"d-flex justify-content-between small text-muted mb-1"</span><span class="t">&gt;</span>
+          <span class="t">&lt;span&gt;</span>Course progress<span class="t">&lt;/span&gt;</span>
+          <span class="t">&lt;span</span> <span class="n">id</span>=<span class="s">"course-progress-label"</span><span class="t">&gt;</span>0%<span class="t">&lt;/span&gt;</span>
+        <span class="t">&lt;/div&gt;</span>
+        <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"progress"</span> <span class="n">style</span>=<span class="s">"height:6px"</span><span class="t">&gt;</span>
+          <span class="t">&lt;div</span> <span class="n">id</span>=<span class="s">"course-progress-bar"</span> <span class="n">class</span>=<span class="s">"progress-bar bg-success"</span>
+            <span class="n">role</span>=<span class="s">"progressbar"</span> <span class="n">style</span>=<span class="s">"width:0%"</span><span class="t">&gt;&lt;/div&gt;</span>
+        <span class="t">&lt;/div&gt;</span>
+      <span class="t">&lt;/div&gt;</span>
+
+      <span class="c">&lt;!-- Module/lesson list --&gt;</span>
+      <span class="c">{%- for module in course_data.modules -%}</span>
+      <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"mb-4"</span><span class="t">&gt;</span>
+        <span class="t">&lt;h4&gt;</span>{{ module.title }}<span class="t">&lt;/h4&gt;</span>
+        <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"list-group"</span><span class="t">&gt;</span>
+          <span class="c">{%- for lesson in module.lessons -%}</span>
+          <span class="c">{%- assign lesson_url = "/courses/" | append: page.course_id | append: "/" | append: lesson.slug | append: "/" -%}</span>
+          <span class="t">&lt;a</span> <span class="n">href</span>=<span class="s">"{{ lesson_url }}"</span>
+            <span class="n">class</span>=<span class="s">"list-group-item list-group-item-action d-flex justify-content-between align-items-center"</span>
+            <span class="n">data-lesson-slug</span>=<span class="s">"{{ page.course_id }}/{{ lesson.slug }}"</span><span class="t">&gt;</span>
+            <span class="t">&lt;div&gt;</span>
+              <span class="t">&lt;span</span> <span class="n">class</span>=<span class="s">"lesson-check mr-2 text-muted"</span><span class="t">&gt;</span>○<span class="t">&lt;/span&gt;</span>
+              {{ lesson.title }}
+              <span class="c">{%- if lesson.has_quiz -%}</span>
+              <span class="t">&lt;span</span> <span class="n">class</span>=<span class="s">"badge badge-light ml-1"</span><span class="t">&gt;</span>Quiz<span class="t">&lt;/span&gt;</span>
+              <span class="c">{%- endif -%}</span>
+            <span class="t">&lt;/div&gt;</span>
+            <span class="t">&lt;small</span> <span class="n">class</span>=<span class="s">"text-muted"</span><span class="t">&gt;</span>{{ lesson.duration_min }} min<span class="t">&lt;/small&gt;</span>
+          <span class="t">&lt;/a&gt;</span>
+          <span class="c">{%- endfor -%}</span>
+        <span class="t">&lt;/div&gt;</span>
+      <span class="t">&lt;/div&gt;</span>
+      <span class="c">{%- endfor -%}</span>
+
+    <span class="t">&lt;/div&gt;</span>
+  <span class="t">&lt;/div&gt;</span>
+<span class="t">&lt;/div&gt;</span>
+
+<span class="t">&lt;script&gt;</span>
+<span class="c">// Inject progress from localStorage into the course overview</span>
+<span class="f">document</span>.<span class="f">addEventListener</span>(<span class="s">'DOMContentLoaded'</span>, <span class="k">function</span>() {
+  <span class="k">const</span> <span class="n">courseId</span> = <span class="s">'{{ page.course_id }}'</span>;
+  <span class="k">const</span> <span class="n">lessonLinks</span> = <span class="f">document</span>.<span class="f">querySelectorAll</span>(<span class="s">'[data-lesson-slug]'</span>);
+  <span class="k">let</span> <span class="n">completed</span> = <span class="v">0</span>;
+  <span class="n">lessonLinks</span>.<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">link</span>) {
+    <span class="k">const</span> <span class="n">slug</span> = <span class="n">link</span>.<span class="f">dataset</span>.<span class="n">lessonSlug</span>;
+    <span class="k">if</span> (<span class="f">localStorage</span>.<span class="f">getItem</span>(<span class="s">'lesson_done_'</span> + <span class="n">slug</span>) === <span class="s">'1'</span>) {
+      <span class="n">link</span>.<span class="f">querySelector</span>(<span class="s">'.lesson-check'</span>).textContent = <span class="s">'✓'</span>;
+      <span class="n">link</span>.<span class="f">querySelector</span>(<span class="s">'.lesson-check'</span>).style.color = <span class="s">'#28a745'</span>;
+      <span class="n">completed</span>++;
+    }
+  });
+  <span class="k">const</span> <span class="n">pct</span> = <span class="n">lessonLinks</span>.length ? <span class="f">Math</span>.<span class="f">round</span>(<span class="n">completed</span> / <span class="n">lessonLinks</span>.length * <span class="v">100</span>) : <span class="v">0</span>;
+  <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'course-progress-bar'</span>).style.width = <span class="n">pct</span> + <span class="s">'%'</span>;
+  <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'course-progress-label'</span>).textContent = <span class="n">pct</span> + <span class="s">'%'</span>;
+});
+<span class="t">&lt;/script&gt;</span></code></pre>
+</section>
+
+<section id="courses-lesson">
+  <span class="phase-badge p2">Phase 2.4</span>
+  <h3>Lesson layout with sidebar</h3>
+
+  <p>Create <code>_layouts/lesson.html</code>. This is similar to your existing <code>post-sidebar.html</code> but adds lesson-specific elements: module breadcrumb, estimated reading time, prev/next lesson navigation (not chronological, but by <code>lesson_order</code>), and a "Mark complete" button.</p>
+
+  <pre><code><span class="c">&lt;!-- _layouts/lesson.html --&gt;</span>
+---
+<span class="t">layout</span>: default
+---
+<span class="c">{%- assign course_data = site.data.courses | where: "id", page.course | first -%}</span>
+<span class="c">{%- assign all_lessons = site.courses | where: "course", page.course | sort: "lesson_order" -%}</span>
+<span class="c">{%- assign lesson_index = 0 -%}</span>
+<span class="c">{%- for l in all_lessons -%}</span>
+  <span class="c">{%- if l.url == page.url -%}{%- assign lesson_index = forloop.index0 -%}{%- endif -%}</span>
+<span class="c">{%- endfor -%}</span>
+<span class="c">{%- assign prev_lesson = all_lessons[lesson_index | minus: 1] -%}</span>
+<span class="c">{%- assign next_lesson = all_lessons[lesson_index | plus: 1] -%}</span>
+
+<span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"container mt-4"</span><span class="t">&gt;</span>
+
+  <span class="c">&lt;!-- Breadcrumb --&gt;</span>
+  <span class="t">&lt;nav</span> <span class="n">aria-label</span>=<span class="s">"breadcrumb"</span><span class="t">&gt;</span>
+    <span class="t">&lt;ol</span> <span class="n">class</span>=<span class="s">"breadcrumb bg-white pl-0 small"</span><span class="t">&gt;</span>
+      <span class="t">&lt;li</span> <span class="n">class</span>=<span class="s">"breadcrumb-item"</span><span class="t">&gt;&lt;a</span> <span class="n">href</span>=<span class="s">"/courses/"</span><span class="t">&gt;</span>Courses<span class="t">&lt;/a&gt;&lt;/li&gt;</span>
+      <span class="t">&lt;li</span> <span class="n">class</span>=<span class="s">"breadcrumb-item"</span><span class="t">&gt;&lt;a</span> <span class="n">href</span>=<span class="s">"/courses/{{ page.course }}/"</span><span class="t">&gt;</span>{{ course_data.title }}<span class="t">&lt;/a&gt;&lt;/li&gt;</span>
+      <span class="t">&lt;li</span> <span class="n">class</span>=<span class="s">"breadcrumb-item active"</span><span class="t">&gt;</span>{{ page.title }}<span class="t">&lt;/li&gt;</span>
+    <span class="t">&lt;/ol&gt;</span>
+  <span class="t">&lt;/nav&gt;</span>
+
+  <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"row"</span><span class="t">&gt;</span>
+
+    <span class="c">&lt;!-- Lesson sidebar: module nav --&gt;</span>
+    <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"col-md-3 d-none d-md-block"</span><span class="t">&gt;</span>
+      <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"sticky-top"</span> <span class="n">style</span>=<span class="s">"top:80px"</span><span class="t">&gt;</span>
+        <span class="c">{%- include lesson-sidebar.html course=course_data lessons=all_lessons -%}</span>
+      <span class="t">&lt;/div&gt;</span>
+    <span class="t">&lt;/div&gt;</span>
+
+    <span class="c">&lt;!-- Main lesson content --&gt;</span>
+    <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"col-md-9"</span><span class="t">&gt;</span>
+      <span class="t">&lt;h1&gt;</span>{{ page.title }}<span class="t">&lt;/h1&gt;</span>
+      <span class="t">&lt;p</span> <span class="n">class</span>=<span class="s">"text-muted small"</span><span class="t">&gt;</span>
+        ⏱ {{ page.duration_min }} min read
+        <span class="c">{%- if page.has_quiz -%}</span> · 📝 Includes quiz<span class="c">{%- endif -%}</span>
+        <span class="c">{%- if page.has_interactive -%}</span> · 🔬 Interactive demo<span class="c">{%- endif -%}</span>
+      <span class="t">&lt;/p&gt;</span>
+
+      <span class="t">&lt;article</span> <span class="n">class</span>=<span class="s">"article-post"</span><span class="t">&gt;</span>{{ content }}<span class="t">&lt;/article&gt;</span>
+
+      <span class="c">&lt;!-- Quiz (rendered if front matter has quiz: data) --&gt;</span>
+      <span class="c">{%- if page.quiz -%}</span>
+      <span class="c">{%- include quiz.html quiz=page.quiz -%}</span>
+      <span class="c">{%- endif -%}</span>
+
+      <span class="c">&lt;!-- Mark complete button --&gt;</span>
+      <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"my-5 text-center"</span><span class="t">&gt;</span>
+        <span class="t">&lt;button</span> <span class="n">id</span>=<span class="s">"btn-complete"</span> <span class="n">class</span>=<span class="s">"btn btn-success btn-lg"</span>
+          <span class="n">data-course</span>=<span class="s">"{{ page.course }}"</span>
+          <span class="n">data-slug</span>=<span class="s">"{{ page.course }}/{{ page.slug }}"</span><span class="t">&gt;</span>
+          Mark as Complete ✓
+        <span class="t">&lt;/button&gt;</span>
+      <span class="t">&lt;/div&gt;</span>
+
+      <span class="c">&lt;!-- Prev / Next navigation --&gt;</span>
+      <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"d-flex justify-content-between mt-4 pt-3 border-top"</span><span class="t">&gt;</span>
+        <span class="c">{%- if prev_lesson -%}</span>
+        <span class="t">&lt;a</span> <span class="n">href</span>=<span class="s">"{{ prev_lesson.url }}"</span> <span class="n">class</span>=<span class="s">"btn btn-outline-secondary"</span><span class="t">&gt;</span>
+          ← {{ prev_lesson.title }}
+        <span class="t">&lt;/a&gt;</span>
+        <span class="c">{%- else -%}&lt;div&gt;&lt;/div&gt;{%- endif -%}</span>
+        <span class="c">{%- if next_lesson -%}</span>
+        <span class="t">&lt;a</span> <span class="n">href</span>=<span class="s">"{{ next_lesson.url }}"</span> <span class="n">class</span>=<span class="s">"btn btn-success"</span><span class="t">&gt;</span>
+          {{ next_lesson.title }} →
+        <span class="t">&lt;/a&gt;</span>
+        <span class="c">{%- else -%}&lt;div&gt;&lt;/div&gt;{%- endif -%}</span>
+      <span class="t">&lt;/div&gt;</span>
+
+    <span class="t">&lt;/div&gt;</span>
+  <span class="t">&lt;/div&gt;</span>
+<span class="t">&lt;/div&gt;</span></code></pre>
+</section>
+
+<section id="courses-progress">
+  <span class="phase-badge p2">Phase 2.5</span>
+  <h3>Progress tracking with localStorage</h3>
+
+  <p>Create <code>assets/js/progress.js</code>. This handles the "Mark complete" button and persists state in <code>localStorage</code> — no login, no server, works offline.</p>
+
+  <pre><code><span class="c">// assets/js/progress.js</span>
+(<span class="k">function</span>() {
+  <span class="k">const</span> <span class="n">btn</span> = <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'btn-complete'</span>);
+  <span class="k">if</span> (!<span class="n">btn</span>) <span class="k">return</span>;
+
+  <span class="k">const</span> <span class="n">slug</span> = <span class="n">btn</span>.dataset.slug;
+  <span class="k">const</span> <span class="n">KEY</span> = <span class="s">'lesson_done_'</span> + <span class="n">slug</span>;
+
+  <span class="k">function</span> <span class="f">setDone</span>() {
+    <span class="n">btn</span>.textContent = <span class="s">'✓ Completed'</span>;
+    <span class="n">btn</span>.classList.<span class="f">remove</span>(<span class="s">'btn-success'</span>);
+    <span class="n">btn</span>.classList.<span class="f">add</span>(<span class="s">'btn-outline-success'</span>);
+    <span class="n">btn</span>.disabled = <span class="k">true</span>;
+  }
+
+  <span class="c">// Restore state on load</span>
+  <span class="k">if</span> (<span class="f">localStorage</span>.<span class="f">getItem</span>(<span class="n">KEY</span>) === <span class="s">'1'</span>) {
+    <span class="f">setDone</span>();
+  }
+
+  <span class="n">btn</span>.<span class="f">addEventListener</span>(<span class="s">'click'</span>, <span class="k">function</span>() {
+    <span class="f">localStorage</span>.<span class="f">setItem</span>(<span class="n">KEY</span>, <span class="s">'1'</span>);
+    <span class="f">setDone</span>();
+    <span class="c">// Optional: auto-advance to next lesson after 1.2s</span>
+    <span class="k">const</span> <span class="n">nextBtn</span> = <span class="f">document</span>.<span class="f">querySelector</span>(<span class="s">'a.btn-success[href]'</span>);
+    <span class="k">if</span> (<span class="n">nextBtn</span>) {
+      <span class="f">setTimeout</span>(<span class="k">function</span>() {
+        <span class="n">nextBtn</span>.style.animation = <span class="s">'pulse 0.4s ease'</span>;
+      }, <span class="v">800</span>);
+    }
+  });
+})();</code></pre>
+
+  <p>Add this script to the bottom of <code>_layouts/lesson.html</code> (before <code>&lt;/body&gt;</code> via the default layout, or via a <code>scripts</code> front matter variable if your default layout supports it):</p>
+  <pre><code><span class="t">&lt;script</span> <span class="n">src</span>=<span class="s">"{{ site.baseurl }}/assets/js/progress.js"</span><span class="t">&gt;&lt;/script&gt;</span></code></pre>
+</section>
+
+<section id="courses-nav">
+  <span class="phase-badge p2">Phase 2.6</span>
+  <h3>Lesson sidebar include</h3>
+
+  <p>Create <code>_includes/lesson-sidebar.html</code>. This renders the module navigation tree with completion checkmarks.</p>
+
+  <pre><code><span class="c">&lt;!-- _includes/lesson-sidebar.html --&gt;</span>
+<span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"lesson-sidebar"</span><span class="t">&gt;</span>
+  <span class="t">&lt;h6</span> <span class="n">class</span>=<span class="s">"text-uppercase text-muted small font-weight-bold mb-3"</span><span class="t">&gt;</span>
+    <span class="t">&lt;a</span> <span class="n">href</span>=<span class="s">"/courses/{{ include.course.id }}/"</span> <span class="n">class</span>=<span class="s">"text-muted"</span><span class="t">&gt;</span>
+      ← {{ include.course.title }}
+    <span class="t">&lt;/a&gt;</span>
+  <span class="t">&lt;/h6&gt;</span>
+
+  <span class="c">{%- for module in include.course.modules -%}</span>
+  <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"mb-3"</span><span class="t">&gt;</span>
+    <span class="t">&lt;small</span> <span class="n">class</span>=<span class="s">"text-uppercase text-muted font-weight-bold d-block mb-1"</span><span class="t">&gt;</span>
+      {{ module.title }}
+    <span class="t">&lt;/small&gt;</span>
+    <span class="c">{%- for lesson in module.lessons -%}</span>
+    <span class="c">{%- assign lesson_url = "/courses/" | append: include.course.id | append: "/" | append: lesson.slug | append: "/" -%}</span>
+    <span class="c">{%- assign is_active = false -%}</span>
+    <span class="c">{%- if page.url == lesson_url -%}{%- assign is_active = true -%}{%- endif -%}</span>
+    <span class="t">&lt;a</span> <span class="n">href</span>=<span class="s">"{{ lesson_url }}"</span>
+      <span class="n">class</span>=<span class="s">"d-block py-1 small {% if is_active %}font-weight-bold text-dark{% else %}text-muted{% endif %}"</span>
+      <span class="n">data-sidebar-lesson</span>=<span class="s">"{{ include.course.id }}/{{ lesson.slug }}"</span><span class="t">&gt;</span>
+      <span class="t">&lt;span</span> <span class="n">class</span>=<span class="s">"sidebar-check"</span><span class="t">&gt;</span>○<span class="t">&lt;/span&gt;</span>
+      {{ lesson.title }}
+    <span class="t">&lt;/a&gt;</span>
+    <span class="c">{%- endfor -%}</span>
+  <span class="t">&lt;/div&gt;</span>
+  <span class="c">{%- endfor -%}</span>
+<span class="t">&lt;/div&gt;</span>
+
+<span class="t">&lt;script&gt;</span>
+<span class="f">document</span>.<span class="f">querySelectorAll</span>(<span class="s">'[data-sidebar-lesson]'</span>).<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">el</span>) {
+  <span class="k">const</span> <span class="n">key</span> = <span class="s">'lesson_done_'</span> + <span class="n">el</span>.dataset.sidebarLesson;
+  <span class="k">if</span> (<span class="f">localStorage</span>.<span class="f">getItem</span>(<span class="n">key</span>) === <span class="s">'1'</span>) {
+    <span class="n">el</span>.<span class="f">querySelector</span>(<span class="s">'.sidebar-check'</span>).textContent = <span class="s">'✓ '</span>;
+    <span class="n">el</span>.<span class="f">querySelector</span>(<span class="s">'.sidebar-check'</span>).style.color = <span class="s">'#28a745'</span>;
+  }
+});
+<span class="t">&lt;/script&gt;</span></code></pre>
+
+  <p>Finally, add a <strong>Courses page</strong> to <code>_pages/courses.html</code> and link it in your nav:</p>
+  <pre><code><span class="c">---</span>
+<span class="t">title</span>: Courses
+<span class="t">layout</span>: page
+<span class="t">permalink</span>: <span class="s">"/courses/"</span>
+<span class="c">---</span>
+
+<span class="t">&lt;h1&gt;</span>Courses<span class="t">&lt;/h1&gt;</span>
+<span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"row"</span><span class="t">&gt;</span>
+<span class="c">{%- for course in site.data.courses -%}</span>
+<span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"col-md-6 mb-4"</span><span class="t">&gt;</span>
+  <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"card h-100"</span><span class="t">&gt;</span>
+    <span class="c">{%- if course.image -%}</span>
+    <span class="t">&lt;img</span> <span class="n">class</span>=<span class="s">"card-img-top"</span> <span class="n">src</span>=<span class="s">"{{ course.image }}"</span> <span class="n">alt</span>=<span class="s">"{{ course.title }}"</span> <span class="n">style</span>=<span class="s">"height:160px;object-fit:cover"</span><span class="t">&gt;</span>
+    <span class="c">{%- endif -%}</span>
+    <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"card-body"</span><span class="t">&gt;</span>
+      <span class="t">&lt;h5</span> <span class="n">class</span>=<span class="s">"card-title"</span><span class="t">&gt;</span>{{ course.title }}<span class="t">&lt;/h5&gt;</span>
+      <span class="t">&lt;p</span> <span class="n">class</span>=<span class="s">"card-text text-muted small"</span><span class="t">&gt;</span>{{ course.description }}<span class="t">&lt;/p&gt;</span>
+      <span class="t">&lt;a</span> <span class="n">href</span>=<span class="s">"/courses/{{ course.id }}/"</span> <span class="n">class</span>=<span class="s">"btn btn-dark btn-sm"</span><span class="t">&gt;</span>Start Course<span class="t">&lt;/a&gt;</span>
+    <span class="t">&lt;/div&gt;</span>
+  <span class="t">&lt;/div&gt;</span>
+<span class="t">&lt;/div&gt;</span>
+<span class="c">{%- endfor -%}</span>
+<span class="t">&lt;/div&gt;</span></code></pre>
+</section>
+
+<!-- ════════════ PHASE 3 ════════════ -->
+<h2 style="color:var(--phase3)">Phase 3 — Quizzes</h2>
+
+<section id="quiz-frontmatter">
+  <span class="phase-badge p3">Phase 3.1</span>
+  <h3>Quiz data in front matter</h3>
+
+  <p>Your quizzes live directly in the lesson's front matter YAML — no separate file, no database. This keeps content and assessment co-located and version-controlled together.</p>
+
+  <pre><code><span class="c">---</span>
+<span class="t">title</span>: <span class="s">"Forward Kinematics"</span>
+<span class="t">course</span>: robotics
+<span class="t">lesson_order</span>: <span class="v">2</span>
+
+<span class="t">quiz</span>:
+  - <span class="t">question</span>: <span class="s">"Given θ₁=90° and θ₂=0°, which direction does the 2R arm point?"</span>
+    <span class="t">choices</span>:
+      - <span class="s">"Along the positive X axis"</span>
+      - <span class="s">"Along the positive Y axis"</span>
+      - <span class="s">"At 45 degrees"</span>
+      - <span class="s">"Along the negative X axis"</span>
+    <span class="t">answer</span>: <span class="v">1</span>
+    <span class="t">explanation</span>: <span class="s">"With θ₁=90°, the first link rotates to point along +Y.
+      The second link (θ₂=0°) is parallel to the first, so the end-effector
+      is along +Y."</span>
+
+  - <span class="t">question</span>: <span class="s">"Inverse kinematics for a 2R planar arm can have how many solutions?"</span>
+    <span class="t">choices</span>:
+      - <span class="s">"Always exactly 1"</span>
+      - <span class="s">"0, 1, or 2"</span>
+      - <span class="s">"Always exactly 2"</span>
+      - <span class="s">"Infinite"</span>
+    <span class="t">answer</span>: <span class="v">1</span>
+    <span class="t">explanation</span>: <span class="s">"A 2R arm has up to 2 IK solutions (elbow-up and elbow-down).
+      If the target is out of reach, there are 0 solutions. If exactly at
+      max reach, there is 1."</span>
+<span class="c">---</span></code></pre>
+</section>
+
+<section id="quiz-include">
+  <span class="phase-badge p3">Phase 3.2</span>
+  <h3>quiz.html include</h3>
+
+  <p>Create <code>_includes/quiz.html</code>. It renders the quiz UI from front matter data at build time — the HTML is static, only the scoring logic is JavaScript.</p>
+
+  <pre><code><span class="c">&lt;!-- _includes/quiz.html --&gt;</span>
+<span class="c">{%- assign quiz_items = include.quiz -%}</span>
+<span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"quiz-container my-5"</span> <span class="n">id</span>=<span class="s">"quiz-{{ page.slug | default: page.title | slugify }}"</span><span class="t">&gt;</span>
+  <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"card border-0"</span> <span class="n">style</span>=<span class="s">"background:#f8f9fa"</span><span class="t">&gt;</span>
+    <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"card-body p-4"</span><span class="t">&gt;</span>
+      <span class="t">&lt;h5</span> <span class="n">class</span>=<span class="s">"font-weight-bold mb-4"</span><span class="t">&gt;</span>📝 Knowledge Check<span class="t">&lt;/h5&gt;</span>
+
+      <span class="c">{%- for item in quiz_items -%}</span>
+      <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"quiz-question mb-4"</span>
+        <span class="n">data-answer</span>=<span class="s">"{{ item.answer }}"</span>
+        <span class="n">data-explanation</span>=<span class="s">"{{ item.explanation | escape }}"</span><span class="t">&gt;</span>
+
+        <span class="t">&lt;p</span> <span class="n">class</span>=<span class="s">"font-weight-bold"</span><span class="t">&gt;</span>{{ forloop.index }}. {{ item.question }}<span class="t">&lt;/p&gt;</span>
+
+        <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"quiz-choices"</span><span class="t">&gt;</span>
+          <span class="c">{%- for choice in item.choices -%}</span>
+          <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"quiz-choice"</span> <span class="n">data-index</span>=<span class="s">"{{ forloop.index0 }}"</span><span class="t">&gt;</span>
+            <span class="t">&lt;button</span> <span class="n">type</span>=<span class="s">"button"</span>
+              <span class="n">class</span>=<span class="s">"btn btn-outline-secondary btn-sm w-100 text-left mb-2"</span>
+              <span class="n">style</span>=<span class="s">"white-space:normal"</span><span class="t">&gt;</span>
+              <span class="t">&lt;span</span> <span class="n">class</span>=<span class="s">"choice-letter"</span><span class="t">&gt;</span>{{ forloop.index0 | plus: 65 | chr }}<span class="t">&lt;/span&gt;</span>. {{ choice }}
+            <span class="t">&lt;/button&gt;</span>
+          <span class="t">&lt;/div&gt;</span>
+          <span class="c">{%- endfor -%}</span>
+        <span class="t">&lt;/div&gt;</span>
+
+        <span class="c">&lt;!-- Feedback (hidden until answered) --&gt;</span>
+        <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"quiz-feedback mt-2"</span> <span class="n">style</span>=<span class="s">"display:none"</span><span class="t">&gt;&lt;/div&gt;</span>
+
+      <span class="t">&lt;/div&gt;</span>
+      <span class="c">{%- endfor -%}</span>
+
+      <span class="c">&lt;!-- Score display --&gt;</span>
+      <span class="t">&lt;div</span> <span class="n">id</span>=<span class="s">"quiz-score"</span> <span class="n">class</span>=<span class="s">"alert alert-info mt-3"</span> <span class="n">style</span>=<span class="s">"display:none"</span><span class="t">&gt;&lt;/div&gt;</span>
+      <span class="t">&lt;button</span> <span class="n">id</span>=<span class="s">"quiz-retry"</span> <span class="n">class</span>=<span class="s">"btn btn-outline-dark mt-2"</span> <span class="n">style</span>=<span class="s">"display:none"</span><span class="t">&gt;</span>Try Again<span class="t">&lt;/button&gt;</span>
+    <span class="t">&lt;/div&gt;</span>
+  <span class="t">&lt;/div&gt;</span>
+<span class="t">&lt;/div&gt;</span></code></pre>
+
+  <div class="callout info"><strong>About the letter conversion:</strong> The Liquid filter <code>| plus: 65 | chr</code> converts 0 → 'A', 1 → 'B', etc. This is built into Jekyll's Liquid — no plugin needed.</div>
+</section>
+
+<section id="quiz-js">
+  <span class="phase-badge p3">Phase 3.3</span>
+  <h3>Quiz JavaScript</h3>
+
+  <p>Create <code>assets/js/quiz.js</code>. Add it at the end of <code>_layouts/lesson.html</code> (or conditionally load it only on pages where <code>page.has_quiz == true</code>).</p>
+
+  <pre><code><span class="c">// assets/js/quiz.js</span>
+(<span class="k">function</span>() {
+  <span class="f">document</span>.<span class="f">querySelectorAll</span>(<span class="s">'.quiz-container'</span>).<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">container</span>) {
+    <span class="k">const</span> <span class="n">questions</span> = <span class="n">container</span>.<span class="f">querySelectorAll</span>(<span class="s">'.quiz-question'</span>);
+    <span class="k">let</span> <span class="n">answered</span> = <span class="v">0</span>, <span class="n">score</span> = <span class="v">0</span>;
+
+    <span class="n">questions</span>.<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">q</span>) {
+      <span class="k">const</span> <span class="n">correct</span> = <span class="f">parseInt</span>(<span class="n">q</span>.dataset.answer, <span class="v">10</span>);
+      <span class="k">const</span> <span class="n">explanation</span> = <span class="n">q</span>.dataset.explanation;
+      <span class="k">const</span> <span class="n">feedback</span> = <span class="n">q</span>.<span class="f">querySelector</span>(<span class="s">'.quiz-feedback'</span>);
+
+      <span class="n">q</span>.<span class="f">querySelectorAll</span>(<span class="s">'.quiz-choice button'</span>).<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">btn</span>) {
+        <span class="n">btn</span>.<span class="f">addEventListener</span>(<span class="s">'click'</span>, <span class="k">function</span>() {
+          <span class="c">// Prevent re-answering</span>
+          <span class="k">if</span> (<span class="n">q</span>.classList.<span class="f">contains</span>(<span class="s">'answered'</span>)) <span class="k">return</span>;
+          <span class="n">q</span>.classList.<span class="f">add</span>(<span class="s">'answered'</span>);
+
+          <span class="k">const</span> <span class="n">chosen</span> = <span class="f">parseInt</span>(<span class="n">btn</span>.closest(<span class="s">'.quiz-choice'</span>).dataset.index, <span class="v">10</span>);
+          <span class="k">const</span> <span class="n">isCorrect</span> = <span class="n">chosen</span> === <span class="n">correct</span>;
+
+          <span class="c">// Style all choices: green correct, red wrong chosen</span>
+          <span class="n">q</span>.<span class="f">querySelectorAll</span>(<span class="s">'.quiz-choice button'</span>).<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">b</span>, <span class="n">i</span>) {
+            <span class="n">b</span>.disabled = <span class="k">true</span>;
+            <span class="k">if</span> (<span class="n">i</span> === <span class="n">correct</span>) {
+              <span class="n">b</span>.classList.<span class="f">replace</span>(<span class="s">'btn-outline-secondary'</span>, <span class="s">'btn-success'</span>);
+            } <span class="k">else if</span> (<span class="n">i</span> === <span class="n">chosen</span> &amp;&amp; !<span class="n">isCorrect</span>) {
+              <span class="n">b</span>.classList.<span class="f">replace</span>(<span class="s">'btn-outline-secondary'</span>, <span class="s">'btn-danger'</span>);
+            }
+          });
+
+          <span class="c">// Show explanation</span>
+          <span class="k">if</span> (<span class="n">explanation</span>) {
+            <span class="n">feedback</span>.style.display = <span class="s">'block'</span>;
+            <span class="n">feedback</span>.className = <span class="s">'quiz-feedback mt-2 p-2 rounded small '</span> +
+              (<span class="n">isCorrect</span> ? <span class="s">'bg-success text-white'</span> : <span class="s">'bg-warning'</span>);
+            <span class="n">feedback</span>.innerHTML = (<span class="n">isCorrect</span> ? <span class="s">'✓ Correct! '</span> : <span class="s">'✗ Not quite. '</span>) + <span class="n">explanation</span>;
+          }
+
+          <span class="k">if</span> (<span class="n">isCorrect</span>) <span class="n">score</span>++;
+          <span class="n">answered</span>++;
+
+          <span class="c">// Show final score once all questions answered</span>
+          <span class="k">if</span> (<span class="n">answered</span> === <span class="n">questions</span>.length) {
+            <span class="k">const</span> <span class="n">scoreEl</span> = <span class="n">container</span>.<span class="f">querySelector</span>(<span class="s">'#quiz-score'</span>);
+            <span class="k">const</span> <span class="n">pct</span> = <span class="f">Math</span>.<span class="f">round</span>(<span class="n">score</span> / <span class="n">questions</span>.length * <span class="v">100</span>);
+            <span class="n">scoreEl</span>.style.display = <span class="s">'block'</span>;
+            <span class="n">scoreEl</span>.className = <span class="s">'alert mt-3 '</span> + (<span class="n">pct</span> >= <span class="v">70</span> ? <span class="s">'alert-success'</span> : <span class="s">'alert-warning'</span>);
+            <span class="n">scoreEl</span>.textContent = <span class="s">`Score: ${score}/${questions.length} (${pct}%)`</span> +
+              (<span class="n">pct</span> >= <span class="v">70</span> ? <span class="s">' — Great job!'</span> : <span class="s">' — Keep reviewing!'</span>);
+            <span class="n">container</span>.<span class="f">querySelector</span>(<span class="s">'#quiz-retry'</span>).style.display = <span class="s">'inline-block'</span>;
+          }
+        });
+      });
+    });
+
+    <span class="c">// Retry button resets everything</span>
+    <span class="n">container</span>.<span class="f">querySelector</span>(<span class="s">'#quiz-retry'</span>)?.<span class="f">addEventListener</span>(<span class="s">'click'</span>, <span class="k">function</span>() {
+      <span class="n">answered</span> = <span class="v">0</span>; <span class="n">score</span> = <span class="v">0</span>;
+      <span class="n">questions</span>.<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">q</span>) {
+        <span class="n">q</span>.classList.<span class="f">remove</span>(<span class="s">'answered'</span>);
+        <span class="n">q</span>.<span class="f">querySelector</span>(<span class="s">'.quiz-feedback'</span>).style.display = <span class="s">'none'</span>;
+        <span class="n">q</span>.<span class="f">querySelectorAll</span>(<span class="s">'button'</span>).<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">b</span>) {
+          <span class="n">b</span>.disabled = <span class="k">false</span>;
+          <span class="n">b</span>.className = <span class="n">b</span>.className
+            .<span class="f">replace</span>(<span class="s">'btn-success'</span>, <span class="s">'btn-outline-secondary'</span>)
+            .<span class="f">replace</span>(<span class="s">'btn-danger'</span>, <span class="s">'btn-outline-secondary'</span>);
+        });
+      });
+      <span class="n">container</span>.<span class="f">querySelector</span>(<span class="s">'#quiz-score'</span>).style.display = <span class="s">'none'</span>;
+      <span class="k">this</span>.style.display = <span class="s">'none'</span>;
+    });
+  });
+})();</code></pre>
+</section>
+
+<section id="quiz-usage">
+  <span class="phase-badge p3">Phase 3.4</span>
+  <h3>Loading quiz.js conditionally</h3>
+  <p>You don't want quiz.js loaded on every page. In <code>_layouts/lesson.html</code>, add the script conditionally right before <code>&lt;/body&gt;</code>:</p>
+  <pre><code><span class="c">{%- if page.has_quiz -%}</span>
+<span class="t">&lt;script</span> <span class="n">src</span>=<span class="s">"{{ site.baseurl }}/assets/js/quiz.js"</span><span class="t">&gt;&lt;/script&gt;</span>
+<span class="c">{%- endif -%}</span>
+<span class="t">&lt;script</span> <span class="n">src</span>=<span class="s">"{{ site.baseurl }}/assets/js/progress.js"</span><span class="t">&gt;&lt;/script&gt;</span></code></pre>
+
+  <div class="callout tip">You can also embed a quiz directly in any existing <code>_posts/</code> blog post by adding the <code>quiz:</code> block to its front matter and calling <code>{%- include quiz.html quiz=page.quiz -%}</code> anywhere in the post body — the quiz isn't limited to course lessons.</div>
+</section>
+
+<!-- ════════════ PHASE 4 ════════════ -->
+<h2 style="color:var(--phase4)">Phase 4 — Interactive Activities</h2>
+
+<section id="interactive-robot">
+  <span class="phase-badge p4">Phase 4.1</span>
+  <h3>SVG Robot Arm Simulator</h3>
+
+  <p>This is a self-contained include you can drop into any lesson with <code>{%- include robot-arm.html joints=2 -%}</code>. It renders an interactive 2R or 3R planar robot arm where learners can drag sliders to change joint angles and see the end-effector position update in real time — directly reinforcing your FK lessons.</p>
+
+  <p>Create <code>_includes/robot-arm.html</code>:</p>
+
+  <pre><code><span class="c">&lt;!-- _includes/robot-arm.html
+     Usage: {%- include robot-arm.html joints=2 l1=150 l2=120 -%} --&gt;</span>
+
+<span class="c">{%- assign n_joints = include.joints | default: 2 -%}</span>
+<span class="c">{%- assign l1 = include.l1 | default: 150 -%}</span>
+<span class="c">{%- assign l2 = include.l2 | default: 120 -%}</span>
+<span class="c">{%- assign l3 = include.l3 | default: 100 -%}</span>
+
+<span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"interactive-widget my-4 p-3 border rounded"</span><span class="t">&gt;</span>
+  <span class="t">&lt;h6</span> <span class="n">class</span>=<span class="s">"text-muted text-uppercase small"</span><span class="t">&gt;</span>🔬 Interactive: Robot Arm Simulator<span class="t">&lt;/h6&gt;</span>
+
+  <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"d-flex flex-wrap align-items-start"</span><span class="t">&gt;</span>
+    <span class="c">&lt;!-- SVG canvas --&gt;</span>
+    <span class="t">&lt;svg</span> <span class="n">id</span>=<span class="s">"robot-svg"</span> <span class="n">width</span>=<span class="s">"320"</span> <span class="n">height</span>=<span class="s">"320"</span>
+      <span class="n">style</span>=<span class="s">"border:1px solid #dee2e6; border-radius:4px; background:#f8f9fa"</span><span class="t">&gt;</span>
+      <span class="c">&lt;!-- Grid lines --&gt;</span>
+      <span class="t">&lt;line</span> <span class="n">x1</span>=<span class="s">"160"</span> <span class="n">y1</span>=<span class="s">"0"</span> <span class="n">x2</span>=<span class="s">"160"</span> <span class="n">y2</span>=<span class="s">"320"</span> <span class="n">stroke</span>=<span class="s">"#dee2e6"</span> <span class="n">stroke-dasharray</span>=<span class="s">"4"</span><span class="t">/&gt;</span>
+      <span class="t">&lt;line</span> <span class="n">x1</span>=<span class="s">"0"</span> <span class="n">y1</span>=<span class="s">"160"</span> <span class="n">x2</span>=<span class="s">"320"</span> <span class="n">y2</span>=<span class="s">"160"</span> <span class="n">stroke</span>=<span class="s">"#dee2e6"</span> <span class="n">stroke-dasharray</span>=<span class="s">"4"</span><span class="t">/&gt;</span>
+      <span class="c">&lt;!-- Links (filled by JS) --&gt;</span>
+      <span class="t">&lt;line</span> <span class="n">id</span>=<span class="s">"link1"</span> <span class="n">stroke</span>=<span class="s">"#343a40"</span> <span class="n">stroke-width</span>=<span class="s">"6"</span> <span class="n">stroke-linecap</span>=<span class="s">"round"</span><span class="t">/&gt;</span>
+      <span class="t">&lt;line</span> <span class="n">id</span>=<span class="s">"link2"</span> <span class="n">stroke</span>=<span class="s">"#495057"</span> <span class="n">stroke-width</span>=<span class="s">"5"</span> <span class="n">stroke-linecap</span>=<span class="s">"round"</span><span class="t">/&gt;</span>
+      <span class="c">{%- if n_joints == 3 -%}</span>
+      <span class="t">&lt;line</span> <span class="n">id</span>=<span class="s">"link3"</span> <span class="n">stroke</span>=<span class="s">"#6c757d"</span> <span class="n">stroke-width</span>=<span class="s">"4"</span> <span class="n">stroke-linecap</span>=<span class="s">"round"</span><span class="t">/&gt;</span>
+      <span class="c">{%- endif -%}</span>
+      <span class="c">&lt;!-- Joints --&gt;</span>
+      <span class="t">&lt;circle</span> <span class="n">id</span>=<span class="s">"j0"</span> <span class="n">cx</span>=<span class="s">"160"</span> <span class="n">cy</span>=<span class="s">"160"</span> <span class="n">r</span>=<span class="s">"7"</span> <span class="n">fill</span>=<span class="s">"#212529"</span><span class="t">/&gt;</span>
+      <span class="t">&lt;circle</span> <span class="n">id</span>=<span class="s">"j1"</span> <span class="n">r</span>=<span class="s">"6"</span> <span class="n">fill</span>=<span class="s">"#495057"</span><span class="t">/&gt;</span>
+      <span class="t">&lt;circle</span> <span class="n">id</span>=<span class="s">"j2"</span> <span class="n">r</span>=<span class="s">"5"</span> <span class="n">fill</span>=<span class="s">"#6c757d"</span><span class="t">/&gt;</span>
+      <span class="c">{%- if n_joints == 3 -%}</span>
+      <span class="t">&lt;circle</span> <span class="n">id</span>=<span class="s">"j3"</span> <span class="n">r</span>=<span class="s">"5"</span> <span class="n">fill</span>=<span class="s">"#03a87c"</span><span class="t">/&gt;</span>
+      <span class="c">{%- endif -%}</span>
+      <span class="c">&lt;!-- End effector marker --&gt;</span>
+      <span class="t">&lt;circle</span> <span class="n">id</span>=<span class="s">"ee"</span> <span class="n">r</span>=<span class="s">"8"</span> <span class="n">fill</span>=<span class="s">"none"</span> <span class="n">stroke</span>=<span class="s">"#03a87c"</span> <span class="n">stroke-width</span>=<span class="s">"2"</span><span class="t">/&gt;</span>
+      <span class="c">&lt;!-- Coordinates label --&gt;</span>
+      <span class="t">&lt;text</span> <span class="n">id</span>=<span class="s">"ee-label"</span> <span class="n">font-size</span>=<span class="s">"11"</span> <span class="n">fill</span>=<span class="s">"#03a87c"</span><span class="t">/&gt;</span>
+    <span class="t">&lt;/svg&gt;</span>
+
+    <span class="c">&lt;!-- Sliders --&gt;</span>
+    <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"ml-3 mt-2"</span> <span class="n">style</span>=<span class="s">"min-width:200px"</span><span class="t">&gt;</span>
+      <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"mb-3"</span><span class="t">&gt;</span>
+        <span class="t">&lt;label&gt;</span>θ₁ = <span class="t">&lt;span</span> <span class="n">id</span>=<span class="s">"val-t1"</span><span class="t">&gt;</span>0°<span class="t">&lt;/span&gt;&lt;/label&gt;</span>
+        <span class="t">&lt;input</span> <span class="n">type</span>=<span class="s">"range"</span> <span class="n">id</span>=<span class="s">"slider-t1"</span> <span class="n">min</span>=<span class="s">"-180"</span> <span class="n">max</span>=<span class="s">"180"</span> <span class="n">value</span>=<span class="s">"0"</span> <span class="n">class</span>=<span class="s">"form-control-range"</span><span class="t">&gt;</span>
+      <span class="t">&lt;/div&gt;</span>
+      <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"mb-3"</span><span class="t">&gt;</span>
+        <span class="t">&lt;label&gt;</span>θ₂ = <span class="t">&lt;span</span> <span class="n">id</span>=<span class="s">"val-t2"</span><span class="t">&gt;</span>0°<span class="t">&lt;/span&gt;&lt;/label&gt;</span>
+        <span class="t">&lt;input</span> <span class="n">type</span>=<span class="s">"range"</span> <span class="n">id</span>=<span class="s">"slider-t2"</span> <span class="n">min</span>=<span class="s">"-180"</span> <span class="n">max</span>=<span class="s">"180"</span> <span class="n">value</span>=<span class="s">"0"</span> <span class="n">class</span>=<span class="s">"form-control-range"</span><span class="t">&gt;</span>
+      <span class="t">&lt;/div&gt;</span>
+      <span class="c">{%- if n_joints == 3 -%}</span>
+      <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"mb-3"</span><span class="t">&gt;</span>
+        <span class="t">&lt;label&gt;</span>θ₃ = <span class="t">&lt;span</span> <span class="n">id</span>=<span class="s">"val-t3"</span><span class="t">&gt;</span>0°<span class="t">&lt;/span&gt;&lt;/label&gt;</span>
+        <span class="t">&lt;input</span> <span class="n">type</span>=<span class="s">"range"</span> <span class="n">id</span>=<span class="s">"slider-t3"</span> <span class="n">min</span>=<span class="s">"-180"</span> <span class="n">max</span>=<span class="s">"180"</span> <span class="n">value</span>=<span class="s">"0"</span> <span class="n">class</span>=<span class="s">"form-control-range"</span><span class="t">&gt;</span>
+      <span class="t">&lt;/div&gt;</span>
+      <span class="c">{%- endif -%}</span>
+      <span class="t">&lt;small</span> <span class="n">class</span>=<span class="s">"text-muted"</span><span class="t">&gt;</span>
+        End-effector:<br>
+        x = <span class="t">&lt;span</span> <span class="n">id</span>=<span class="s">"ee-x"</span> <span class="n">class</span>=<span class="s">"font-weight-bold"</span><span class="t">&gt;</span>0.00<span class="t">&lt;/span&gt;</span><br>
+        y = <span class="t">&lt;span</span> <span class="n">id</span>=<span class="s">"ee-y"</span> <span class="n">class</span>=<span class="s">"font-weight-bold"</span><span class="t">&gt;</span>0.00<span class="t">&lt;/span&gt;</span>
+      <span class="t">&lt;/small&gt;</span>
+    <span class="t">&lt;/div&gt;</span>
+  <span class="t">&lt;/div&gt;</span>
+<span class="t">&lt;/div&gt;</span>
+
+<span class="t">&lt;script&gt;</span>
+(<span class="k">function</span>() {
+  <span class="k">const</span> <span class="n">L</span> = [<span class="v">0</span>, {{ l1 }}, {{ l2 }}<span class="c">{%- if n_joints == 3 -%}</span>, {{ l3 }}<span class="c">{%- endif -%}</span>];
+  <span class="k">const</span> <span class="n">N</span> = {{ n_joints }};
+  <span class="k">const</span> <span class="n">SCALE</span> = <span class="v">160</span> / (<span class="n">L</span>[<span class="v">1</span>] + <span class="n">L</span>[<span class="v">2</span>] + (<span class="n">N</span> > <span class="v">2</span> ? <span class="n">L</span>[<span class="v">3</span>] : <span class="v">0</span>)); <span class="c">// fit in SVG</span>
+  <span class="k">const</span> <span class="n">CX</span> = <span class="v">160</span>, <span class="n">CY</span> = <span class="v">160</span>; <span class="c">// base at SVG center</span>
+
+  <span class="k">function</span> <span class="f">deg2rad</span>(<span class="n">d</span>) { <span class="k">return</span> <span class="n">d</span> * <span class="f">Math</span>.<span class="n">PI</span> / <span class="v">180</span>; }
+
+  <span class="k">function</span> <span class="f">update</span>() {
+    <span class="k">const</span> <span class="n">thetas</span> = [
+      <span class="f">deg2rad</span>(<span class="f">parseFloat</span>(<span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'slider-t1'</span>).value)),
+      <span class="f">deg2rad</span>(<span class="f">parseFloat</span>(<span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'slider-t2'</span>).value)),
+      <span class="n">N</span> > <span class="v">2</span> ? <span class="f">deg2rad</span>(<span class="f">parseFloat</span>(<span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'slider-t3'</span>).value)) : <span class="v">0</span>
+    ];
+
+    <span class="c">// Forward kinematics: cumulative angle</span>
+    <span class="k">let</span> <span class="n">angle</span> = <span class="v">0</span>;
+    <span class="k">let</span> <span class="n">px</span> = <span class="n">CX</span>, <span class="n">py</span> = <span class="n">CY</span>;
+    <span class="k">const</span> <span class="n">points</span> = [[<span class="n">px</span>, <span class="n">py</span>]];
+
+    <span class="k">for</span> (<span class="k">let</span> <span class="n">i</span> = <span class="v">0</span>; <span class="n">i</span> < <span class="n">N</span>; <span class="n">i</span>++) {
+      <span class="n">angle</span> += <span class="n">thetas</span>[<span class="n">i</span>];
+      <span class="n">px</span> += <span class="n">L</span>[<span class="n">i</span>+<span class="v">1</span>] * <span class="n">SCALE</span> * <span class="f">Math</span>.<span class="f">cos</span>(<span class="n">angle</span>);
+      <span class="n">py</span> -= <span class="n">L</span>[<span class="n">i</span>+<span class="v">1</span>] * <span class="n">SCALE</span> * <span class="f">Math</span>.<span class="f">sin</span>(<span class="n">angle</span>); <span class="c">// SVG y-axis is flipped</span>
+      <span class="n">points</span>.<span class="f">push</span>([<span class="n">px</span>, <span class="n">py</span>]);
+    }
+
+    <span class="c">// Update links</span>
+    <span class="k">for</span> (<span class="k">let</span> <span class="n">i</span> = <span class="v">1</span>; <span class="n">i</span> <= <span class="n">N</span>; <span class="n">i</span>++) {
+      <span class="k">const</span> <span class="n">link</span> = <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'link'</span> + <span class="n">i</span>);
+      <span class="k">if</span> (<span class="n">link</span>) {
+        <span class="n">link</span>.<span class="f">setAttribute</span>(<span class="s">'x1'</span>, <span class="n">points</span>[<span class="n">i</span>-<span class="v">1</span>][<span class="v">0</span>]);
+        <span class="n">link</span>.<span class="f">setAttribute</span>(<span class="s">'y1'</span>, <span class="n">points</span>[<span class="n">i</span>-<span class="v">1</span>][<span class="v">1</span>]);
+        <span class="n">link</span>.<span class="f">setAttribute</span>(<span class="s">'x2'</span>, <span class="n">points</span>[<span class="n">i</span>][<span class="v">0</span>]);
+        <span class="n">link</span>.<span class="f">setAttribute</span>(<span class="s">'y2'</span>, <span class="n">points</span>[<span class="n">i</span>][<span class="v">1</span>]);
+      }
+    }
+    <span class="c">// Update joint circles</span>
+    <span class="k">for</span> (<span class="k">let</span> <span class="n">i</span> = <span class="v">0</span>; <span class="n">i</span> <= <span class="n">N</span>; <span class="n">i</span>++) {
+      <span class="k">const</span> <span class="n">j</span> = <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'j'</span> + <span class="n">i</span>);
+      <span class="k">if</span> (<span class="n">j</span>) { <span class="n">j</span>.<span class="f">setAttribute</span>(<span class="s">'cx'</span>, <span class="n">points</span>[<span class="n">i</span>][<span class="v">0</span>]); <span class="n">j</span>.<span class="f">setAttribute</span>(<span class="s">'cy'</span>, <span class="n">points</span>[<span class="n">i</span>][<span class="v">1</span>]); }
+    }
+    <span class="c">// End-effector</span>
+    <span class="k">const</span> [<span class="n">ex</span>, <span class="n">ey</span>] = <span class="n">points</span>[<span class="n">N</span>];
+    <span class="k">const</span> <span class="n">ee</span> = <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'ee'</span>);
+    <span class="n">ee</span>.<span class="f">setAttribute</span>(<span class="s">'cx'</span>, <span class="n">ex</span>); <span class="n">ee</span>.<span class="f">setAttribute</span>(<span class="s">'cy'</span>, <span class="n">ey</span>);
+    <span class="k">const</span> <span class="n">lbl</span> = <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'ee-label'</span>);
+    <span class="n">lbl</span>.<span class="f">setAttribute</span>(<span class="s">'x'</span>, <span class="n">ex</span> + <span class="v">10</span>); <span class="n">lbl</span>.<span class="f">setAttribute</span>(<span class="s">'y'</span>, <span class="n">ey</span> - <span class="v">4</span>);
+
+    <span class="c">// Real-world coords (normalized by SCALE, origin at base)</span>
+    <span class="k">const</span> <span class="n">rx</span> = ((<span class="n">ex</span> - <span class="n">CX</span>) / <span class="n">SCALE</span>).toFixed(<span class="v">1</span>);
+    <span class="k">const</span> <span class="n">ry</span> = ((<span class="n">CY</span> - <span class="n">ey</span>) / <span class="n">SCALE</span>).toFixed(<span class="v">1</span>);
+    <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'ee-x'</span>).textContent = <span class="n">rx</span>;
+    <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'ee-y'</span>).textContent = <span class="n">ry</span>;
+
+    <span class="c">// Update slider labels</span>
+    <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'val-t1'</span>).textContent = <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'slider-t1'</span>).value + <span class="s">'°'</span>;
+    <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'val-t2'</span>).textContent = <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'slider-t2'</span>).value + <span class="s">'°'</span>;
+    <span class="k">if</span> (<span class="n">N</span> > <span class="v">2</span>) <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'val-t3'</span>).textContent = <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'slider-t3'</span>).value + <span class="s">'°'</span>;
+  }
+
+  [<span class="s">'slider-t1'</span>, <span class="s">'slider-t2'</span>, <span class="s">'slider-t3'</span>].<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">id</span>) {
+    <span class="k">const</span> <span class="n">el</span> = <span class="f">document</span>.<span class="f">getElementById</span>(<span class="n">id</span>);
+    <span class="k">if</span> (<span class="n">el</span>) <span class="n">el</span>.<span class="f">addEventListener</span>(<span class="s">'input'</span>, <span class="n">update</span>);
+  });
+  <span class="f">update</span>(); <span class="c">// initial render</span>
+})();
+<span class="t">&lt;/script&gt;</span></code></pre>
+
+  <h4>Usage in your kinematics lesson</h4>
+  <pre><code><span class="c">{%- include robot-arm.html joints=2 l1=150 l2=120 -%}</span>
+
+<span class="c">{%- include robot-arm.html joints=3 l1=130 l2=100 l3=80 -%}</span></code></pre>
+</section>
+
+<section id="interactive-bode">
+  <span class="phase-badge p4">Phase 4.2</span>
+  <h3>Bode Plot Explorer (Plotly.js)</h3>
+
+  <p>Plotly.js is heavy (~3MB), so load it only on pages that explicitly request it. Create <code>_includes/bode-plot.html</code>:</p>
+
+  <pre><code><span class="c">&lt;!-- _includes/bode-plot.html
+     Usage: {%- include bode-plot.html Kp=1.0 Ti=1.0 Td=0.1 -%} --&gt;</span>
+
+<span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"interactive-widget my-4 p-3 border rounded"</span><span class="t">&gt;</span>
+  <span class="t">&lt;h6</span> <span class="n">class</span>=<span class="s">"text-muted text-uppercase small"</span><span class="t">&gt;</span>🔬 Interactive: Bode Plot Explorer<span class="t">&lt;/h6&gt;</span>
+  <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"row"</span><span class="t">&gt;</span>
+    <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"col-md-3"</span><span class="t">&gt;</span>
+      <span class="t">&lt;label&gt;</span>Kp = <span class="t">&lt;span</span> <span class="n">id</span>=<span class="s">"bode-kp-val"</span><span class="t">&gt;</span>{{ include.Kp | default: 1.0 }}<span class="t">&lt;/span&gt;&lt;/label&gt;</span>
+      <span class="t">&lt;input</span> <span class="n">id</span>=<span class="s">"bode-kp"</span> <span class="n">type</span>=<span class="s">"range"</span> <span class="n">min</span>=<span class="s">"0.1"</span> <span class="n">max</span>=<span class="s">"10"</span> <span class="n">step</span>=<span class="s">"0.1"</span>
+        <span class="n">value</span>=<span class="s">"{{ include.Kp | default: 1.0 }}"</span> <span class="n">class</span>=<span class="s">"form-control-range"</span><span class="t">&gt;</span>
+      <span class="t">&lt;label&gt;</span>Ti = <span class="t">&lt;span</span> <span class="n">id</span>=<span class="s">"bode-ti-val"</span><span class="t">&gt;</span>{{ include.Ti | default: 1.0 }}<span class="t">&lt;/span&gt;&lt;/label&gt;</span>
+      <span class="t">&lt;input</span> <span class="n">id</span>=<span class="s">"bode-ti"</span> <span class="n">type</span>=<span class="s">"range"</span> <span class="n">min</span>=<span class="s">"0.1"</span> <span class="n">max</span>=<span class="s">"5"</span> <span class="n">step</span>=<span class="s">"0.1"</span>
+        <span class="n">value</span>=<span class="s">"{{ include.Ti | default: 1.0 }}"</span> <span class="n">class</span>=<span class="s">"form-control-range"</span><span class="t">&gt;</span>
+      <span class="t">&lt;label&gt;</span>Td = <span class="t">&lt;span</span> <span class="n">id</span>=<span class="s">"bode-td-val"</span><span class="t">&gt;</span>{{ include.Td | default: 0.1 }}<span class="t">&lt;/span&gt;&lt;/label&gt;</span>
+      <span class="t">&lt;input</span> <span class="n">id</span>=<span class="s">"bode-td"</span> <span class="n">type</span>=<span class="s">"range"</span> <span class="n">min</span>=<span class="s">"0.01"</span> <span class="n">max</span>=<span class="s">"2"</span> <span class="n">step</span>=<span class="s">"0.01"</span>
+        <span class="n">value</span>=<span class="s">"{{ include.Td | default: 0.1 }}"</span> <span class="n">class</span>=<span class="s">"form-control-range"</span><span class="t">&gt;</span>
+    <span class="t">&lt;/div&gt;</span>
+    <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"col-md-9"</span><span class="t">&gt;</span>
+      <span class="t">&lt;div</span> <span class="n">id</span>=<span class="s">"bode-plot"</span> <span class="n">style</span>=<span class="s">"height:300px"</span><span class="t">&gt;&lt;/div&gt;</span>
+    <span class="t">&lt;/div&gt;</span>
+  <span class="t">&lt;/div&gt;</span>
+<span class="t">&lt;/div&gt;</span>
+
+<span class="c">&lt;!-- Load Plotly only once even if include is called multiple times --&gt;</span>
+<span class="t">&lt;script&gt;</span>
+<span class="k">if</span> (!<span class="k">window</span>._plotlyLoaded) {
+  <span class="k">window</span>._plotlyLoaded = <span class="k">true</span>;
+  <span class="k">const</span> <span class="n">s</span> = <span class="f">document</span>.<span class="f">createElement</span>(<span class="s">'script'</span>);
+  <span class="n">s</span>.src = <span class="s">'https://cdn.plot.ly/plotly-basic-2.27.0.min.js'</span>; <span class="c">// basic = smaller</span>
+  <span class="n">s</span>.<span class="f">onload</span> = <span class="n">initBode</span>;
+  <span class="f">document</span>.head.<span class="f">appendChild</span>(<span class="n">s</span>);
+} <span class="k">else</span> { <span class="f">initBode</span>(); }
+
+<span class="k">function</span> <span class="f">initBode</span>() {
+  <span class="k">function</span> <span class="f">pidBode</span>(<span class="n">Kp</span>, <span class="n">Ti</span>, <span class="n">Td</span>) {
+    <span class="k">const</span> <span class="n">freqs</span> = <span class="f">Array</span>.<span class="f">from</span>({length: <span class="v">200</span>}, (_, <span class="n">i</span>) => <span class="f">Math</span>.<span class="f">pow</span>(<span class="v">10</span>, -<span class="v">2</span> + <span class="n">i</span>*<span class="v">4</span>/<span class="v">199</span>));
+    <span class="k">const</span> <span class="n">mag</span> = [], <span class="n">phase</span> = [];
+    <span class="n">freqs</span>.<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">w</span>) {
+      <span class="c">// PID: C(jw) = Kp(1 + 1/(Ti*jw) + Td*jw)</span>
+      <span class="k">const</span> <span class="n">re</span> = <span class="n">Kp</span> * (<span class="v">1</span> - <span class="n">Td</span>*<span class="n">w</span>*<span class="n">Td</span>*<span class="n">w</span>/(<span class="n">Ti</span>)); <span class="c">// simplified</span>
+      <span class="k">const</span> <span class="n">im</span> = <span class="n">Kp</span> * (<span class="n">Td</span>*<span class="n">w</span> - <span class="v">1</span>/(<span class="n">Ti</span>*<span class="n">w</span>));
+      <span class="n">mag</span>.<span class="f">push</span>(<span class="v">20</span>*<span class="f">Math</span>.<span class="f">log10</span>(<span class="f">Math</span>.<span class="f">sqrt</span>(<span class="n">re</span>*<span class="n">re</span>+<span class="n">im</span>*<span class="n">im</span>)));
+      <span class="n">phase</span>.<span class="f">push</span>(<span class="f">Math</span>.<span class="f">atan2</span>(<span class="n">im</span>,<span class="n">re</span>)*<span class="v">180</span>/<span class="f">Math</span>.<span class="n">PI</span>);
+    });
+    <span class="k">return</span> { <span class="n">freqs</span>, <span class="n">mag</span>, <span class="n">phase</span> };
+  }
+
+  <span class="k">function</span> <span class="f">drawBode</span>() {
+    <span class="k">const</span> <span class="n">Kp</span> = +<span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'bode-kp'</span>).value;
+    <span class="k">const</span> <span class="n">Ti</span> = +<span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'bode-ti'</span>).value;
+    <span class="k">const</span> <span class="n">Td</span> = +<span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'bode-td'</span>).value;
+    <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'bode-kp-val'</span>).textContent = <span class="n">Kp</span>.toFixed(<span class="v">1</span>);
+    <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'bode-ti-val'</span>).textContent = <span class="n">Ti</span>.toFixed(<span class="v">1</span>);
+    <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'bode-td-val'</span>).textContent = <span class="n">Td</span>.toFixed(<span class="v">2</span>);
+    <span class="k">const</span> { <span class="n">freqs</span>, <span class="n">mag</span>, <span class="n">phase</span> } = <span class="f">pidBode</span>(<span class="n">Kp</span>, <span class="n">Ti</span>, <span class="n">Td</span>);
+    Plotly.<span class="f">react</span>(<span class="s">'bode-plot'</span>, [
+      { x: <span class="n">freqs</span>, y: <span class="n">mag</span>, name: <span class="s">'Magnitude (dB)'</span>, type: <span class="s">'scatter'</span>, line: {color:<span class="s">'#03a87c'</span>} },
+      { x: <span class="n">freqs</span>, y: <span class="n">phase</span>, name: <span class="s">'Phase (°)'</span>, yaxis: <span class="s">'y2'</span>, type: <span class="s">'scatter'</span>, line: {color:<span class="s">'#dc3545'</span>, dash:<span class="s">'dot'</span>} }
+    ], {
+      xaxis: { type: <span class="s">'log'</span>, title: <span class="s">'Frequency (rad/s)'</span> },
+      yaxis: { title: <span class="s">'Magnitude (dB)'</span> },
+      yaxis2: { title: <span class="s">'Phase (°)'</span>, overlaying: <span class="s">'y'</span>, side: <span class="s">'right'</span> },
+      margin: { t: <span class="v">20</span>, r: <span class="v">60</span> }, legend: { orientation: <span class="s">'h'</span> },
+      paper_bgcolor: <span class="s">'#f8f9fa'</span>, plot_bgcolor: <span class="s">'#f8f9fa'</span>
+    }, { responsive: <span class="k">true</span> });
+  }
+
+  [<span class="s">'bode-kp'</span>,<span class="s">'bode-ti'</span>,<span class="s">'bode-td'</span>].<span class="f">forEach</span>(<span class="n">id</span> => <span class="f">document</span>.<span class="f">getElementById</span>(<span class="n">id</span>)?.<span class="f">addEventListener</span>(<span class="s">'input'</span>, <span class="n">drawBode</span>));
+  <span class="f">drawBode</span>();
+}
+<span class="t">&lt;/script&gt;</span></code></pre>
+</section>
+
+<section id="interactive-pyodide">
+  <span class="phase-badge p4">Phase 4.3</span>
+  <h3>Python code sandbox (Pyodide)</h3>
+
+  <p>Pyodide runs Python entirely in the browser via WebAssembly. This lets learners run and modify your control simulation code directly in the lesson — no server, no install. Fair warning: the Pyodide runtime is ~10MB, so load it lazily only on lessons that need it.</p>
+
+  <pre><code><span class="c">&lt;!-- _includes/python-sandbox.html
+     Usage: {%- include python-sandbox.html -%} --&gt;</span>
+
+<span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"interactive-widget my-4 p-3 border rounded"</span><span class="t">&gt;</span>
+  <span class="t">&lt;h6</span> <span class="n">class</span>=<span class="s">"text-muted text-uppercase small"</span><span class="t">&gt;</span>🐍 Python Sandbox<span class="t">&lt;/h6&gt;</span>
+  <span class="t">&lt;textarea</span> <span class="n">id</span>=<span class="s">"pyodide-code"</span> <span class="n">class</span>=<span class="s">"form-control font-monospace"</span>
+    <span class="n">rows</span>=<span class="s">"8"</span> <span class="n">style</span>=<span class="s">"font-family:monospace;font-size:13px"</span><span class="t">&gt;</span>import numpy as np
+
+# 2R planar robot forward kinematics
+L = [1.0, 0.8]      # link lengths
+theta = [45, -30]   # joint angles in degrees
+
+theta_r = np.radians(theta)
+x = L[0]*np.cos(theta_r[0]) + L[1]*np.cos(theta_r[0]+theta_r[1])
+y = L[0]*np.sin(theta_r[0]) + L[1]*np.sin(theta_r[0]+theta_r[1])
+print(f"End-effector: x={x:.3f}, y={y:.3f}")<span class="t">&lt;/textarea&gt;</span>
+  <span class="t">&lt;div</span> <span class="n">class</span>=<span class="s">"mt-2 d-flex gap-2 align-items-center"</span><span class="t">&gt;</span>
+    <span class="t">&lt;button</span> <span class="n">id</span>=<span class="s">"pyodide-run"</span> <span class="n">class</span>=<span class="s">"btn btn-dark btn-sm"</span> <span class="n">disabled</span><span class="t">&gt;</span>Loading Python...<span class="t">&lt;/button&gt;</span>
+    <span class="t">&lt;small</span> <span class="n">class</span>=<span class="s">"text-muted"</span> <span class="n">id</span>=<span class="s">"pyodide-status"</span><span class="t">&gt;</span>NumPy available.<span class="t">&lt;/small&gt;</span>
+  <span class="t">&lt;/div&gt;</span>
+  <span class="t">&lt;pre</span> <span class="n">id</span>=<span class="s">"pyodide-output"</span> <span class="n">class</span>=<span class="s">"mt-2 p-2 bg-dark text-light rounded small"</span>
+    <span class="n">style</span>=<span class="s">"min-height:40px;font-family:monospace"</span><span class="t">&gt;&lt;/pre&gt;</span>
+<span class="t">&lt;/div&gt;</span>
+
+<span class="t">&lt;script&gt;</span>
+<span class="k">if</span> (!<span class="k">window</span>._pyodideLoading) {
+  <span class="k">window</span>._pyodideLoading = <span class="k">true</span>;
+  <span class="k">const</span> <span class="n">s</span> = <span class="f">document</span>.<span class="f">createElement</span>(<span class="s">'script'</span>);
+  <span class="n">s</span>.src = <span class="s">'https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js'</span>;
+  <span class="f">document</span>.head.<span class="f">appendChild</span>(<span class="n">s</span>);
+  <span class="n">s</span>.<span class="f">onload</span> = <span class="k">async function</span>() {
+    <span class="k">window</span>._pyodide = <span class="k">await</span> <span class="f">loadPyodide</span>();
+    <span class="k">await</span> <span class="k">window</span>._pyodide.loadPackage(<span class="s">'numpy'</span>);
+    <span class="f">document</span>.<span class="f">querySelectorAll</span>(<span class="s">'[id="pyodide-run"]'</span>).<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">btn</span>) {
+      <span class="n">btn</span>.disabled = <span class="k">false</span>;
+      <span class="n">btn</span>.textContent = <span class="s">'▶ Run'</span>;
+    });
+  };
+}
+
+<span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'pyodide-run'</span>)?.<span class="f">addEventListener</span>(<span class="s">'click'</span>, <span class="k">async function</span>() {
+  <span class="k">const</span> <span class="n">code</span> = <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'pyodide-code'</span>).value;
+  <span class="k">const</span> <span class="n">out</span> = <span class="f">document</span>.<span class="f">getElementById</span>(<span class="s">'pyodide-output'</span>);
+  <span class="n">out</span>.textContent = <span class="s">'Running...'</span>;
+  <span class="k">try</span> {
+    <span class="k">let</span> <span class="n">stdout</span> = <span class="s">''</span>;
+    <span class="k">window</span>._pyodide.setStdout({ batched: (<span class="n">s</span>) => { <span class="n">stdout</span> += <span class="n">s</span> + <span class="s">'\n'</span>; } });
+    <span class="k">await</span> <span class="k">window</span>._pyodide.<span class="f">runPythonAsync</span>(<span class="n">code</span>);
+    <span class="n">out</span>.textContent = <span class="n">stdout</span> || <span class="s">'(no output)'</span>;
+    <span class="n">out</span>.style.color = <span class="s">'#c3e88d'</span>;
+  } <span class="k">catch</span> (<span class="n">e</span>) {
+    <span class="n">out</span>.textContent = <span class="s">'Error: '</span> + <span class="n">e</span>.message;
+    <span class="n">out</span>.style.color = <span class="s">'#ff8888'</span>;
+  }
+});
+<span class="t">&lt;/script&gt;</span></code></pre>
+</section>
+
+<section id="interactive-include">
+  <span class="phase-badge p4">Phase 4.4</span>
+  <h3>Clean usage pattern in lesson files</h3>
+
+  <p>Here's how a complete lesson markdown file looks with all the interactive components:</p>
+
+  <pre><code><span class="c">---</span>
+<span class="t">layout</span>: lesson
+<span class="t">title</span>: <span class="s">"Forward &amp; Inverse Kinematics"</span>
+<span class="t">course</span>: robotics
+<span class="t">lesson_order</span>: <span class="v">2</span>
+<span class="t">duration_min</span>: <span class="v">45</span>
+<span class="t">has_quiz</span>: <span class="k">true</span>
+<span class="t">has_interactive</span>: <span class="k">true</span>
+<span class="t">toc</span>: <span class="k">true</span>
+
+<span class="t">quiz</span>:
+  - <span class="t">question</span>: <span class="s">"What does FK stand for?"</span>
+    <span class="t">choices</span>: [<span class="s">"Forward Kinematics"</span>, <span class="s">"Final Kinetics"</span>, <span class="s">"Force Kinetics"</span>]
+    <span class="t">answer</span>: <span class="v">0</span>
+    <span class="t">explanation</span>: <span class="s">"FK = Forward Kinematics."</span>
+<span class="c">---</span>
+
+<span class="c">## Introduction</span>
+
+<span class="k">Kinematics</span> is the study of motion without regard to forces...
+
+<span class="c">## Forward Kinematics</span>
+
+Given joint angles $$\theta_1, \theta_2$$, find end-effector position...
+
+<span class="c">**Try it live:**</span>
+<span class="c">{%- include robot-arm.html joints=2 l1=150 l2=120 -%}</span>
+
+<span class="c">## Coding FK</span>
+
+Run the FK calculation yourself:
+<span class="c">{%- include python-sandbox.html -%}</span>
+
+<span class="c">## Control System Bode Plot</span>
+
+<span class="c">{%- include bode-plot.html Kp=2.0 Ti=0.5 Td=0.05 -%}</span></code></pre>
+</section>
+
+<!-- ════════════ PHASE 5 ════════════ -->
+<h2 style="color:var(--muted)">Phase 5 — Polish</h2>
+
+<section id="seo">
+  <span class="phase-badge p1">Phase 5.1</span>
+  <h3>SEO &amp; Performance tweaks</h3>
+
+  <p>Small additions to <code>_layouts/default.html</code> that have real impact:</p>
+
+  <pre><code><span class="c">&lt;!-- Add to &lt;head&gt; in default.html --&gt;</span>
+
+<span class="c">&lt;!-- Preconnect to CDN origins you use --&gt;</span>
+<span class="t">&lt;link</span> <span class="n">rel</span>=<span class="s">"preconnect"</span> <span class="n">href</span>=<span class="s">"https://fonts.googleapis.com"</span><span class="t">&gt;</span>
+<span class="t">&lt;link</span> <span class="n">rel</span>=<span class="s">"preconnect"</span> <span class="n">href</span>=<span class="s">"https://cdn.jsdelivr.net"</span><span class="t">&gt;</span>
+
+<span class="c">&lt;!-- Google Fonts: add display=swap to prevent FOIT --&gt;</span>
+<span class="c">&lt;!-- Change your existing font links from: --&gt;</span>
+<span class="del">- &lt;link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700"&gt;</span>
+<span class="c">&lt;!-- To: --&gt;</span>
+<span class="add">+ &lt;link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&amp;display=swap"&gt;</span>
+
+<span class="c">&lt;!-- Open Graph for social sharing --&gt;</span>
+<span class="t">&lt;meta</span> <span class="n">property</span>=<span class="s">"og:title"</span> <span class="n">content</span>=<span class="s">"{{ page.title }} | {{ site.name }}"</span><span class="t">&gt;</span>
+<span class="t">&lt;meta</span> <span class="n">property</span>=<span class="s">"og:description"</span> <span class="n">content</span>=<span class="s">"{{ page.description | default: site.description }}"</span><span class="t">&gt;</span>
+<span class="t">&lt;meta</span> <span class="n">property</span>=<span class="s">"og:image"</span> <span class="n">content</span>=<span class="s">"{{ page.image | default: site.logo | absolute_url }}"</span><span class="t">&gt;</span>
+<span class="t">&lt;meta</span> <span class="n">property</span>=<span class="s">"og:url"</span> <span class="n">content</span>=<span class="s">"{{ page.url | absolute_url }}"</span><span class="t">&gt;</span>
+<span class="t">&lt;meta</span> <span class="n">name</span>=<span class="s">"twitter:card"</span> <span class="n">content</span>=<span class="s">"summary_large_image"</span><span class="t">&gt;</span></code></pre>
+
+  <p>Also add <code>loading="lazy"</code> to every <code>&lt;img&gt;</code> in your layouts that isn't above the fold — this is the single highest-impact performance change you can make.</p>
+</section>
+
+<section id="gemfile">
+  <span class="phase-badge p1">Phase 5.2</span>
+  <h3>Pin your Gemfile versions</h3>
+
+  <p>Your current Gemfile has no version pins. This means <code>bundle install</code> on a new machine might pick up a breaking gem version. Update it:</p>
+
+  <pre><code><span class="t">source</span> <span class="s">"https://rubygems.org"</span>
+
+<span class="t">gem</span> <span class="s">'jekyll'</span>, <span class="s">'~> 4.3'</span>
+<span class="t">gem</span> <span class="s">'wdm'</span>, <span class="s">'>= 0.1.0'</span>, <span class="n">platforms</span>: [:mingw, :x64_mingw, :mswin]
+<span class="t">gem</span> <span class="s">'webrick'</span>, <span class="s">'~> 1.8'</span>   <span class="c"># required for Ruby 3.x</span>
+
+<span class="t">group</span> :jekyll_plugins <span class="k">do</span>
+  <span class="t">gem</span> <span class="s">'jekyll-feed'</span>,     <span class="s">'~> 0.17'</span>
+  <span class="t">gem</span> <span class="s">'jekyll-sitemap'</span>,  <span class="s">'~> 1.4'</span>
+  <span class="t">gem</span> <span class="s">'jekyll-paginate'</span>, <span class="s">'~> 1.1'</span>
+  <span class="t">gem</span> <span class="s">'jekyll-seo-tag'</span>,  <span class="s">'~> 2.8'</span>
+  <span class="t">gem</span> <span class="s">'jekyll-scholar'</span>,  <span class="s">'~> 7.1'</span>
+  <span class="t">gem</span> <span class="s">'jekyll-toc'</span>,      <span class="s">'~> 0.19'</span>
+<span class="k">end</span></code></pre>
+
+  <p>After editing, run <code>bundle update</code> to regenerate <code>Gemfile.lock</code> (rename <code>Gemfile_.lock</code> → <code>Gemfile.lock</code> first).</p>
+</section>
+
+<section id="deploy">
+  <span class="phase-badge p2">Phase 5.3</span>
+  <h3>GitHub Actions deploy (future-proof)</h3>
+
+  <p>GitHub Pages natively only supports a limited set of plugins. Since you're using <code>jekyll-scholar</code> (not on the whitelist), you need to build with GitHub Actions. Create <code>.github/workflows/deploy.yml</code>:</p>
+
+  <pre><code><span class="n">name</span>: Deploy Jekyll site
+
+<span class="n">on</span>:
+  <span class="n">push</span>:
+    <span class="n">branches</span>: [<span class="s">"main"</span>]
+  <span class="n">workflow_dispatch</span>:
+
+<span class="n">permissions</span>:
+  <span class="n">contents</span>: read
+  <span class="n">pages</span>: write
+  <span class="n">id-token</span>: write
+
+<span class="n">jobs</span>:
+  <span class="n">build</span>:
+    <span class="n">runs-on</span>: ubuntu-latest
+    <span class="n">steps</span>:
+      - <span class="n">uses</span>: actions/checkout@v4
+      - <span class="n">uses</span>: ruby/setup-ruby@v1
+        <span class="n">with</span>:
+          <span class="n">ruby-version</span>: <span class="s">'3.2'</span>
+          <span class="n">bundler-cache</span>: <span class="k">true</span>   <span class="c"># caches gems between runs</span>
+      - <span class="n">name</span>: Build site
+        <span class="n">run</span>: bundle exec jekyll build
+        <span class="n">env</span>:
+          <span class="n">JEKYLL_ENV</span>: production
+      - <span class="n">uses</span>: actions/upload-pages-artifact@v3
+        <span class="n">with</span>:
+          <span class="n">path</span>: ./_site
+
+  <span class="n">deploy</span>:
+    <span class="n">needs</span>: build
+    <span class="n">runs-on</span>: ubuntu-latest
+    <span class="n">environment</span>:
+      <span class="n">name</span>: github-pages
+      <span class="n">url</span>: <span class="s">${{ steps.deployment.outputs.page_url }}</span>
+    <span class="n">steps</span>:
+      - <span class="n">id</span>: deployment
+        <span class="n">uses</span>: actions/deploy-pages@v4</code></pre>
+
+  <div class="callout tip">In your GitHub repo settings → Pages → Source, change from "Deploy from branch" to <strong>"GitHub Actions"</strong> after adding this file. This unlocks all Jekyll plugins, not just the GitHub Pages whitelist.</div>
+</section>
+
+<!-- Summary -->
+<h2>Summary checklist</h2>
+
+<div class="section-card">
+  <h3 style="margin-top:0">Phase 1 — Fixes</h3>
+  <ul class="check-list">
+    <li>Rename <code>robot.txt</code> → <code>robots.txt</code> and add sitemap line</li>
+    <li>Replace MathJax v2 CDN with v3 from jsdelivr</li>
+    <li>Replace rawgit Bootstrap TOC with jsdelivr</li>
+    <li>Fix duplicate <code>id="navbarDropdown"</code> in menu-header.html</li>
+    <li>Replace hardcoded posts[0]–[3] in index.html with a loop</li>
+    <li>Delete unused SVGs from <code>resources/svgs/</code></li>
+    <li>Rename <code>Gemfile_.lock</code> → <code>Gemfile.lock</code></li>
+  </ul>
+</div>
+
+<div class="section-card">
+  <h3 style="margin-top:0">Phase 2 — Courses</h3>
+  <ul class="check-list">
+    <li>Add <code>_courses</code> collection to <code>_config.yml</code></li>
+    <li>Create <code>_data/courses.yml</code> catalog</li>
+    <li>Create <code>_layouts/course.html</code> overview layout</li>
+    <li>Create <code>_layouts/lesson.html</code> lesson layout</li>
+    <li>Create <code>_includes/lesson-sidebar.html</code></li>
+    <li>Create <code>assets/js/progress.js</code> for localStorage tracking</li>
+    <li>Create <code>_pages/courses.html</code> and add to nav</li>
+  </ul>
+</div>
+
+<div class="section-card">
+  <h3 style="margin-top:0">Phase 3 — Quizzes</h3>
+  <ul class="check-list">
+    <li>Create <code>_includes/quiz.html</code></li>
+    <li>Create <code>assets/js/quiz.js</code></li>
+    <li>Add <code>quiz:</code> blocks to lesson front matter</li>
+  </ul>
+</div>
+
+<div class="section-card">
+  <h3 style="margin-top:0">Phase 4 — Interactives</h3>
+  <ul class="check-list">
+    <li>Create <code>_includes/robot-arm.html</code> (SVG + vanilla JS)</li>
+    <li>Create <code>_includes/bode-plot.html</code> (lazy-loaded Plotly)</li>
+    <li>Create <code>_includes/python-sandbox.html</code> (Pyodide)</li>
+  </ul>
+</div>
+
+</main>
+</div>
+
+<script>
+// Active sidebar link on scroll
+const sections = document.querySelectorAll('section[id], h2[id]');
+const navLinks = document.querySelectorAll('nav.sidebar a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

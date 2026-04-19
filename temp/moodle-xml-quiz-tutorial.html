@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moodle XML Question Bank — Quiz Engine Tutorial</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap');
+
+:root {
+  --bg: #fafaf8;
+  --surface: #ffffff;
+  --surface2: #f3f2ee;
+  --border: #e4e2da;
+  --accent: #2d6a4f;
+  --accent2: #c77d20;
+  --accent3: #c0392b;
+  --text: #1c1c1a;
+  --muted: #716e64;
+  --code-bg: #1a1a16;
+  --p1: #2d6a4f;
+  --p2: #1e4fa8;
+  --p3: #c77d20;
+  --p4: #7b2d8b;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; font-size: 15px; line-height: 1.72; }
+
+.shell { display: flex; min-height: 100vh; }
+
+/* ── Sidebar ── */
+nav.sidebar {
+  width: 265px; min-width: 265px;
+  background: var(--surface); border-right: 1px solid var(--border);
+  padding: 26px 0; position: sticky; top: 0; height: 100vh;
+  overflow-y: auto; flex-shrink: 0;
+}
+.sidebar .logo { font-size: 0.92rem; font-weight: 800; color: var(--accent); padding: 0 22px 20px; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+.sidebar .logo span { display: block; font-weight: 400; font-family: 'Instrument Serif', serif; font-style: italic; font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+.sidebar .ns { font-size: 0.63rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); padding: 13px 22px 4px; }
+.sidebar a { display: block; padding: 5px 22px; color: var(--muted); text-decoration: none; font-size: 0.8rem; border-left: 2px solid transparent; transition: all 0.12s; }
+.sidebar a:hover { color: var(--text); background: var(--surface2); }
+.sidebar a.active { color: var(--accent); border-left-color: var(--accent); background: #e8f5ee; }
+
+/* ── Main ── */
+main { flex: 1; padding: 56px 68px; max-width: 940px; }
+
+/* ── Typography ── */
+h1 { font-family: 'Instrument Serif', serif; font-size: 2.9rem; font-weight: 400; line-height: 1.1; margin-bottom: 12px; }
+h1 em { color: var(--accent); font-style: italic; }
+h2 { font-size: 1.45rem; font-weight: 700; margin: 56px 0 16px; padding-top: 56px; border-top: 1px solid var(--border); }
+h2.nb { border-top: none; padding-top: 0; margin-top: 28px; }
+h3 { font-size: 1.02rem; font-weight: 600; margin: 26px 0 9px; }
+h4 { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.13em; color: var(--muted); margin: 18px 0 6px; }
+p { margin-bottom: 13px; color: #38352c; }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--text); font-weight: 600; }
+em { font-family: 'Instrument Serif', serif; font-style: italic; }
+ul, ol { color: #38352c; padding-left: 20px; margin-bottom: 13px; }
+li { margin-bottom: 4px; }
+
+/* ── Hero ── */
+.hero { background: linear-gradient(135deg, #e8f5ee 0%, #eef2fb 100%); border: 1px solid var(--border); border-radius: 10px; padding: 34px 38px; margin-bottom: 38px; }
+.pills { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+.pill { font-size: 0.72rem; font-weight: 600; padding: 3px 11px; border-radius: 20px; background: white; border: 1px solid var(--border); color: var(--muted); }
+
+/* ── Phase badge ── */
+.pb { display: inline-flex; align-items: center; font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 3px 9px; border-radius: 4px; margin-bottom: 12px; }
+.p1c { background: rgba(45,106,79,0.1); color: var(--p1); }
+.p2c { background: rgba(30,79,168,0.1); color: var(--p2); }
+.p3c { background: rgba(199,125,32,0.1); color: var(--p3); }
+.p4c { background: rgba(123,45,139,0.1); color: var(--p4); }
+
+/* ── Code ── */
+pre {
+  background: var(--code-bg); border-radius: 8px;
+  padding: 18px 22px; overflow-x: auto;
+  margin: 12px 0 18px; position: relative;
+  border: 1px solid #28281e;
+}
+pre .lang-tag {
+  position: absolute; top: 8px; right: 12px;
+  font-size: 0.62rem; font-family: 'IBM Plex Mono', monospace;
+  color: #5a5a48; text-transform: uppercase; letter-spacing: 0.08em;
+}
+code { font-family: 'IBM Plex Mono', monospace; font-size: 0.79rem; line-height: 1.78; color: #e8e4d5; }
+p code, li code { background: var(--surface2); border: 1px solid var(--border); padding: 1px 5px; border-radius: 3px; font-size: 0.76rem; color: var(--accent3); font-family: 'IBM Plex Mono', monospace; }
+
+/* Syntax tokens */
+.k { color: #89c4f4; } /* keyword */
+.s { color: #c3e88d; } /* string */
+.c { color: #4e4e3a; font-style: italic; } /* comment */
+.n { color: #ffcb6b; } /* name/var */
+.v { color: #f78c6c; } /* value */
+.t { color: #80cbc4; } /* tag/key */
+.f { color: #82aaff; } /* function */
+.x { color: #c792ea; } /* xml tag */
+.a { color: #b2d680; } /* xml attribute */
+.m { color: #f07178; } /* xml attr value */
+
+/* ── Callouts ── */
+.callout { border-radius: 6px; padding: 13px 17px; margin: 16px 0; border-left: 3px solid; font-size: 0.87rem; }
+.callout.tip  { background: rgba(45,106,79,0.07); border-color: var(--p1); color: #1a4a30; }
+.callout.info { background: rgba(30,79,168,0.06); border-color: var(--p2); color: #163060; }
+.callout.warn { background: rgba(199,125,32,0.08); border-color: var(--p3); color: #6a4010; }
+.callout.key  { background: rgba(123,45,139,0.07); border-color: var(--p4); color: #3e1048; }
+.callout strong { font-weight: 600; }
+
+/* ── Diff ── */
+.diff { background: var(--code-bg); border: 1px solid #28281e; border-radius: 8px; overflow: hidden; margin: 12px 0 18px; }
+.diff-hdr { background: #22221a; padding: 7px 15px; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: #5a5a48; border-bottom: 1px solid #28281e; }
+.diff pre { border: none; border-radius: 0; margin: 0; }
+.del { color: #ff8888; background: rgba(255,80,80,0.08); display: block; margin: 0 -22px; padding: 0 22px; }
+.add { color: #88e0aa; background: rgba(80,200,100,0.08); display: block; margin: 0 -22px; padding: 0 22px; }
+
+/* ── File tree ── */
+.ftree { background: var(--code-bg); border: 1px solid #28281e; border-radius: 8px; padding: 14px 18px; margin: 12px 0; font-family: 'IBM Plex Mono', monospace; font-size: 0.77rem; line-height: 1.95; }
+.ftree .dir { color: #ffcb6b; }
+.ftree .fi { color: #c3e88d; }
+.ftree .nw { color: #89c4f4; }
+.ftree .nw::after { content: "  ← NEW"; font-size: 0.6rem; color: #89c4f4; opacity: 0.6; }
+.ftree .cm { color: #4e4e3a; font-style: italic; }
+
+/* ── Cards ── */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; margin: 14px 0; }
+.card h3 { margin-top: 0; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; margin: 13px 0; }
+.two-col .col { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 15px 17px; }
+.two-col .col h4 { margin-top: 0; }
+
+/* ── Table ── */
+table { width: 100%; border-collapse: collapse; margin: 13px 0; font-size: 0.83rem; }
+th { background: var(--surface2); font-size: 0.67rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); padding: 8px 12px; text-align: left; border-bottom: 2px solid var(--border); }
+td { padding: 8px 12px; border-bottom: 1px solid var(--border); color: #38352c; vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+
+/* ── Checklist ── */
+.cl { list-style: none; padding: 0; }
+.cl li { padding: 6px 0 6px 24px; position: relative; border-bottom: 1px solid var(--border); font-size: 0.86rem; color: #38352c; }
+.cl li:last-child { border-bottom: none; }
+.cl li::before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+/* ── Roadmap ── */
+.roadmap { margin: 20px 0; }
+.rm-item { display: flex; gap: 18px; align-items: flex-start; }
+.rm-track { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+.rm-dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--accent); background: var(--bg); margin-top: 4px; flex-shrink: 0; }
+.rm-line { width: 2px; flex: 1; min-height: 20px; background: var(--border); margin: 3px 0; }
+.rm-item:last-child .rm-line { display: none; }
+.rm-body { padding-bottom: 24px; flex: 1; }
+.rm-body strong { color: var(--text); }
+.rm-body p { font-size: 0.84rem; color: var(--muted); margin: 3px 0 0; }
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+@media (max-width: 860px) {
+  .shell { flex-direction: column; }
+  nav.sidebar { width: 100%; height: auto; position: relative; }
+  main { padding: 28px 18px; }
+  .two-col { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- ═══ SIDEBAR ═══ -->
+<nav class="sidebar">
+  <div class="logo">Moodle XML Quiz Engine<span>for Jekyll — expred.co</span></div>
+
+  <div class="ns">Overview</div>
+  <a href="#overview" class="active">Architecture</a>
+  <a href="#moodle-format">Moodle XML format</a>
+
+  <div class="ns">Part 1 — Question Banks</div>
+  <a href="#file-structure">File structure</a>
+  <a href="#xml-multichoice">multichoice questions</a>
+  <a href="#xml-truefalse">truefalse questions</a>
+  <a href="#xml-shortanswer">shortanswer questions</a>
+  <a href="#xml-numerical">numerical questions</a>
+  <a href="#xml-matching">matching questions</a>
+  <a href="#xml-tips">Authoring tips</a>
+
+  <div class="ns">Part 2 — The Engine</div>
+  <a href="#engine-overview">quiz-engine.js overview</a>
+  <a href="#engine-parser">XML parser</a>
+  <a href="#engine-shuffle">Shuffle & select</a>
+  <a href="#engine-renderer">Renderer</a>
+  <a href="#engine-scoring">Scoring logic</a>
+  <a href="#engine-persistence">localStorage</a>
+  <a href="#engine-full">Full quiz-engine.js</a>
+
+  <div class="ns">Part 3 — Jekyll Integration</div>
+  <a href="#include-quiz">_includes/quiz.html</a>
+  <a href="#frontmatter">Front matter config</a>
+  <a href="#styling">Styling the quiz</a>
+  <a href="#workflow">Authoring workflow</a>
+
+  <div class="ns">Part 4 — Tools</div>
+  <a href="#moodle-export">Export from Moodle</a>
+  <a href="#tools">Editor tools</a>
+  <a href="#checklist">Final checklist</a>
+</nav>
+
+<!-- ═══ MAIN ═══ -->
+<main>
+
+<div class="hero">
+  <h1>Moodle XML<br><em>Quiz Engine</em></h1>
+  <p style="color:var(--muted);margin-top:8px">Store questions in standard Moodle XML question banks. Your Jekyll site fetches, parses, shuffles, and serves them — statically, with zero backend.</p>
+  <div class="pills">
+    <span class="pill">Moodle XML 3.x</span>
+    <span class="pill">Vanilla JS</span>
+    <span class="pill">5 question types</span>
+    <span class="pill">Random subset</span>
+    <span class="pill">Fisher-Yates shuffle</span>
+    <span class="pill">localStorage scores</span>
+  </div>
+</div>
+
+<!-- ══ Overview ══ -->
+<section id="overview">
+  <h2 class="nb">How it works</h2>
+
+  <p>Moodle XML is an open, widely supported format — any LMS, quiz authoring tool, or AI can generate it. Your Jekyll site treats these files as <strong>static assets</strong> (like images), so they live in <code>assets/questions/</code> and are served by GitHub Pages unchanged. The quiz engine runs entirely in the browser: it fetches the XML, parses it with the native DOM API, picks a random subset of questions, shuffles answers, renders the UI, and scores responses.</p>
+
+  <div class="roadmap">
+    <div class="rm-item">
+      <div class="rm-track"><div class="rm-dot" style="border-color:var(--p1)"></div><div class="rm-line"></div></div>
+      <div class="rm-body"><strong>Part 1 — Question Banks</strong><p>Write <code>.xml</code> files in Moodle format. One file per topic/chapter. Contains as many questions as you want — the quiz only picks N of them.</p></div>
+    </div>
+    <div class="rm-item">
+      <div class="rm-track"><div class="rm-dot" style="border-color:var(--p2)"></div><div class="rm-line"></div></div>
+      <div class="rm-body"><strong>Part 2 — The Engine (quiz-engine.js)</strong><p>One 300-line JavaScript file. Handles fetching, parsing, shuffling, rendering, scoring, and persistence for all 5 supported question types.</p></div>
+    </div>
+    <div class="rm-item">
+      <div class="rm-track"><div class="rm-dot" style="border-color:var(--p3)"></div><div class="rm-line"></div></div>
+      <div class="rm-body"><strong>Part 3 — Jekyll Integration</strong><p>A single <code>_includes/quiz.html</code> takes parameters from the lesson's front matter and renders the quiz container. The engine does the rest.</p></div>
+    </div>
+    <div class="rm-item">
+      <div class="rm-track"><div class="rm-dot" style="border-color:var(--p4)"></div><div class="rm-line"></div></div>
+      <div class="rm-body"><strong>Part 4 — Tooling</strong><p>How to export from real Moodle, recommended editors, and tips for writing questions with AI assistance.</p></div>
+    </div>
+  </div>
+
+  <div class="callout tip"><strong>Why Moodle XML?</strong> It's the lingua franca of e-learning. You can: (a) write questions directly in any text editor, (b) export them from a real Moodle instance, (c) import them back into Moodle later, (d) generate them with AI using a well-defined schema, and (e) use dedicated question editors like <strong>Moodle Question Bank Editor</strong> or <strong>Gift2Moodle</strong>.</div>
+</section>
+
+<section id="moodle-format">
+  <h2>Moodle XML format — the essentials</h2>
+
+  <p>A Moodle XML question bank is a <code>&lt;quiz&gt;</code> element containing one or more <code>&lt;question&gt;</code> elements. Each question has a <code>type</code> attribute. The key rules:</p>
+
+  <table>
+    <tr><th>Element</th><th>Meaning</th></tr>
+    <tr><td><code>&lt;questiontext&gt;</code></td><td>The question stem — can contain HTML (use CDATA)</td></tr>
+    <tr><td><code>&lt;answer fraction="100"&gt;</code></td><td>A correct answer (100 = full credit, 0 = wrong)</td></tr>
+    <tr><td><code>&lt;answer fraction="50"&gt;</code></td><td>Partially correct (for multi-select questions)</td></tr>
+    <tr><td><code>&lt;answer fraction="-33"&gt;</code></td><td>Negatively scored wrong answer</td></tr>
+    <tr><td><code>&lt;feedback&gt;</code></td><td>Per-answer explanation shown after selection</td></tr>
+    <tr><td><code>&lt;generalfeedback&gt;</code></td><td>Shown after the question regardless of answer</td></tr>
+    <tr><td><code>&lt;single&gt;true&lt;/single&gt;</code></td><td>For multichoice: true = one answer, false = multiple</td></tr>
+    <tr><td><code>&lt;tolerance&gt;</code></td><td>For numerical: acceptable ± margin</td></tr>
+    <tr><td><code>&lt;![CDATA[...]]&gt;</code></td><td>Wraps HTML content — LaTeX like <code>$\theta$</code> works inside</td></tr>
+  </table>
+
+  <div class="callout info"><strong>MathJax compatibility:</strong> Since your site already loads MathJax v3, LaTeX inside question text (e.g., <code>$\theta_1$</code>, <code>$$M(q)\ddot{q}$$</code>) will render automatically after the quiz is inserted into the DOM. You just need to call <code>MathJax.typesetPromise()</code> after rendering — the engine does this for you.</div>
+</section>
+
+<!-- ═══ PART 1 ═══ -->
+<h2 style="color:var(--p1)">Part 1 — Writing Question Banks</h2>
+
+<section id="file-structure">
+  <span class="pb p1c">Step 1.1</span>
+  <h3>File structure</h3>
+
+  <p>Create question bank files as static assets. Jekyll copies them to <code>_site/</code> unchanged — GitHub Pages serves them like any other file.</p>
+
+  <div class="ftree">
+    <span class="dir">assets/</span><br>
+    &nbsp;&nbsp;<span class="dir">questions/</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">robotics/</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nw">ch1-kinematics.xml</span><span class="cm">&nbsp;&nbsp;&nbsp;# Chapter 1 question bank</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nw">ch2-dynamics.xml</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nw">ch3-trajectory.xml</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">control-systems/</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nw">pid-control.xml</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nw">state-space.xml</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">programming/</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="nw">python-basics.xml</span><br>
+    <span class="dir">assets/js/</span><br>
+    &nbsp;&nbsp;<span class="nw">quiz-engine.js</span><span class="cm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# The engine</span><br>
+    <span class="dir">_includes/</span><br>
+    &nbsp;&nbsp;<span class="nw">quiz.html</span><span class="cm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Updated include</span><br>
+    <span class="dir">assets/css/</span><br>
+    &nbsp;&nbsp;<span class="nw">quiz.css</span><span class="cm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Quiz styles</span>
+  </div>
+
+  <div class="callout tip">Name files with slugs matching your chapter/module structure. The lesson front matter references them by path relative to <code>assets/questions/</code>. Keep banks thematic — a single XML file should represent one coherent topic with 15–50 questions. The quiz picks a random subset each load.</div>
+</section>
+
+<section id="xml-multichoice">
+  <span class="pb p1c">Step 1.2</span>
+  <h3>multichoice — single and multiple answer</h3>
+
+  <p>The most common type. When <code>&lt;single&gt;true&lt;/single&gt;</code>, exactly one answer is correct (<code>fraction="100"</code>). When <code>false</code>, multiple answers can be correct (fractions sum to 100).</p>
+
+  <pre><code><span class="lang-tag">xml</span><span class="c">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="x">&lt;quiz&gt;</span>
+
+<span class="c">&lt;!-- ─────────────────────────────────────────────────────
+     MULTICHOICE — single correct answer
+     ───────────────────────────────────────────────────── --&gt;</span>
+<span class="x">&lt;question</span> <span class="a">type</span>=<span class="m">"multichoice"</span><span class="x">&gt;</span>
+  <span class="x">&lt;name&gt;&lt;text&gt;</span>FK definition<span class="x">&lt;/text&gt;&lt;/name&gt;</span>
+
+  <span class="x">&lt;questiontext</span> <span class="a">format</span>=<span class="m">"html"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span><span class="s">&lt;![CDATA[</span>
+      <span class="s">&lt;p&gt;Given joint angles &lt;strong&gt;θ₁ = 45°&lt;/strong&gt; and &lt;strong&gt;θ₂ = −30°&lt;/strong&gt;</span>
+      <span class="s">for a 2R planar robot with link lengths $L_1 = 1$ m, $L_2 = 0.8$ m,</span>
+      <span class="s">what does Forward Kinematics compute?&lt;/p&gt;</span>
+    <span class="s">]]&gt;</span><span class="x">&lt;/text&gt;</span>
+  <span class="x">&lt;/questiontext&gt;</span>
+
+  <span class="x">&lt;generalfeedback</span> <span class="a">format</span>=<span class="m">"html"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span><span class="s">&lt;![CDATA[&lt;p&gt;FK maps joint space → task space:
+      $\mathbf{p} = f(\theta)$.&lt;/p&gt;]]&gt;</span><span class="x">&lt;/text&gt;</span>
+  <span class="x">&lt;/generalfeedback&gt;</span>
+
+  <span class="x">&lt;defaultgrade&gt;</span>1.0<span class="x">&lt;/defaultgrade&gt;</span>
+  <span class="x">&lt;single&gt;</span>true<span class="x">&lt;/single&gt;</span>           <span class="c">&lt;!-- one correct answer --&gt;</span>
+  <span class="x">&lt;shuffleanswers&gt;</span>1<span class="x">&lt;/shuffleanswers&gt;</span>  <span class="c">&lt;!-- engine will also shuffle --&gt;</span>
+
+  <span class="c">&lt;!-- Correct answer: fraction="100" --&gt;</span>
+  <span class="x">&lt;answer</span> <span class="a">fraction</span>=<span class="m">"100"</span> <span class="a">format</span>=<span class="m">"html"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span>The position and orientation of the end-effector<span class="x">&lt;/text&gt;</span>
+    <span class="x">&lt;feedback</span> <span class="a">format</span>=<span class="m">"html"</span><span class="x">&gt;</span>
+      <span class="x">&lt;text&gt;</span><span class="s">&lt;![CDATA[&lt;p&gt;✓ Correct. FK gives us
+        $(x, y, \phi)$ from $(\theta_1, \theta_2)$.&lt;/p&gt;]]&gt;</span><span class="x">&lt;/text&gt;</span>
+    <span class="x">&lt;/feedback&gt;</span>
+  <span class="x">&lt;/answer&gt;</span>
+
+  <span class="c">&lt;!-- Wrong answers: fraction="0" --&gt;</span>
+  <span class="x">&lt;answer</span> <span class="a">fraction</span>=<span class="m">"0"</span> <span class="a">format</span>=<span class="m">"html"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span>The joint torques required to reach a target<span class="x">&lt;/text&gt;</span>
+    <span class="x">&lt;feedback&gt;&lt;text&gt;</span>That is dynamics / inverse dynamics.<span class="x">&lt;/text&gt;&lt;/feedback&gt;</span>
+  <span class="x">&lt;/answer&gt;</span>
+
+  <span class="x">&lt;answer</span> <span class="a">fraction</span>=<span class="m">"0"</span> <span class="a">format</span>=<span class="m">"html"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span>The joint angles given the end-effector position<span class="x">&lt;/text&gt;</span>
+    <span class="x">&lt;feedback&gt;&lt;text&gt;</span>That is Inverse Kinematics (IK), the reverse problem.<span class="x">&lt;/text&gt;&lt;/feedback&gt;</span>
+  <span class="x">&lt;/answer&gt;</span>
+
+  <span class="x">&lt;answer</span> <span class="a">fraction</span>=<span class="m">"0"</span> <span class="a">format</span>=<span class="m">"html"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span>The velocity of the end-effector<span class="x">&lt;/text&gt;</span>
+    <span class="x">&lt;feedback&gt;&lt;text&gt;</span>Velocity is computed via the Jacobian, not FK directly.<span class="x">&lt;/text&gt;&lt;/feedback&gt;</span>
+  <span class="x">&lt;/answer&gt;</span>
+<span class="x">&lt;/question&gt;</span>
+
+
+<span class="c">&lt;!-- ─────────────────────────────────────────────────────
+     MULTICHOICE — multiple correct answers
+     fraction values must sum to 100 for full credit.
+     Use negative fractions for penalties.
+     ───────────────────────────────────────────────────── --&gt;</span>
+<span class="x">&lt;question</span> <span class="a">type</span>=<span class="m">"multichoice"</span><span class="x">&gt;</span>
+  <span class="x">&lt;name&gt;&lt;text&gt;</span>IK solution count<span class="x">&lt;/text&gt;&lt;/name&gt;</span>
+  <span class="x">&lt;questiontext</span> <span class="a">format</span>=<span class="m">"html"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span><span class="s">&lt;![CDATA[&lt;p&gt;Which of the following are valid solution
+      counts for the IK of a 2R planar robot?
+      &lt;em&gt;Select all that apply.&lt;/em&gt;&lt;/p&gt;]]&gt;</span><span class="x">&lt;/text&gt;</span>
+  <span class="x">&lt;/questiontext&gt;</span>
+  <span class="x">&lt;single&gt;</span>false<span class="x">&lt;/single&gt;</span>  <span class="c">&lt;!-- multiple answers --&gt;</span>
+
+  <span class="c">&lt;!-- Two correct answers, each worth 50% --&gt;</span>
+  <span class="x">&lt;answer</span> <span class="a">fraction</span>=<span class="m">"50"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span>0 solutions (target out of reach)<span class="x">&lt;/text&gt;</span>
+    <span class="x">&lt;feedback&gt;&lt;text&gt;</span>Yes — if the target is beyond the robot's workspace.<span class="x">&lt;/text&gt;&lt;/feedback&gt;</span>
+  <span class="x">&lt;/answer&gt;</span>
+  <span class="x">&lt;answer</span> <span class="a">fraction</span>=<span class="m">"50"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span>2 solutions (elbow-up and elbow-down)<span class="x">&lt;/text&gt;</span>
+    <span class="x">&lt;feedback&gt;&lt;text&gt;</span>Yes — the typical case within the workspace.<span class="x">&lt;/text&gt;&lt;/feedback&gt;</span>
+  <span class="x">&lt;/answer&gt;</span>
+  <span class="c">&lt;!-- Wrong answers with penalty --&gt;</span>
+  <span class="x">&lt;answer</span> <span class="a">fraction</span>=<span class="m">"-25"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span>Exactly 3 solutions always<span class="x">&lt;/text&gt;</span>
+    <span class="x">&lt;feedback&gt;&lt;text&gt;</span>A 2R robot has at most 2 IK solutions.<span class="x">&lt;/text&gt;&lt;/feedback&gt;</span>
+  <span class="x">&lt;/answer&gt;</span>
+  <span class="x">&lt;answer</span> <span class="a">fraction</span>=<span class="m">"-25"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span>Infinite solutions always<span class="x">&lt;/text&gt;</span>
+    <span class="x">&lt;feedback&gt;&lt;text&gt;</span>Infinite solutions occur in redundant robots (≥ 3 DOF for planar).<span class="x">&lt;/text&gt;&lt;/feedback&gt;</span>
+  <span class="x">&lt;/answer&gt;</span>
+<span class="x">&lt;/question&gt;</span>
+
+<span class="x">&lt;/quiz&gt;</span></code></pre>
+</section>
+
+<section id="xml-truefalse">
+  <span class="pb p1c">Step 1.3</span>
+  <h3>truefalse questions</h3>
+
+  <p>A simplified multichoice with only two options. The <code>fraction="100"</code> goes on whichever answer is correct.</p>
+
+  <pre><code><span class="lang-tag">xml</span><span class="x">&lt;question</span> <span class="a">type</span>=<span class="m">"truefalse"</span><span class="x">&gt;</span>
+  <span class="x">&lt;name&gt;&lt;text&gt;</span>Jacobian singularity<span class="x">&lt;/text&gt;&lt;/name&gt;</span>
+  <span class="x">&lt;questiontext</span> <span class="a">format</span>=<span class="m">"html"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span><span class="s">&lt;![CDATA[
+      &lt;p&gt;At a singularity, the Jacobian matrix $J(q)$ becomes
+      rank-deficient, causing the robot to lose one or more
+      degrees of controllable freedom.&lt;/p&gt;
+    ]]&gt;</span><span class="x">&lt;/text&gt;</span>
+  <span class="x">&lt;/questiontext&gt;</span>
+
+  <span class="x">&lt;answer</span> <span class="a">fraction</span>=<span class="m">"100"</span><span class="x">&gt;</span>  <span class="c">&lt;!-- TRUE is correct --&gt;</span>
+    <span class="x">&lt;text&gt;</span>true<span class="x">&lt;/text&gt;</span>
+    <span class="x">&lt;feedback&gt;&lt;text&gt;</span>Correct. At singularities det(J) = 0 and motion in
+      certain directions becomes impossible or requires infinite torque.
+    <span class="x">&lt;/text&gt;&lt;/feedback&gt;</span>
+  <span class="x">&lt;/answer&gt;</span>
+
+  <span class="x">&lt;answer</span> <span class="a">fraction</span>=<span class="m">"0"</span><span class="x">&gt;</span>  <span class="c">&lt;!-- FALSE is wrong --&gt;</span>
+    <span class="x">&lt;text&gt;</span>false<span class="x">&lt;/text&gt;</span>
+    <span class="x">&lt;feedback&gt;&lt;text&gt;</span>Incorrect. Singularities are a real and important
+      limitation in robot control.
+    <span class="x">&lt;/text&gt;&lt;/feedback&gt;</span>
+  <span class="x">&lt;/answer&gt;</span>
+<span class="x">&lt;/question&gt;</span></code></pre>
+</section>
+
+<section id="xml-shortanswer">
+  <span class="pb p1c">Step 1.4</span>
+  <h3>shortanswer — text input with pattern matching</h3>
+
+  <p>The student types a text answer. Multiple answer patterns can be accepted (use <code>*</code> as wildcard). <code>&lt;usecase&gt;0&lt;/usecase&gt;</code> = case-insensitive.</p>
+
+  <pre><code><span class="lang-tag">xml</span><span class="x">&lt;question</span> <span class="a">type</span>=<span class="m">"shortanswer"</span><span class="x">&gt;</span>
+  <span class="x">&lt;name&gt;&lt;text&gt;</span>DOF acronym<span class="x">&lt;/text&gt;&lt;/name&gt;</span>
+  <span class="x">&lt;questiontext</span> <span class="a">format</span>=<span class="m">"html"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span><span class="s">&lt;![CDATA[
+      &lt;p&gt;What does &lt;strong&gt;DOF&lt;/strong&gt; stand for in robotics?&lt;/p&gt;
+    ]]&gt;</span><span class="x">&lt;/text&gt;</span>
+  <span class="x">&lt;/questiontext&gt;</span>
+
+  <span class="x">&lt;usecase&gt;</span>0<span class="x">&lt;/usecase&gt;</span>  <span class="c">&lt;!-- 0 = case insensitive --&gt;</span>
+
+  <span class="c">&lt;!-- Accept multiple phrasings — wildcard * matches anything --&gt;</span>
+  <span class="x">&lt;answer</span> <span class="a">fraction</span>=<span class="m">"100"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span>degrees of freedom<span class="x">&lt;/text&gt;</span>
+    <span class="x">&lt;feedback&gt;&lt;text&gt;</span>Correct!<span class="x">&lt;/text&gt;&lt;/feedback&gt;</span>
+  <span class="x">&lt;/answer&gt;</span>
+  <span class="x">&lt;answer</span> <span class="a">fraction</span>=<span class="m">"100"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span>degree of freedom<span class="x">&lt;/text&gt;</span>  <span class="c">&lt;!-- singular also OK --&gt;</span>
+    <span class="x">&lt;feedback&gt;&lt;text&gt;</span>Correct!<span class="x">&lt;/text&gt;&lt;/feedback&gt;</span>
+  <span class="x">&lt;/answer&gt;</span>
+  <span class="x">&lt;answer</span> <span class="a">fraction</span>=<span class="m">"0"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span>*<span class="x">&lt;/text&gt;</span>  <span class="c">&lt;!-- catch-all wrong answer --&gt;</span>
+    <span class="x">&lt;feedback&gt;&lt;text&gt;</span>Not quite. DOF = Degrees Of Freedom.<span class="x">&lt;/text&gt;&lt;/feedback&gt;</span>
+  <span class="x">&lt;/answer&gt;</span>
+<span class="x">&lt;/question&gt;</span></code></pre>
+</section>
+
+<section id="xml-numerical">
+  <span class="pb p1c">Step 1.5</span>
+  <h3>numerical — number input with tolerance</h3>
+
+  <p>The student enters a number. You define the correct value and an acceptable margin (<code>tolerance</code>).</p>
+
+  <pre><code><span class="lang-tag">xml</span><span class="x">&lt;question</span> <span class="a">type</span>=<span class="m">"numerical"</span><span class="x">&gt;</span>
+  <span class="x">&lt;name&gt;&lt;text&gt;</span>2R FK calculation<span class="x">&lt;/text&gt;&lt;/name&gt;</span>
+  <span class="x">&lt;questiontext</span> <span class="a">format</span>=<span class="m">"html"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span><span class="s">&lt;![CDATA[
+      &lt;p&gt;A 2R robot has $L_1 = L_2 = 1$ m. Both joints are at
+      $\theta_1 = \theta_2 = 0°$. What is the x-coordinate of the
+      end-effector (in metres)?&lt;/p&gt;
+    ]]&gt;</span><span class="x">&lt;/text&gt;</span>
+  <span class="x">&lt;/questiontext&gt;</span>
+
+  <span class="x">&lt;answer</span> <span class="a">fraction</span>=<span class="m">"100"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span>2<span class="x">&lt;/text&gt;</span>                   <span class="c">&lt;!-- correct value --&gt;</span>
+    <span class="x">&lt;tolerance&gt;</span>0.01<span class="x">&lt;/tolerance&gt;</span>  <span class="c">&lt;!-- accept 1.99 – 2.01 --&gt;</span>
+    <span class="x">&lt;feedback&gt;&lt;text&gt;</span>Correct! x = L₁cos(0) + L₂cos(0) = 1 + 1 = 2 m.<span class="x">&lt;/text&gt;&lt;/feedback&gt;</span>
+  <span class="x">&lt;/answer&gt;</span>
+
+  <span class="c">&lt;!-- Optional: partially credit close answers --&gt;</span>
+  <span class="x">&lt;answer</span> <span class="a">fraction</span>=<span class="m">"50"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span>2<span class="x">&lt;/text&gt;</span>
+    <span class="x">&lt;tolerance&gt;</span>0.1<span class="x">&lt;/tolerance&gt;</span>   <span class="c">&lt;!-- accept 1.9 – 2.1 for 50% --&gt;</span>
+    <span class="x">&lt;feedback&gt;&lt;text&gt;</span>Close, but be more precise.<span class="x">&lt;/text&gt;&lt;/feedback&gt;</span>
+  <span class="x">&lt;/answer&gt;</span>
+
+  <span class="x">&lt;generalfeedback&gt;&lt;text&gt;</span><span class="s">&lt;![CDATA[
+    &lt;p&gt;Formula: $x = L_1\cos\theta_1 + L_2\cos(\theta_1+\theta_2)$&lt;/p&gt;
+  ]]&gt;</span><span class="x">&lt;/text&gt;&lt;/generalfeedback&gt;</span>
+<span class="x">&lt;/question&gt;</span></code></pre>
+</section>
+
+<section id="xml-matching">
+  <span class="pb p1c">Step 1.6</span>
+  <h3>matching — pair terms with definitions</h3>
+
+  <p>Each <code>&lt;subquestion&gt;</code> is one pair. The student matches left-column terms to right-column definitions via dropdowns.</p>
+
+  <pre><code><span class="lang-tag">xml</span><span class="x">&lt;question</span> <span class="a">type</span>=<span class="m">"matching"</span><span class="x">&gt;</span>
+  <span class="x">&lt;name&gt;&lt;text&gt;</span>Control terms matching<span class="x">&lt;/text&gt;&lt;/name&gt;</span>
+  <span class="x">&lt;questiontext</span> <span class="a">format</span>=<span class="m">"html"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span>Match each term to its correct definition.<span class="x">&lt;/text&gt;</span>
+  <span class="x">&lt;/questiontext&gt;</span>
+  <span class="x">&lt;shuffleanswers&gt;</span>1<span class="x">&lt;/shuffleanswers&gt;</span>
+
+  <span class="x">&lt;subquestion</span> <span class="a">format</span>=<span class="m">"html"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span>PID<span class="x">&lt;/text&gt;</span>
+    <span class="x">&lt;answer&gt;&lt;text&gt;</span>Proportional-Integral-Derivative controller<span class="x">&lt;/text&gt;&lt;/answer&gt;</span>
+  <span class="x">&lt;/subquestion&gt;</span>
+
+  <span class="x">&lt;subquestion</span> <span class="a">format</span>=<span class="m">"html"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span>MPC<span class="x">&lt;/text&gt;</span>
+    <span class="x">&lt;answer&gt;&lt;text&gt;</span>Model Predictive Control — optimises over a receding horizon<span class="x">&lt;/text&gt;&lt;/answer&gt;</span>
+  <span class="x">&lt;/subquestion&gt;</span>
+
+  <span class="x">&lt;subquestion</span> <span class="a">format</span>=<span class="m">"html"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span>Lyapunov stability<span class="x">&lt;/text&gt;</span>
+    <span class="x">&lt;answer&gt;&lt;text&gt;</span>A method to prove stability without solving differential equations<span class="x">&lt;/text&gt;&lt;/answer&gt;</span>
+  <span class="x">&lt;/subquestion&gt;</span>
+
+  <span class="x">&lt;subquestion</span> <span class="a">format</span>=<span class="m">"html"</span><span class="x">&gt;</span>
+    <span class="x">&lt;text&gt;</span>Jacobian matrix<span class="x">&lt;/text&gt;</span>
+    <span class="x">&lt;answer&gt;&lt;text&gt;</span>Maps joint velocities to end-effector velocities<span class="x">&lt;/text&gt;&lt;/answer&gt;</span>
+  <span class="x">&lt;/subquestion&gt;</span>
+<span class="x">&lt;/question&gt;</span></code></pre>
+</section>
+
+<section id="xml-tips">
+  <span class="pb p1c">Step 1.7</span>
+  <h3>Authoring tips</h3>
+
+  <div class="two-col">
+    <div class="col">
+      <h4>Do</h4>
+      <ul style="font-size:0.84rem;line-height:1.9">
+        <li>Use <code>&lt;![CDATA[...]]&gt;</code> whenever your text contains HTML or LaTeX</li>
+        <li>Write at least 4 distractors per multichoice question</li>
+        <li>Put the explanation in <code>&lt;feedback&gt;</code> not <code>&lt;generalfeedback&gt;</code> when it's answer-specific</li>
+        <li>Use <code>&lt;name&gt;</code> as a unique identifier for debugging</li>
+        <li>Give wrong answers <code>fraction="0"</code> not <code>fraction="-0"</code></li>
+        <li>Test LaTeX renders: <code>$\theta$</code> not <code>&amp;theta;</code></li>
+      </ul>
+    </div>
+    <div class="col">
+      <h4>Don't</h4>
+      <ul style="font-size:0.84rem;line-height:1.9">
+        <li>Don't use <code>&amp;amp;</code>, <code>&amp;lt;</code> etc. inside CDATA — it's already raw</li>
+        <li>Don't have only 1 wrong answer — too easy to guess</li>
+        <li>Don't mix question types in one bank (OK technically, but harder to manage)</li>
+        <li>Don't forget <code>&lt;single&gt;</code> on multichoice — defaults to true</li>
+        <li>Don't use HTML tables in question text — hard to read on mobile</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout key"><strong>AI-assisted question generation:</strong> You can generate Moodle XML questions with any AI assistant. A good prompt: <em>"Write 10 Moodle XML multichoice questions about forward kinematics of planar robots. Each question should have 1 correct answer (fraction=100) and 3 distractors (fraction=0). Include per-answer feedback and LaTeX for any equations. Output valid Moodle XML."</em> Then review, tweak, and drop the file in <code>assets/questions/</code>.</div>
+</section>
+
+<!-- ═══ PART 2: ENGINE ═══ -->
+<h2 style="color:var(--p2)">Part 2 — The Quiz Engine</h2>
+
+<section id="engine-overview">
+  <span class="pb p2c">Step 2.1</span>
+  <h3>quiz-engine.js — design</h3>
+
+  <p>The engine is a self-contained module. It exposes one public function: <code>QuizEngine.init(config)</code>. Everything else is internal. Here's the data flow:</p>
+
+  <pre><code><span class="lang-tag">js</span><span class="c">// Config object passed by quiz.html include:
+// {
+//   bankUrl:          '/assets/questions/robotics/ch1-kinematics.xml',
+//   containerId:      'quiz-container-abc123',
+//   count:            5,        // how many questions to pick
+//   shuffleQuestions: true,
+//   shuffleAnswers:   true,
+//   passPercent:      70,
+//   lessonSlug:       'robotics/02-kinematics',
+//   lang:             'fr'      // for UI strings
+// }
+
+<span class="c">// Internal flow:
+//   init(config)
+//     └─ fetch(bankUrl)          → raw XML string
+//     └─ parseXML(xmlStr)        → XMLDocument
+//     └─ extractQuestions(doc)   → Question[]
+//     └─ selectRandom(qs, count) → Question[] (subset)
+//     └─ shuffleAll(qs)          → shuffles qs and each q's answers
+//     └─ render(qs, container)   → injects HTML into DOM
+//     └─ bindEvents(container)   → click handlers
+//     └─ MathJax.typesetPromise  → re-renders LaTeX</span></span></code></pre>
+</section>
+
+<section id="engine-parser">
+  <span class="pb p2c">Step 2.2</span>
+  <h3>XML Parser</h3>
+
+  <p>The browser's built-in <code>DOMParser</code> reads the Moodle XML — no library needed. Each question type has its own extraction function.</p>
+
+  <pre><code><span class="lang-tag">js</span><span class="c">// ── XML parsing helpers ──────────────────────────────────</span>
+
+<span class="c">/**
+ * getText(el, tagName) — safely read text from a child element.
+ * Returns '' if the element doesn't exist.
+ */</span>
+<span class="k">function</span> <span class="f">getText</span>(<span class="n">el</span>, <span class="n">tagName</span>) {
+  <span class="k">const</span> <span class="n">child</span> = <span class="n">el</span>.<span class="f">querySelector</span>(<span class="n">tagName</span> + <span class="s">' > text'</span>);
+  <span class="k">return</span> <span class="n">child</span> ? <span class="n">child</span>.textContent.<span class="f">trim</span>() : <span class="s">''</span>;
+}
+
+<span class="c">/**
+ * parseQuestions(xmlDoc) — convert XMLDocument → Question[]
+ * Handles: multichoice, truefalse, shortanswer, numerical, matching
+ */</span>
+<span class="k">function</span> <span class="f">parseQuestions</span>(<span class="n">xmlDoc</span>) {
+  <span class="k">const</span> <span class="n">questions</span> = [];
+  <span class="k">const</span> <span class="n">nodes</span> = <span class="n">xmlDoc</span>.<span class="f">querySelectorAll</span>(<span class="s">'question'</span>);
+
+  <span class="n">nodes</span>.<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">q</span>) {
+    <span class="k">const</span> <span class="n">type</span> = <span class="n">q</span>.<span class="f">getAttribute</span>(<span class="s">'type'</span>);
+    <span class="k">if</span> (!<span class="n">type</span> || <span class="n">type</span> === <span class="s">'category'</span>) <span class="k">return</span>; <span class="c">// skip category nodes</span>
+
+    <span class="k">const</span> <span class="n">base</span> = {
+      <span class="n">type</span>:            <span class="n">type</span>,
+      <span class="n">name</span>:            <span class="f">getText</span>(<span class="n">q</span>, <span class="s">'name'</span>),
+      <span class="n">text</span>:            <span class="f">getText</span>(<span class="n">q</span>, <span class="s">'questiontext'</span>),
+      <span class="n">generalFeedback</span>: <span class="f">getText</span>(<span class="n">q</span>, <span class="s">'generalfeedback'</span>),
+      <span class="n">defaultGrade</span>:    <span class="f">parseFloat</span>(<span class="f">getText</span>(<span class="n">q</span>, <span class="s">'defaultgrade'</span>)) || <span class="v">1</span>,
+    };
+
+    <span class="k">if</span> (<span class="n">type</span> === <span class="s">'multichoice'</span> || <span class="n">type</span> === <span class="s">'truefalse'</span>) {
+      <span class="k">const</span> <span class="n">single</span> = <span class="f">getText</span>(<span class="n">q</span>, <span class="s">'single'</span>) !== <span class="s">'false'</span>; <span class="c">// default true</span>
+      <span class="k">const</span> <span class="n">answers</span> = [];
+      <span class="n">q</span>.<span class="f">querySelectorAll</span>(<span class="s">'answer'</span>).<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">a</span>) {
+        <span class="k">const</span> <span class="n">textEl</span> = <span class="n">a</span>.<span class="f">querySelector</span>(<span class="s">'text'</span>);
+        <span class="k">const</span> <span class="n">fbEl</span>   = <span class="n">a</span>.<span class="f">querySelector</span>(<span class="s">'feedback text'</span>);
+        <span class="n">answers</span>.<span class="f">push</span>({
+          <span class="n">text</span>:     <span class="n">textEl</span> ? <span class="n">textEl</span>.textContent.<span class="f">trim</span>() : <span class="s">''</span>,
+          <span class="n">fraction</span>: <span class="f">parseFloat</span>(<span class="n">a</span>.<span class="f">getAttribute</span>(<span class="s">'fraction'</span>)) || <span class="v">0</span>,
+          <span class="n">feedback</span>: <span class="n">fbEl</span>  ? <span class="n">fbEl</span>.textContent.<span class="f">trim</span>()  : <span class="s">''</span>,
+        });
+      });
+      <span class="n">questions</span>.<span class="f">push</span>({ ...<span class="n">base</span>, <span class="n">single</span>, <span class="n">answers</span> });
+
+    } <span class="k">else if</span> (<span class="n">type</span> === <span class="s">'shortanswer'</span>) {
+      <span class="k">const</span> <span class="n">usecase</span> = <span class="f">getText</span>(<span class="n">q</span>, <span class="s">'usecase'</span>) === <span class="s">'1'</span>;
+      <span class="k">const</span> <span class="n">answers</span> = [];
+      <span class="n">q</span>.<span class="f">querySelectorAll</span>(<span class="s">'answer'</span>).<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">a</span>) {
+        <span class="k">const</span> <span class="n">textEl</span> = <span class="n">a</span>.<span class="f">querySelector</span>(<span class="s">'text'</span>);
+        <span class="k">const</span> <span class="n">fbEl</span>   = <span class="n">a</span>.<span class="f">querySelector</span>(<span class="s">'feedback text'</span>);
+        <span class="n">answers</span>.<span class="f">push</span>({
+          <span class="n">pattern</span>:  <span class="n">textEl</span> ? <span class="n">textEl</span>.textContent.<span class="f">trim</span>() : <span class="s">''</span>,
+          <span class="n">fraction</span>: <span class="f">parseFloat</span>(<span class="n">a</span>.<span class="f">getAttribute</span>(<span class="s">'fraction'</span>)) || <span class="v">0</span>,
+          <span class="n">feedback</span>: <span class="n">fbEl</span>  ? <span class="n">fbEl</span>.textContent.<span class="f">trim</span>()  : <span class="s">''</span>,
+        });
+      });
+      <span class="n">questions</span>.<span class="f">push</span>({ ...<span class="n">base</span>, <span class="n">usecase</span>, <span class="n">answers</span> });
+
+    } <span class="k">else if</span> (<span class="n">type</span> === <span class="s">'numerical'</span>) {
+      <span class="k">const</span> <span class="n">answers</span> = [];
+      <span class="n">q</span>.<span class="f">querySelectorAll</span>(<span class="s">'answer'</span>).<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">a</span>) {
+        <span class="k">const</span> <span class="n">textEl</span> = <span class="n">a</span>.<span class="f">querySelector</span>(<span class="s">'text'</span>);
+        <span class="k">const</span> <span class="n">tolEl</span>  = <span class="n">a</span>.<span class="f">querySelector</span>(<span class="s">'tolerance'</span>);
+        <span class="k">const</span> <span class="n">fbEl</span>   = <span class="n">a</span>.<span class="f">querySelector</span>(<span class="s">'feedback text'</span>);
+        <span class="n">answers</span>.<span class="f">push</span>({
+          <span class="n">value</span>:     <span class="f">parseFloat</span>(<span class="n">textEl</span> ? <span class="n">textEl</span>.textContent : <span class="s">'0'</span>),
+          <span class="n">tolerance</span>: <span class="f">parseFloat</span>(<span class="n">tolEl</span>  ? <span class="n">tolEl</span>.textContent  : <span class="s">'0'</span>),
+          <span class="n">fraction</span>:  <span class="f">parseFloat</span>(<span class="n">a</span>.<span class="f">getAttribute</span>(<span class="s">'fraction'</span>)) || <span class="v">0</span>,
+          <span class="n">feedback</span>:  <span class="n">fbEl</span> ? <span class="n">fbEl</span>.textContent.<span class="f">trim</span>() : <span class="s">''</span>,
+        });
+      });
+      <span class="n">questions</span>.<span class="f">push</span>({ ...<span class="n">base</span>, <span class="n">answers</span> });
+
+    } <span class="k">else if</span> (<span class="n">type</span> === <span class="s">'matching'</span>) {
+      <span class="k">const</span> <span class="n">pairs</span> = [];
+      <span class="n">q</span>.<span class="f">querySelectorAll</span>(<span class="s">'subquestion'</span>).<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">sq</span>) {
+        <span class="k">const</span> <span class="n">termEl</span> = <span class="n">sq</span>.<span class="f">querySelector</span>(<span class="s">'text'</span>);
+        <span class="k">const</span> <span class="n">defEl</span>  = <span class="n">sq</span>.<span class="f">querySelector</span>(<span class="s">'answer text'</span>);
+        <span class="k">if</span> (<span class="n">termEl</span> && <span class="n">defEl</span>) {
+          <span class="n">pairs</span>.<span class="f">push</span>({
+            <span class="n">term</span>:       <span class="n">termEl</span>.textContent.<span class="f">trim</span>(),
+            <span class="n">definition</span>: <span class="n">defEl</span>.textContent.<span class="f">trim</span>(),
+          });
+        }
+      });
+      <span class="n">questions</span>.<span class="f">push</span>({ ...<span class="n">base</span>, <span class="n">pairs</span> });
+    }
+    <span class="c">// 'essay' and unknown types are silently skipped</span>
+  });
+
+  <span class="k">return</span> <span class="n">questions</span>;
+}</code></pre>
+</section>
+
+<section id="engine-shuffle">
+  <span class="pb p2c">Step 2.3</span>
+  <h3>Shuffle & select</h3>
+
+  <pre><code><span class="lang-tag">js</span><span class="c">/**
+ * fisherYates(array) — in-place shuffle, returns the array.
+ * Uses crypto.getRandomValues for true randomness.
+ */</span>
+<span class="k">function</span> <span class="f">fisherYates</span>(<span class="n">arr</span>) {
+  <span class="k">for</span> (<span class="k">let</span> <span class="n">i</span> = <span class="n">arr</span>.length - <span class="v">1</span>; <span class="n">i</span> > <span class="v">0</span>; <span class="n">i</span>--) {
+    <span class="c">// crypto.getRandomValues gives a better distribution than Math.random()</span>
+    <span class="k">const</span> <span class="n">buf</span> = <span class="k">new</span> <span class="f">Uint32Array</span>(<span class="v">1</span>);
+    <span class="f">crypto</span>.<span class="f">getRandomValues</span>(<span class="n">buf</span>);
+    <span class="k">const</span> <span class="n">j</span> = <span class="n">buf</span>[<span class="v">0</span>] % (<span class="n">i</span> + <span class="v">1</span>);
+    [<span class="n">arr</span>[<span class="n">i</span>], <span class="n">arr</span>[<span class="n">j</span>]] = [<span class="n">arr</span>[<span class="n">j</span>], <span class="n">arr</span>[<span class="n">i</span>]];
+  }
+  <span class="k">return</span> <span class="n">arr</span>;
+}
+
+<span class="c">/**
+ * selectAndShuffle(questions, config) — pick a random subset,
+ * then optionally shuffle answers within each question.
+ */</span>
+<span class="k">function</span> <span class="f">selectAndShuffle</span>(<span class="n">questions</span>, <span class="n">config</span>) {
+  <span class="k">let</span> <span class="n">pool</span> = [...<span class="n">questions</span>]; <span class="c">// copy so original is untouched</span>
+
+  <span class="c">// Shuffle the question order</span>
+  <span class="k">if</span> (<span class="n">config</span>.shuffleQuestions) <span class="f">fisherYates</span>(<span class="n">pool</span>);
+
+  <span class="c">// Take first N (or all if count >= pool length)</span>
+  <span class="k">const</span> <span class="n">count</span> = <span class="f">Math</span>.<span class="f">min</span>(<span class="n">config</span>.count || <span class="n">pool</span>.length, <span class="n">pool</span>.length);
+  <span class="n">pool</span> = <span class="n">pool</span>.<span class="f">slice</span>(<span class="v">0</span>, <span class="n">count</span>);
+
+  <span class="c">// Shuffle answers within each question</span>
+  <span class="k">if</span> (<span class="n">config</span>.shuffleAnswers) {
+    <span class="n">pool</span>.<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">q</span>) {
+      <span class="k">if</span> (<span class="n">q</span>.answers) <span class="f">fisherYates</span>(<span class="n">q</span>.answers);
+      <span class="c">// For matching: shuffle the definitions column only (not the terms)</span>
+      <span class="k">if</span> (<span class="n">q</span>.pairs) {
+        <span class="k">const</span> <span class="n">defs</span> = <span class="n">q</span>.pairs.<span class="f">map</span>(<span class="n">p</span> => <span class="n">p</span>.definition);
+        <span class="f">fisherYates</span>(<span class="n">defs</span>);
+        <span class="c">// Store shuffled definitions alongside original pairs</span>
+        <span class="n">q</span>._shuffledDefs = <span class="n">defs</span>;
+      }
+    });
+  } <span class="k">else if</span> (<span class="n">pool</span>.<span class="f">some</span>(<span class="n">q</span> => <span class="n">q</span>.pairs)) {
+    <span class="c">// Even without shuffleAnswers, matching needs _shuffledDefs initialised</span>
+    <span class="n">pool</span>.<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">q</span>) {
+      <span class="k">if</span> (<span class="n">q</span>.pairs) <span class="n">q</span>._shuffledDefs = <span class="n">q</span>.pairs.<span class="f">map</span>(<span class="n">p</span> => <span class="n">p</span>.definition);
+    });
+  }
+
+  <span class="k">return</span> <span class="n">pool</span>;
+}</code></pre>
+</section>
+
+<section id="engine-renderer">
+  <span class="pb p2c">Step 2.4</span>
+  <h3>Renderer — one function per question type</h3>
+
+  <pre><code><span class="lang-tag">js</span><span class="c">// ── Renderer ─────────────────────────────────────────────</span>
+
+<span class="k">function</span> <span class="f">renderQuestion</span>(<span class="n">q</span>, <span class="n">index</span>, <span class="n">total</span>) {
+  <span class="k">const</span> <span class="n">qid</span> = <span class="s">'q'</span> + <span class="n">index</span>; <span class="c">// unique id per question in this quiz attempt</span>
+  <span class="k">let</span> <span class="n">body</span> = <span class="s">''</span>;
+
+  <span class="k">if</span> (<span class="n">q</span>.type === <span class="s">'multichoice'</span> || <span class="n">q</span>.type === <span class="s">'truefalse'</span>) {
+    <span class="k">const</span> <span class="n">inputType</span> = <span class="n">q</span>.single !== <span class="k">false</span> ? <span class="s">'radio'</span> : <span class="s">'checkbox'</span>;
+    <span class="n">body</span> = <span class="n">q</span>.answers.<span class="f">map</span>((<span class="n">a</span>, <span class="n">ai</span>) => <span class="s">`
+      &lt;label class="quiz-choice-label" data-qid="${qid}" data-ai="${ai}"
+             data-fraction="${a.fraction}" data-feedback="${encodeURI(a.feedback)}"&gt;
+        &lt;input type="${inputType}" name="${qid}" value="${ai}"
+               class="quiz-choice-input"&gt;
+        &lt;span class="quiz-choice-text"&gt;${a.text}&lt;/span&gt;
+      &lt;/label&gt;`</span>).<span class="f">join</span>(<span class="s">''</span>);
+
+  } <span class="k">else if</span> (<span class="n">q</span>.type === <span class="s">'shortanswer'</span>) {
+    <span class="n">body</span> = <span class="s">`
+      &lt;div class="quiz-shortanswer"&gt;
+        &lt;input type="text" class="quiz-text-input form-control"
+               id="${qid}-input" placeholder="Type your answer…"
+               data-qid="${qid}"
+               data-answers="${encodeURI(JSON.stringify(q.answers))}"
+               data-usecase="${q.usecase ? 1 : 0}"&gt;
+        &lt;button class="btn btn-sm btn-outline-dark mt-2 quiz-submit-text"
+                data-qid="${qid}"&gt;Submit&lt;/button&gt;
+      &lt;/div&gt;`</span>;
+
+  } <span class="k">else if</span> (<span class="n">q</span>.type === <span class="s">'numerical'</span>) {
+    <span class="n">body</span> = <span class="s">`
+      &lt;div class="quiz-numerical"&gt;
+        &lt;input type="number" step="any" class="quiz-num-input form-control"
+               id="${qid}-input" placeholder="Enter a number…"
+               data-qid="${qid}"
+               data-answers="${encodeURI(JSON.stringify(q.answers))}"&gt;
+        &lt;button class="btn btn-sm btn-outline-dark mt-2 quiz-submit-num"
+                data-qid="${qid}"&gt;Submit&lt;/button&gt;
+      &lt;/div&gt;`</span>;
+
+  } <span class="k">else if</span> (<span class="n">q</span>.type === <span class="s">'matching'</span>) {
+    <span class="k">const</span> <span class="n">allDefs</span> = <span class="n">q</span>._shuffledDefs;
+    <span class="k">const</span> <span class="n">rows</span> = <span class="n">q</span>.pairs.<span class="f">map</span>((<span class="n">pair</span>, <span class="n">pi</span>) => {
+      <span class="k">const</span> <span class="n">opts</span> = [<span class="s">'&lt;option value=""&gt;— choose —&lt;/option&gt;'</span>,
+        ...<span class="n">allDefs</span>.<span class="f">map</span>(<span class="n">d</span> => <span class="s">`&lt;option value="${encodeURI(d)}"&gt;${d}&lt;/option&gt;`</span>)
+      ].<span class="f">join</span>(<span class="s">''</span>);
+      <span class="k">return</span> <span class="s">`&lt;tr&gt;
+        &lt;td class="quiz-match-term"&gt;${pair.term}&lt;/td&gt;
+        &lt;td&gt;&lt;select class="form-control form-control-sm quiz-match-select"
+          data-qid="${qid}" data-pi="${pi}"
+          data-correct="${encodeURI(pair.definition)}"&gt;${opts}&lt;/select&gt;&lt;/td&gt;
+      &lt;/tr&gt;`</span>;
+    }).<span class="f">join</span>(<span class="s">''</span>);
+    <span class="n">body</span> = <span class="s">`
+      &lt;table class="quiz-match-table table table-sm"&gt;
+        &lt;tbody&gt;${rows}&lt;/tbody&gt;
+      &lt;/table&gt;
+      &lt;button class="btn btn-sm btn-outline-dark quiz-submit-match"
+              data-qid="${qid}"&gt;Submit&lt;/button&gt;`</span>;
+  }
+
+  <span class="k">return</span> <span class="s">`
+  &lt;div class="quiz-question" id="${qid}" data-type="${q.type}"
+       data-answered="false"
+       data-gfeedback="${encodeURI(q.generalFeedback)}"&gt;
+    &lt;p class="quiz-q-header"&gt;
+      &lt;span class="quiz-q-num"&gt;${index + 1} / ${total}&lt;/span&gt;
+      &lt;span class="quiz-q-type badge badge-light ml-1"&gt;${q.type}&lt;/span&gt;
+    &lt;/p&gt;
+    &lt;div class="quiz-q-text"&gt;${q.text}&lt;/div&gt;
+    &lt;div class="quiz-choices"&gt;${body}&lt;/div&gt;
+    &lt;div class="quiz-feedback-box" style="display:none"&gt;&lt;/div&gt;
+    &lt;div class="quiz-gfeedback-box" style="display:none"&gt;&lt;/div&gt;
+  &lt;/div&gt;`</span>;
+}</code></pre>
+</section>
+
+<section id="engine-scoring">
+  <span class="pb p2c">Step 2.5</span>
+  <h3>Scoring logic</h3>
+
+  <pre><code><span class="lang-tag">js</span><span class="c">// ── Scoring ───────────────────────────────────────────────</span>
+
+<span class="c">/**
+ * scoreMultichoice — handles both single and multiple-answer.
+ * For single: 100% if correct answer selected, 0 otherwise.
+ * For multiple: sum of fractions of selected answers, clamped [0, 1].
+ */</span>
+<span class="k">function</span> <span class="f">scoreMultichoice</span>(<span class="n">qEl</span>, <span class="n">q</span>) {
+  <span class="k">const</span> <span class="n">selected</span> = [...<span class="n">qEl</span>.<span class="f">querySelectorAll</span>(<span class="s">'input:checked'</span>)]
+    .<span class="f">map</span>(<span class="n">el</span> => <span class="f">parseInt</span>(<span class="n">el</span>.value));
+
+  <span class="k">if</span> (<span class="n">selected</span>.length === <span class="v">0</span>) <span class="k">return</span> <span class="k">null</span>; <span class="c">// not answered yet</span>
+
+  <span class="c">// Highlight each choice: green if correct, red if wrong</span>
+  <span class="n">qEl</span>.<span class="f">querySelectorAll</span>(<span class="s">'.quiz-choice-label'</span>).<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">lbl</span>) {
+    <span class="k">const</span> <span class="n">ai</span>  = <span class="f">parseInt</span>(<span class="n">lbl</span>.dataset.ai);
+    <span class="k">const</span> <span class="n">frac</span>= <span class="f">parseFloat</span>(<span class="n">lbl</span>.dataset.fraction);
+    <span class="k">const</span> <span class="n">fb</span>  = <span class="f">decodeURI</span>(<span class="n">lbl</span>.dataset.feedback);
+    <span class="k">const</span> <span class="n">isSelected</span> = <span class="n">selected</span>.<span class="f">includes</span>(<span class="n">ai</span>);
+    <span class="k">const</span> <span class="n">isCorrect</span>  = <span class="n">frac</span> > <span class="v">0</span>;
+
+    <span class="n">lbl</span>.<span class="f">classList</span>.<span class="f">add</span>(
+      <span class="n">isCorrect</span> ? <span class="s">'quiz-correct'</span> : (<span class="n">isSelected</span> ? <span class="s">'quiz-wrong'</span> : <span class="s">'quiz-neutral'</span>)
+    );
+    <span class="k">const</span> <span class="n">inp</span> = <span class="n">lbl</span>.<span class="f">querySelector</span>(<span class="s">'input'</span>);
+    <span class="k">if</span> (<span class="n">inp</span>) <span class="n">inp</span>.disabled = <span class="k">true</span>;
+
+    <span class="c">// Show feedback for selected answers (or the correct answer if wrong)</span>
+    <span class="k">if</span> (<span class="n">fb</span> && (<span class="n">isSelected</span> || <span class="n">isCorrect</span>)) {
+      <span class="k">const</span> <span class="n">fbEl</span> = <span class="f">document</span>.<span class="f">createElement</span>(<span class="s">'small'</span>);
+      <span class="n">fbEl</span>.className = <span class="s">'quiz-answer-feedback'</span>;
+      <span class="n">fbEl</span>.innerHTML = <span class="n">fb</span>;
+      <span class="n">lbl</span>.<span class="f">appendChild</span>(<span class="n">fbEl</span>);
+    }
+  });
+
+  <span class="c">// Calculate score: sum fractions of selected answers</span>
+  <span class="k">let</span> <span class="n">totalFrac</span> = <span class="v">0</span>;
+  <span class="n">selected</span>.<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">ai</span>) {
+    <span class="n">totalFrac</span> += <span class="n">q</span>.answers[<span class="n">ai</span>]?.fraction || <span class="v">0</span>;
+  });
+  <span class="k">return</span> <span class="f">Math</span>.<span class="f">max</span>(<span class="v">0</span>, <span class="f">Math</span>.<span class="f">min</span>(<span class="v">100</span>, <span class="n">totalFrac</span>)) / <span class="v">100</span>; <span class="c">// normalise to [0,1]</span>
+}
+
+<span class="c">/**
+ * scoreShortAnswer — pattern matching with wildcard support.
+ * Pattern "*" matches anything. "*text*" contains match.
+ */</span>
+<span class="k">function</span> <span class="f">scoreShortAnswer</span>(<span class="n">qEl</span>, <span class="n">q</span>) {
+  <span class="k">const</span> <span class="n">inp</span> = <span class="n">qEl</span>.<span class="f">querySelector</span>(<span class="s">'.quiz-text-input'</span>);
+  <span class="k">if</span> (!<span class="n">inp</span>) <span class="k">return</span> <span class="k">null</span>;
+  <span class="k">let</span> <span class="n">val</span> = <span class="n">inp</span>.value.<span class="f">trim</span>();
+  <span class="k">if</span> (!<span class="n">val</span>) <span class="k">return</span> <span class="k">null</span>;
+
+  <span class="k">const</span> <span class="n">answers</span> = <span class="f">JSON</span>.<span class="f">parse</span>(<span class="f">decodeURI</span>(<span class="n">inp</span>.dataset.answers));
+  <span class="k">const</span> <span class="n">cs</span>      = <span class="n">inp</span>.dataset.usecase === <span class="s">'1'</span>;
+  <span class="k">if</span> (!<span class="n">cs</span>) <span class="n">val</span> = <span class="n">val</span>.<span class="f">toLowerCase</span>();
+
+  <span class="k">let</span> <span class="n">matchedFrac</span> = <span class="v">0</span>, <span class="n">matchedFeedback</span> = <span class="s">''</span>;
+
+  <span class="k">for</span> (<span class="k">const</span> <span class="n">a</span> <span class="k">of</span> <span class="n">answers</span>) {
+    <span class="k">let</span> <span class="n">pat</span> = <span class="n">cs</span> ? <span class="n">a</span>.pattern : <span class="n">a</span>.pattern.<span class="f">toLowerCase</span>();
+    <span class="c">// Convert Moodle wildcard pattern to regex:</span>
+    <span class="c">// '*' → '.*' (matches anything), escape other regex chars</span>
+    <span class="k">const</span> <span class="n">regex</span> = <span class="k">new</span> <span class="f">RegExp</span>(
+      <span class="s">'^'</span> + <span class="n">pat</span>.<span class="f">replace</span>(<span class="s">/[.+?^${}()|[\]\\]/g</span>, <span class="s">'\\$&amp;'</span>)
+                .<span class="f">replace</span>(<span class="s">/\*/g</span>, <span class="s">'.*'</span>) + <span class="s">'$'</span>
+    );
+    <span class="k">if</span> (<span class="n">regex</span>.<span class="f">test</span>(<span class="n">val</span>)) {
+      <span class="n">matchedFrac</span>     = <span class="n">a</span>.fraction;
+      <span class="n">matchedFeedback</span> = <span class="n">a</span>.feedback;
+      <span class="k">break</span>;
+    }
+  }
+
+  <span class="n">inp</span>.disabled = <span class="k">true</span>;
+  <span class="n">inp</span>.classList.<span class="f">add</span>(<span class="n">matchedFrac</span> > <span class="v">0</span> ? <span class="s">'quiz-input-correct'</span> : <span class="s">'quiz-input-wrong'</span>);
+
+  <span class="k">const</span> <span class="n">fbBox</span> = <span class="n">qEl</span>.<span class="f">querySelector</span>(<span class="s">'.quiz-feedback-box'</span>);
+  <span class="n">fbBox</span>.style.display = <span class="s">'block'</span>;
+  <span class="n">fbBox</span>.className = <span class="s">'quiz-feedback-box alert '</span> + (<span class="n">matchedFrac</span> > <span class="v">0</span> ? <span class="s">'alert-success'</span> : <span class="s">'alert-warning'</span>);
+  <span class="n">fbBox</span>.innerHTML = (<span class="n">matchedFrac</span> > <span class="v">0</span> ? <span class="s">'✓ '</span> : <span class="s">'✗ '</span>) + (<span class="n">matchedFeedback</span> || <span class="s">'Try again.'</span>);
+
+  <span class="k">return</span> <span class="f">Math</span>.<span class="f">max</span>(<span class="v">0</span>, <span class="n">matchedFrac</span>) / <span class="v">100</span>;
+}
+
+<span class="c">/**
+ * scoreNumerical — checks if value falls within tolerance range.
+ * Tries answers in order (most precise first = highest fraction first).
+ */</span>
+<span class="k">function</span> <span class="f">scoreNumerical</span>(<span class="n">qEl</span>, <span class="n">q</span>) {
+  <span class="k">const</span> <span class="n">inp</span> = <span class="n">qEl</span>.<span class="f">querySelector</span>(<span class="s">'.quiz-num-input'</span>);
+  <span class="k">if</span> (!<span class="n">inp</span> || <span class="n">inp</span>.value === <span class="s">''</span>) <span class="k">return</span> <span class="k">null</span>;
+  <span class="k">const</span> <span class="n">val</span>     = <span class="f">parseFloat</span>(<span class="n">inp</span>.value);
+  <span class="k">const</span> <span class="n">answers</span> = <span class="f">JSON</span>.<span class="f">parse</span>(<span class="f">decodeURI</span>(<span class="n">inp</span>.dataset.answers));
+
+  <span class="c">// Sort by fraction descending — best answer wins if multiple match</span>
+  <span class="n">answers</span>.<span class="f">sort</span>((<span class="n">a</span>, <span class="n">b</span>) => <span class="n">b</span>.fraction - <span class="n">a</span>.fraction);
+
+  <span class="k">let</span> <span class="n">matchedFrac</span> = <span class="v">0</span>, <span class="n">matchedFb</span> = <span class="s">''</span>;
+  <span class="k">for</span> (<span class="k">const</span> <span class="n">a</span> <span class="k">of</span> <span class="n">answers</span>) {
+    <span class="k">if</span> (<span class="f">Math</span>.<span class="f">abs</span>(<span class="n">val</span> - <span class="n">a</span>.value) <= <span class="n">a</span>.tolerance) {
+      <span class="n">matchedFrac</span> = <span class="n">a</span>.fraction;
+      <span class="n">matchedFb</span>   = <span class="n">a</span>.feedback;
+      <span class="k">break</span>;
+    }
+  }
+
+  <span class="n">inp</span>.disabled = <span class="k">true</span>;
+  <span class="n">inp</span>.classList.<span class="f">add</span>(<span class="n">matchedFrac</span> > <span class="v">0</span> ? <span class="s">'quiz-input-correct'</span> : <span class="s">'quiz-input-wrong'</span>);
+  <span class="k">const</span> <span class="n">fbBox</span> = <span class="n">qEl</span>.<span class="f">querySelector</span>(<span class="s">'.quiz-feedback-box'</span>);
+  <span class="n">fbBox</span>.style.display = <span class="s">'block'</span>;
+  <span class="n">fbBox</span>.className = <span class="s">'quiz-feedback-box alert '</span> + (<span class="n">matchedFrac</span> > <span class="v">0</span> ? <span class="s">'alert-success'</span> : <span class="s">'alert-danger'</span>);
+  <span class="n">fbBox</span>.innerHTML = (<span class="n">matchedFrac</span> > <span class="v">0</span> ? <span class="s">'✓ '</span> : <span class="s">'✗ Incorrect. '</span>) + <span class="n">matchedFb</span>;
+
+  <span class="k">return</span> <span class="f">Math</span>.<span class="f">max</span>(<span class="v">0</span>, <span class="n">matchedFrac</span>) / <span class="v">100</span>;
+}
+
+<span class="c">/**
+ * scoreMatching — one point per correct pair.
+ */</span>
+<span class="k">function</span> <span class="f">scoreMatching</span>(<span class="n">qEl</span>) {
+  <span class="k">const</span> <span class="n">selects</span> = [...<span class="n">qEl</span>.<span class="f">querySelectorAll</span>(<span class="s">'.quiz-match-select'</span>)];
+  <span class="k">if</span> (<span class="n">selects</span>.<span class="f">some</span>(<span class="n">s</span> => !<span class="n">s</span>.value)) <span class="k">return</span> <span class="k">null</span>; <span class="c">// incomplete</span>
+
+  <span class="k">let</span> <span class="n">correct</span> = <span class="v">0</span>;
+  <span class="n">selects</span>.<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">sel</span>) {
+    <span class="k">const</span> <span class="n">chosen</span>    = <span class="f">decodeURI</span>(<span class="n">sel</span>.value);
+    <span class="k">const</span> <span class="n">expected</span>  = <span class="f">decodeURI</span>(<span class="n">sel</span>.dataset.correct);
+    <span class="k">const</span> <span class="n">isCorrect</span> = <span class="n">chosen</span> === <span class="n">expected</span>;
+    <span class="n">sel</span>.disabled = <span class="k">true</span>;
+    <span class="n">sel</span>.style.borderColor = <span class="n">isCorrect</span> ? <span class="s">'#28a745'</span> : <span class="s">'#dc3545'</span>;
+    <span class="k">if</span> (<span class="n">isCorrect</span>) <span class="n">correct</span>++;
+    <span class="k">else</span> {
+      <span class="c">// Show correct answer as hint</span>
+      <span class="k">const</span> <span class="n">hint</span> = <span class="f">document</span>.<span class="f">createElement</span>(<span class="s">'small'</span>);
+      <span class="n">hint</span>.className = <span class="s">'text-danger d-block'</span>;
+      <span class="n">hint</span>.textContent = <span class="s">'→ '</span> + <span class="n">expected</span>;
+      <span class="n">sel</span>.parentNode.<span class="f">appendChild</span>(<span class="n">hint</span>);
+    }
+  });
+  <span class="k">return</span> <span class="n">correct</span> / <span class="n">selects</span>.length; <span class="c">// fraction of pairs correct</span>
+}</code></pre>
+</section>
+
+<section id="engine-persistence">
+  <span class="pb p2c">Step 2.6</span>
+  <h3>localStorage persistence</h3>
+
+  <pre><code><span class="lang-tag">js</span><span class="c">// ── Persistence ───────────────────────────────────────────</span>
+
+<span class="k">function</span> <span class="f">saveQuizResult</span>(<span class="n">lessonSlug</span>, <span class="n">score</span>, <span class="n">total</span>, <span class="n">passed</span>) {
+  <span class="k">const</span> <span class="n">key</span>  = <span class="s">'quiz_result_'</span> + <span class="n">lessonSlug</span>;
+  <span class="k">const</span> <span class="n">data</span> = {
+    <span class="n">score</span>:     <span class="n">score</span>,
+    <span class="n">total</span>:     <span class="n">total</span>,
+    <span class="n">percent</span>:   <span class="f">Math</span>.<span class="f">round</span>(<span class="n">score</span> / <span class="n">total</span> * <span class="v">100</span>),
+    <span class="n">passed</span>:    <span class="n">passed</span>,
+    <span class="n">timestamp</span>: <span class="k">new</span> <span class="f">Date</span>().<span class="f">toISOString</span>(),
+  };
+  <span class="f">localStorage</span>.<span class="f">setItem</span>(<span class="n">key</span>, <span class="f">JSON</span>.<span class="f">stringify</span>(<span class="n">data</span>));
+  <span class="c">// Also mark lesson as done if passed (integrates with progress.js)</span>
+  <span class="k">if</span> (<span class="n">passed</span>) <span class="f">localStorage</span>.<span class="f">setItem</span>(<span class="s">'lesson_done_'</span> + <span class="n">lessonSlug</span>, <span class="s">'1'</span>);
+}
+
+<span class="k">function</span> <span class="f">loadQuizResult</span>(<span class="n">lessonSlug</span>) {
+  <span class="k">try</span> {
+    <span class="k">return</span> <span class="f">JSON</span>.<span class="f">parse</span>(<span class="f">localStorage</span>.<span class="f">getItem</span>(<span class="s">'quiz_result_'</span> + <span class="n">lessonSlug</span>));
+  } <span class="k">catch</span>(<span class="n">e</span>) { <span class="k">return</span> <span class="k">null</span>; }
+}</code></pre>
+</section>
+
+<section id="engine-full">
+  <span class="pb p2c">Step 2.7</span>
+  <h3>Full quiz-engine.js — complete file</h3>
+
+  <p>Put everything together into <code>assets/js/quiz-engine.js</code>. This is the complete, production-ready file:</p>
+
+  <pre><code><span class="lang-tag">js</span><span class="c">/**
+ * quiz-engine.js — Moodle XML Quiz Engine for Jekyll
+ * Supports: multichoice, truefalse, shortanswer, numerical, matching
+ * Usage: QuizEngine.init(config) — called by _includes/quiz.html
+ */</span>
+
+(<span class="k">function</span>() {
+<span class="s">'use strict'</span>;
+
+<span class="c">// ─── Utilities ────────────────────────────────────────────────</span>
+
+<span class="k">function</span> <span class="f">getText</span>(<span class="n">el</span>, <span class="n">sel</span>) {
+  <span class="k">const</span> <span class="n">c</span> = <span class="n">el</span>.<span class="f">querySelector</span>(<span class="n">sel</span> + <span class="s">' > text'</span>);
+  <span class="k">return</span> <span class="n">c</span> ? <span class="n">c</span>.textContent.<span class="f">trim</span>() : <span class="s">''</span>;
+}
+
+<span class="k">function</span> <span class="f">fisherYates</span>(<span class="n">arr</span>) {
+  <span class="k">for</span> (<span class="k">let</span> <span class="n">i</span> = <span class="n">arr</span>.length - <span class="v">1</span>; <span class="n">i</span> > <span class="v">0</span>; <span class="n">i</span>--) {
+    <span class="k">const</span> <span class="n">buf</span> = <span class="k">new</span> <span class="f">Uint32Array</span>(<span class="v">1</span>);
+    <span class="f">crypto</span>.<span class="f">getRandomValues</span>(<span class="n">buf</span>);
+    <span class="k">const</span> <span class="n">j</span> = <span class="n">buf</span>[<span class="v">0</span>] % (<span class="n">i</span> + <span class="v">1</span>);
+    [<span class="n">arr</span>[<span class="n">i</span>], <span class="n">arr</span>[<span class="n">j</span>]] = [<span class="n">arr</span>[<span class="n">j</span>], <span class="n">arr</span>[<span class="n">i</span>]];
+  }
+  <span class="k">return</span> <span class="n">arr</span>;
+}
+
+<span class="c">// ─── XML Parser ────────────────────────────────────────────────</span>
+
+<span class="k">function</span> <span class="f">parseQuestions</span>(<span class="n">xmlDoc</span>) {
+  <span class="k">const</span> <span class="n">questions</span> = [];
+  <span class="n">xmlDoc</span>.<span class="f">querySelectorAll</span>(<span class="s">'question'</span>).<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">q</span>) {
+    <span class="k">const</span> <span class="n">type</span> = <span class="n">q</span>.<span class="f">getAttribute</span>(<span class="s">'type'</span>);
+    <span class="k">if</span> (!<span class="n">type</span> || <span class="n">type</span> === <span class="s">'category'</span> || <span class="n">type</span> === <span class="s">'essay'</span>) <span class="k">return</span>;
+    <span class="k">const</span> <span class="n">base</span> = {
+      <span class="n">type</span>:            <span class="n">type</span>,
+      <span class="n">name</span>:            <span class="f">getText</span>(<span class="n">q</span>, <span class="s">'name'</span>),
+      <span class="n">text</span>:            <span class="f">getText</span>(<span class="n">q</span>, <span class="s">'questiontext'</span>),
+      <span class="n">generalFeedback</span>: <span class="f">getText</span>(<span class="n">q</span>, <span class="s">'generalfeedback'</span>),
+      <span class="n">defaultGrade</span>:    <span class="f">parseFloat</span>(<span class="f">getText</span>(<span class="n">q</span>, <span class="s">'defaultgrade'</span>)) || <span class="v">1</span>,
+    };
+    <span class="k">if</span> (<span class="n">type</span> === <span class="s">'multichoice'</span> || <span class="n">type</span> === <span class="s">'truefalse'</span>) {
+      <span class="k">const</span> <span class="n">single</span> = <span class="f">getText</span>(<span class="n">q</span>, <span class="s">'single'</span>) !== <span class="s">'false'</span>;
+      <span class="k">const</span> <span class="n">answers</span> = [...<span class="n">q</span>.<span class="f">querySelectorAll</span>(<span class="s">'answer'</span>)].<span class="f">map</span>(<span class="n">a</span> => ({
+        <span class="n">text</span>:     (<span class="n">a</span>.<span class="f">querySelector</span>(<span class="s">'text'</span>)||{}).textContent?.trim()||<span class="s">''</span>,
+        <span class="n">fraction</span>: <span class="f">parseFloat</span>(<span class="n">a</span>.<span class="f">getAttribute</span>(<span class="s">'fraction'</span>))||<span class="v">0</span>,
+        <span class="n">feedback</span>: (<span class="n">a</span>.<span class="f">querySelector</span>(<span class="s">'feedback text'</span>)||{}).textContent?.trim()||<span class="s">''</span>,
+      }));
+      <span class="n">questions</span>.<span class="f">push</span>({...<span class="n">base</span>, <span class="n">single</span>, <span class="n">answers</span>});
+    } <span class="k">else if</span> (<span class="n">type</span> === <span class="s">'shortanswer'</span>) {
+      <span class="k">const</span> <span class="n">usecase</span> = (<span class="n">q</span>.<span class="f">querySelector</span>(<span class="s">'usecase'</span>)||{}).textContent === <span class="s">'1'</span>;
+      <span class="k">const</span> <span class="n">answers</span> = [...<span class="n">q</span>.<span class="f">querySelectorAll</span>(<span class="s">'answer'</span>)].<span class="f">map</span>(<span class="n">a</span> => ({
+        <span class="n">pattern</span>:  (<span class="n">a</span>.<span class="f">querySelector</span>(<span class="s">'text'</span>)||{}).textContent?.trim()||<span class="s">''</span>,
+        <span class="n">fraction</span>: <span class="f">parseFloat</span>(<span class="n">a</span>.<span class="f">getAttribute</span>(<span class="s">'fraction'</span>))||<span class="v">0</span>,
+        <span class="n">feedback</span>: (<span class="n">a</span>.<span class="f">querySelector</span>(<span class="s">'feedback text'</span>)||{}).textContent?.trim()||<span class="s">''</span>,
+      }));
+      <span class="n">questions</span>.<span class="f">push</span>({...<span class="n">base</span>, <span class="n">usecase</span>, <span class="n">answers</span>});
+    } <span class="k">else if</span> (<span class="n">type</span> === <span class="s">'numerical'</span>) {
+      <span class="k">const</span> <span class="n">answers</span> = [...<span class="n">q</span>.<span class="f">querySelectorAll</span>(<span class="s">'answer'</span>)].<span class="f">map</span>(<span class="n">a</span> => ({
+        <span class="n">value</span>:     <span class="f">parseFloat</span>((<span class="n">a</span>.<span class="f">querySelector</span>(<span class="s">'text'</span>)||{}).textContent||<span class="s">'0'</span>),
+        <span class="n">tolerance</span>: <span class="f">parseFloat</span>((<span class="n">a</span>.<span class="f">querySelector</span>(<span class="s">'tolerance'</span>)||{}).textContent||<span class="s">'0'</span>),
+        <span class="n">fraction</span>:  <span class="f">parseFloat</span>(<span class="n">a</span>.<span class="f">getAttribute</span>(<span class="s">'fraction'</span>))||<span class="v">0</span>,
+        <span class="n">feedback</span>:  (<span class="n">a</span>.<span class="f">querySelector</span>(<span class="s">'feedback text'</span>)||{}).textContent?.trim()||<span class="s">''</span>,
+      }));
+      <span class="n">questions</span>.<span class="f">push</span>({...<span class="n">base</span>, <span class="n">answers</span>});
+    } <span class="k">else if</span> (<span class="n">type</span> === <span class="s">'matching'</span>) {
+      <span class="k">const</span> <span class="n">pairs</span> = [];
+      <span class="n">q</span>.<span class="f">querySelectorAll</span>(<span class="s">'subquestion'</span>).<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">sq</span>) {
+        <span class="k">const</span> <span class="n">t</span> = <span class="n">sq</span>.<span class="f">querySelector</span>(<span class="s">'text'</span>);
+        <span class="k">const</span> <span class="n">d</span> = <span class="n">sq</span>.<span class="f">querySelector</span>(<span class="s">'answer text'</span>);
+        <span class="k">if</span> (<span class="n">t</span> && <span class="n">d</span>) <span class="n">pairs</span>.<span class="f">push</span>({ <span class="n">term</span>: <span class="n">t</span>.textContent.<span class="f">trim</span>(), <span class="n">definition</span>: <span class="n">d</span>.textContent.<span class="f">trim</span>() });
+      });
+      <span class="n">questions</span>.<span class="f">push</span>({...<span class="n">base</span>, <span class="n">pairs</span>});
+    }
+  });
+  <span class="k">return</span> <span class="n">questions</span>;
+}
+
+<span class="c">// ─── Select & Shuffle ─────────────────────────────────────────</span>
+
+<span class="k">function</span> <span class="f">selectAndShuffle</span>(<span class="n">questions</span>, <span class="n">cfg</span>) {
+  <span class="k">let</span> <span class="n">pool</span> = [...<span class="n">questions</span>];
+  <span class="k">if</span> (<span class="n">cfg</span>.shuffleQuestions) <span class="f">fisherYates</span>(<span class="n">pool</span>);
+  <span class="n">pool</span> = <span class="n">pool</span>.<span class="f">slice</span>(<span class="v">0</span>, <span class="f">Math</span>.<span class="f">min</span>(<span class="n">cfg</span>.count || <span class="n">pool</span>.length, <span class="n">pool</span>.length));
+  <span class="n">pool</span>.<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">q</span>) {
+    <span class="k">if</span> (<span class="n">cfg</span>.shuffleAnswers && <span class="n">q</span>.answers) <span class="f">fisherYates</span>(<span class="n">q</span>.answers);
+    <span class="k">if</span> (<span class="n">q</span>.pairs) {
+      <span class="n">q</span>._shuffledDefs = <span class="n">q</span>.pairs.<span class="f">map</span>(<span class="n">p</span> => <span class="n">p</span>.definition);
+      <span class="k">if</span> (<span class="n">cfg</span>.shuffleAnswers) <span class="f">fisherYates</span>(<span class="n">q</span>._shuffledDefs);
+    }
+  });
+  <span class="k">return</span> <span class="n">pool</span>;
+}
+
+<span class="c">// ─── Renderer ─────────────────────────────────────────────────</span>
+
+<span class="k">function</span> <span class="f">renderQuestion</span>(<span class="n">q</span>, <span class="n">i</span>, <span class="n">total</span>) {
+  <span class="k">const</span> <span class="n">id</span> = <span class="s">'q'</span> + <span class="n">i</span>;
+  <span class="k">let</span> <span class="n">body</span> = <span class="s">''</span>;
+  <span class="k">if</span> (<span class="n">q</span>.type === <span class="s">'multichoice'</span> || <span class="n">q</span>.type === <span class="s">'truefalse'</span>) {
+    <span class="k">const</span> <span class="n">t</span> = <span class="n">q</span>.single !== <span class="k">false</span> ? <span class="s">'radio'</span> : <span class="s">'checkbox'</span>;
+    <span class="n">body</span> = <span class="n">q</span>.answers.<span class="f">map</span>((<span class="n">a</span>, <span class="n">ai</span>) => <span class="s">`
+      &lt;label class="quiz-choice-label" data-ai="${ai}" data-fraction="${a.fraction}"
+             data-feedback="${encodeURI(a.feedback)}"&gt;
+        &lt;input type="${t}" name="${id}" value="${ai}" class="quiz-choice-input"&gt;
+        &lt;span class="quiz-choice-text"&gt;${a.text}&lt;/span&gt;
+      &lt;/label&gt;`</span>).<span class="f">join</span>(<span class="s">''</span>);
+  } <span class="k">else if</span> (<span class="n">q</span>.type === <span class="s">'shortanswer'</span>) {
+    <span class="n">body</span> = <span class="s">`&lt;div class="quiz-shortanswer"&gt;
+      &lt;input type="text" class="quiz-text-input form-control" id="${id}-input"
+             placeholder="Type your answer…"
+             data-answers="${encodeURI(JSON.stringify(q.answers))}"
+             data-usecase="${q.usecase?1:0}"&gt;
+      &lt;button class="btn btn-sm btn-outline-dark mt-2 quiz-submit-text" data-qid="${id}"&gt;Submit&lt;/button&gt;
+    &lt;/div&gt;`</span>;
+  } <span class="k">else if</span> (<span class="n">q</span>.type === <span class="s">'numerical'</span>) {
+    <span class="n">body</span> = <span class="s">`&lt;div class="quiz-numerical"&gt;
+      &lt;input type="number" step="any" class="quiz-num-input form-control" id="${id}-input"
+             placeholder="Enter a number…"
+             data-answers="${encodeURI(JSON.stringify(q.answers))}"&gt;
+      &lt;button class="btn btn-sm btn-outline-dark mt-2 quiz-submit-num" data-qid="${id}"&gt;Submit&lt;/button&gt;
+    &lt;/div&gt;`</span>;
+  } <span class="k">else if</span> (<span class="n">q</span>.type === <span class="s">'matching'</span>) {
+    <span class="k">const</span> <span class="n">rows</span> = <span class="n">q</span>.pairs.<span class="f">map</span>((<span class="n">p</span>, <span class="n">pi</span>) => {
+      <span class="k">const</span> <span class="n">opts</span> = [<span class="s">'&lt;option value=""&gt;— choose —&lt;/option&gt;'</span>,
+        ...<span class="n">q</span>._shuffledDefs.<span class="f">map</span>(<span class="n">d</span> => <span class="s">`&lt;option value="${encodeURI(d)}"&gt;${d}&lt;/option&gt;`</span>)].<span class="f">join</span>(<span class="s">''</span>);
+      <span class="k">return</span> <span class="s">`&lt;tr&gt;&lt;td class="quiz-match-term"&gt;${p.term}&lt;/td&gt;
+        &lt;td&gt;&lt;select class="form-control form-control-sm quiz-match-select"
+          data-pi="${pi}" data-correct="${encodeURI(p.definition)}"&gt;${opts}&lt;/select&gt;&lt;/td&gt;&lt;/tr&gt;`</span>;
+    }).<span class="f">join</span>(<span class="s">''</span>);
+    <span class="n">body</span> = <span class="s">`&lt;table class="table table-sm quiz-match-table"&gt;&lt;tbody&gt;${rows}&lt;/tbody&gt;&lt;/table&gt;
+      &lt;button class="btn btn-sm btn-outline-dark quiz-submit-match" data-qid="${id}"&gt;Submit&lt;/button&gt;`</span>;
+  }
+  <span class="k">return</span> <span class="s">`&lt;div class="quiz-question" id="${id}" data-type="${q.type}" data-answered="false"
+         data-grade="${q.defaultGrade}" data-gfeedback="${encodeURI(q.generalFeedback)}"&gt;
+    &lt;p class="quiz-q-header"&gt;
+      &lt;span class="quiz-q-num"&gt;${i+1} / ${total}&lt;/span&gt;
+      &lt;span class="badge badge-light ml-1 quiz-q-type"&gt;${q.type}&lt;/span&gt;
+    &lt;/p&gt;
+    &lt;div class="quiz-q-text"&gt;${q.text}&lt;/div&gt;
+    &lt;div class="quiz-choices"&gt;${body}&lt;/div&gt;
+    &lt;div class="quiz-feedback-box" style="display:none"&gt;&lt;/div&gt;
+    &lt;div class="quiz-gfeedback-box" style="display:none"&gt;&lt;/div&gt;
+  &lt;/div&gt;`</span>;
+}
+
+<span class="c">// ─── Scoring ──────────────────────────────────────────────────</span>
+
+<span class="k">function</span> <span class="f">scoreQuestion</span>(<span class="n">qEl</span>, <span class="n">q</span>) {
+  <span class="k">if</span> (<span class="n">q</span>.type === <span class="s">'multichoice'</span> || <span class="n">q</span>.type === <span class="s">'truefalse'</span>) {
+    <span class="k">const</span> <span class="n">sel</span> = [...<span class="n">qEl</span>.<span class="f">querySelectorAll</span>(<span class="s">'input:checked'</span>)].<span class="f">map</span>(<span class="n">e</span> => <span class="f">parseInt</span>(<span class="n">e</span>.value));
+    <span class="k">if</span> (!<span class="n">sel</span>.length) <span class="k">return</span> <span class="k">null</span>;
+    <span class="n">qEl</span>.<span class="f">querySelectorAll</span>(<span class="s">'.quiz-choice-label'</span>).<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">lbl</span>, <span class="n">ai</span>) {
+      <span class="k">const</span> <span class="n">frac</span>  = <span class="f">parseFloat</span>(<span class="n">lbl</span>.dataset.fraction);
+      <span class="k">const</span> <span class="n">fb</span>    = <span class="f">decodeURI</span>(<span class="n">lbl</span>.dataset.feedback);
+      <span class="k">const</span> <span class="n">chose</span> = <span class="n">sel</span>.<span class="f">includes</span>(<span class="n">ai</span>);
+      <span class="n">lbl</span>.classList.<span class="f">add</span>(<span class="n">frac</span> > <span class="v">0</span> ? <span class="s">'quiz-correct'</span> : (<span class="n">chose</span> ? <span class="s">'quiz-wrong'</span> : <span class="s">'quiz-neutral'</span>));
+      (<span class="n">lbl</span>.<span class="f">querySelector</span>(<span class="s">'input'</span>)||{}).disabled = <span class="k">true</span>;
+      <span class="k">if</span> (<span class="n">fb</span> && (<span class="n">chose</span> || <span class="n">frac</span> > <span class="v">0</span>)) {
+        <span class="k">const</span> <span class="n">s</span> = <span class="f">document</span>.<span class="f">createElement</span>(<span class="s">'small'</span>);
+        <span class="n">s</span>.className = <span class="s">'quiz-answer-feedback d-block mt-1'</span>;
+        <span class="n">s</span>.innerHTML = <span class="n">fb</span>; <span class="n">lbl</span>.<span class="f">appendChild</span>(<span class="n">s</span>);
+      }
+    });
+    <span class="k">const</span> <span class="n">tot</span> = <span class="n">sel</span>.<span class="f">reduce</span>((<span class="n">s</span>, <span class="n">ai</span>) => <span class="n">s</span> + (<span class="n">q</span>.answers[<span class="n">ai</span>]?.fraction||<span class="v">0</span>), <span class="v">0</span>);
+    <span class="k">return</span> <span class="f">Math</span>.<span class="f">max</span>(<span class="v">0</span>, <span class="f">Math</span>.<span class="f">min</span>(<span class="v">100</span>, <span class="n">tot</span>)) / <span class="v">100</span>;
+  }
+  <span class="k">if</span> (<span class="n">q</span>.type === <span class="s">'shortanswer'</span>) {
+    <span class="k">const</span> <span class="n">inp</span> = <span class="n">qEl</span>.<span class="f">querySelector</span>(<span class="s">'.quiz-text-input'</span>);
+    <span class="k">if</span> (!<span class="n">inp</span> || !<span class="n">inp</span>.value.<span class="f">trim</span>()) <span class="k">return</span> <span class="k">null</span>;
+    <span class="k">let</span> <span class="n">val</span> = <span class="n">inp</span>.value.<span class="f">trim</span>();
+    <span class="k">const</span> <span class="n">answers</span> = <span class="f">JSON</span>.<span class="f">parse</span>(<span class="f">decodeURI</span>(<span class="n">inp</span>.dataset.answers));
+    <span class="k">const</span> <span class="n">cs</span> = <span class="n">inp</span>.dataset.usecase === <span class="s">'1'</span>;
+    <span class="k">if</span> (!<span class="n">cs</span>) <span class="n">val</span> = <span class="n">val</span>.<span class="f">toLowerCase</span>();
+    <span class="k">let</span> <span class="n">frac</span> = <span class="v">0</span>, <span class="n">fb</span> = <span class="s">''</span>;
+    <span class="k">for</span> (<span class="k">const</span> <span class="n">a</span> <span class="k">of</span> <span class="n">answers</span>) {
+      <span class="k">const</span> <span class="n">r</span> = <span class="k">new</span> <span class="f">RegExp</span>(<span class="s">'^'</span>+(<span class="n">cs</span>?<span class="n">a</span>.pattern:<span class="n">a</span>.pattern.<span class="f">toLowerCase</span>())
+        .<span class="f">replace</span>(<span class="s">/[.+?^${}()|[\]\\]/g</span>,<span class="s">'\\$&amp;'</span>).<span class="f">replace</span>(<span class="s">/\*/g</span>,<span class="s">'.*'</span>)+<span class="s">'$'</span>);
+      <span class="k">if</span> (<span class="n">r</span>.<span class="f">test</span>(<span class="n">val</span>)) { <span class="n">frac</span>=<span class="n">a</span>.fraction; <span class="n">fb</span>=<span class="n">a</span>.feedback; <span class="k">break</span>; }
+    }
+    <span class="n">inp</span>.disabled=<span class="k">true</span>; <span class="n">inp</span>.classList.<span class="f">add</span>(<span class="n">frac</span>><span class="v">0</span>?<span class="s">'quiz-input-correct'</span>:<span class="s">'quiz-input-wrong'</span>);
+    <span class="k">const</span> <span class="n">b</span>=<span class="n">qEl</span>.<span class="f">querySelector</span>(<span class="s">'.quiz-feedback-box'</span>);
+    <span class="n">b</span>.style.display=<span class="s">'block'</span>; <span class="n">b</span>.className=<span class="s">'quiz-feedback-box alert '</span>+(<span class="n">frac</span>><span class="v">0</span>?<span class="s">'alert-success'</span>:<span class="s">'alert-warning'</span>);
+    <span class="n">b</span>.innerHTML=(<span class="n">frac</span>><span class="v">0</span>?<span class="s">'✓ '</span>:<span class="s">'✗ '</span>)+(<span class="n">fb</span>||<span class="s">'Try again.'</span>);
+    <span class="k">return</span> <span class="f">Math</span>.<span class="f">max</span>(<span class="v">0</span>,<span class="n">frac</span>)/<span class="v">100</span>;
+  }
+  <span class="k">if</span> (<span class="n">q</span>.type === <span class="s">'numerical'</span>) {
+    <span class="k">const</span> <span class="n">inp</span>=<span class="n">qEl</span>.<span class="f">querySelector</span>(<span class="s">'.quiz-num-input'</span>);
+    <span class="k">if</span> (!<span class="n">inp</span>||<span class="n">inp</span>.value===<span class="s">''</span>) <span class="k">return</span> <span class="k">null</span>;
+    <span class="k">const</span> <span class="n">v</span>=<span class="f">parseFloat</span>(<span class="n">inp</span>.value);
+    <span class="k">const</span> <span class="n">ans</span>=<span class="f">JSON</span>.<span class="f">parse</span>(<span class="f">decodeURI</span>(<span class="n">inp</span>.dataset.answers)).<span class="f">sort</span>((<span class="n">a</span>,<span class="n">b</span>)=><span class="n">b</span>.fraction-<span class="n">a</span>.fraction);
+    <span class="k">let</span> <span class="n">frac</span>=<span class="v">0</span>,<span class="n">fb</span>=<span class="s">''</span>;
+    <span class="k">for</span> (<span class="k">const</span> <span class="n">a</span> <span class="k">of</span> <span class="n">ans</span>) { <span class="k">if</span> (<span class="f">Math</span>.<span class="f">abs</span>(<span class="n">v</span>-<span class="n">a</span>.value)<=<span class="n">a</span>.tolerance){<span class="n">frac</span>=<span class="n">a</span>.fraction;<span class="n">fb</span>=<span class="n">a</span>.feedback;<span class="k">break</span>;} }
+    <span class="n">inp</span>.disabled=<span class="k">true</span>; <span class="n">inp</span>.classList.<span class="f">add</span>(<span class="n">frac</span>><span class="v">0</span>?<span class="s">'quiz-input-correct'</span>:<span class="s">'quiz-input-wrong'</span>);
+    <span class="k">const</span> <span class="n">b</span>=<span class="n">qEl</span>.<span class="f">querySelector</span>(<span class="s">'.quiz-feedback-box'</span>);
+    <span class="n">b</span>.style.display=<span class="s">'block'</span>; <span class="n">b</span>.className=<span class="s">'quiz-feedback-box alert '</span>+(<span class="n">frac</span>><span class="v">0</span>?<span class="s">'alert-success'</span>:<span class="s">'alert-danger'</span>);
+    <span class="n">b</span>.innerHTML=(<span class="n">frac</span>><span class="v">0</span>?<span class="s">'✓ '</span>:<span class="s">'✗ Incorrect. '</span>)+<span class="n">fb</span>;
+    <span class="k">return</span> <span class="f">Math</span>.<span class="f">max</span>(<span class="v">0</span>,<span class="n">frac</span>)/<span class="v">100</span>;
+  }
+  <span class="k">if</span> (<span class="n">q</span>.type === <span class="s">'matching'</span>) {
+    <span class="k">const</span> <span class="n">sels</span>=[...<span class="n">qEl</span>.<span class="f">querySelectorAll</span>(<span class="s">'.quiz-match-select'</span>)];
+    <span class="k">if</span> (<span class="n">sels</span>.<span class="f">some</span>(<span class="n">s</span>=>!<span class="n">s</span>.value)) <span class="k">return</span> <span class="k">null</span>;
+    <span class="k">let</span> <span class="n">ok</span>=<span class="v">0</span>;
+    <span class="n">sels</span>.<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">s</span>){
+      <span class="k">const</span> <span class="n">correct</span>=<span class="f">decodeURI</span>(<span class="n">s</span>.value)===<span class="f">decodeURI</span>(<span class="n">s</span>.dataset.correct);
+      <span class="n">s</span>.disabled=<span class="k">true</span>; <span class="n">s</span>.style.borderColor=<span class="n">correct</span>?<span class="s">'#28a745'</span>:<span class="s">'#dc3545'</span>;
+      <span class="k">if</span>(<span class="n">correct</span>)<span class="n">ok</span>++;
+      <span class="k">else</span>{ <span class="k">const</span> <span class="n">h</span>=<span class="f">document</span>.<span class="f">createElement</span>(<span class="s">'small'</span>); <span class="n">h</span>.className=<span class="s">'text-danger d-block'</span>; <span class="n">h</span>.textContent=<span class="s">'→ '</span>+<span class="f">decodeURI</span>(<span class="n">s</span>.dataset.correct); <span class="n">s</span>.parentNode.<span class="f">appendChild</span>(<span class="n">h</span>); }
+    });
+    <span class="k">return</span> <span class="n">ok</span>/<span class="n">sels</span>.length;
+  }
+  <span class="k">return</span> <span class="v">0</span>;
+}
+
+<span class="c">// ─── Results Panel ────────────────────────────────────────────</span>
+
+<span class="k">function</span> <span class="f">showResults</span>(<span class="n">container</span>, <span class="n">totalScore</span>, <span class="n">maxScore</span>, <span class="n">cfg</span>) {
+  <span class="k">const</span> <span class="n">pct</span>    = <span class="f">Math</span>.<span class="f">round</span>(<span class="n">totalScore</span> / <span class="n">maxScore</span> * <span class="v">100</span>);
+  <span class="k">const</span> <span class="n">passed</span> = <span class="n">pct</span> >= (<span class="n">cfg</span>.passPercent || <span class="v">70</span>);
+  <span class="k">const</span> <span class="n">panel</span>  = <span class="n">container</span>.<span class="f">querySelector</span>(<span class="s">'#quiz-results'</span>);
+  <span class="k">const</span> <span class="n">icon</span>   = <span class="n">passed</span> ? <span class="s">'🎉'</span> : <span class="s">'📚'</span>;
+  <span class="k">const</span> <span class="n">cls</span>    = <span class="n">passed</span> ? <span class="s">'alert-success'</span> : <span class="s">'alert-warning'</span>;
+  <span class="n">panel</span>.className = <span class="s">'alert mt-4 '</span> + <span class="n">cls</span>;
+  <span class="n">panel</span>.innerHTML = <span class="s">`
+    &lt;h5&gt;${icon} Score: ${pct}% (${totalScore.toFixed(1)} / ${maxScore})&lt;/h5&gt;
+    &lt;p class="mb-1"&gt;${passed ? 'Excellent work! You passed.' : `Aim for ${cfg.passPercent||70}% to pass.`}&lt;/p&gt;
+    &lt;div class="progress mt-2" style="height:8px"&gt;
+      &lt;div class="progress-bar ${passed?'bg-success':'bg-warning'}"
+           style="width:${pct}%"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;button class="btn btn-sm btn-outline-dark mt-3 quiz-retry-btn"&gt;Try Again&lt;/button&gt;
+  `</span>;
+  <span class="n">panel</span>.style.display = <span class="s">'block'</span>;
+
+  <span class="c">// Save to localStorage</span>
+  <span class="k">if</span> (<span class="n">cfg</span>.lessonSlug) {
+    <span class="k">try</span> {
+      <span class="f">localStorage</span>.<span class="f">setItem</span>(<span class="s">'quiz_result_'</span>+<span class="n">cfg</span>.lessonSlug,
+        <span class="f">JSON</span>.<span class="f">stringify</span>({<span class="n">pct</span>, <span class="n">passed</span>, <span class="n">date</span>: <span class="k">new</span> <span class="f">Date</span>().<span class="f">toISOString</span>()}));
+      <span class="k">if</span> (<span class="n">passed</span>) <span class="f">localStorage</span>.<span class="f">setItem</span>(<span class="s">'lesson_done_'</span>+<span class="n">cfg</span>.lessonSlug, <span class="s">'1'</span>);
+    } <span class="k">catch</span>(<span class="n">e</span>) {}
+  }
+}
+
+<span class="c">// ─── Public API ───────────────────────────────────────────────</span>
+
+<span class="k">window</span>.QuizEngine = {
+  <span class="f">init</span>: <span class="k">async function</span>(<span class="n">cfg</span>) {
+    <span class="k">const</span> <span class="n">container</span> = <span class="f">document</span>.<span class="f">getElementById</span>(<span class="n">cfg</span>.containerId);
+    <span class="k">if</span> (!<span class="n">container</span>) <span class="k">return</span>;
+
+    <span class="c">// Show loading state</span>
+    <span class="n">container</span>.innerHTML = <span class="s">`
+      &lt;div class="quiz-loading text-center py-4"&gt;
+        &lt;div class="spinner-border text-success" role="status"&gt;&lt;/div&gt;
+        &lt;p class="mt-2 text-muted"&gt;Loading questions…&lt;/p&gt;
+      &lt;/div&gt;`</span>;
+
+    <span class="k">let</span> <span class="n">questions</span>;
+    <span class="k">try</span> {
+      <span class="k">const</span> <span class="n">resp</span> = <span class="k">await</span> <span class="f">fetch</span>(<span class="n">cfg</span>.bankUrl);
+      <span class="k">if</span> (!<span class="n">resp</span>.ok) <span class="k">throw</span> <span class="k">new</span> <span class="f">Error</span>(<span class="s">'HTTP '</span> + <span class="n">resp</span>.status);
+      <span class="k">const</span> <span class="n">xmlStr</span> = <span class="k">await</span> <span class="n">resp</span>.<span class="f">text</span>();
+      <span class="k">const</span> <span class="n">doc</span>    = <span class="k">new</span> <span class="f">DOMParser</span>().<span class="f">parseFromString</span>(<span class="n">xmlStr</span>, <span class="s">'text/xml'</span>);
+      <span class="c">// Check for parse errors</span>
+      <span class="k">if</span> (<span class="n">doc</span>.<span class="f">querySelector</span>(<span class="s">'parsererror'</span>)) <span class="k">throw</span> <span class="k">new</span> <span class="f">Error</span>(<span class="s">'XML parse error'</span>);
+      <span class="n">questions</span> = <span class="f">selectAndShuffle</span>(<span class="f">parseQuestions</span>(<span class="n">doc</span>), <span class="n">cfg</span>);
+    } <span class="k">catch</span>(<span class="n">err</span>) {
+      <span class="n">container</span>.innerHTML = <span class="s">`&lt;div class="alert alert-danger"&gt;
+        Failed to load questions: ${err.message}
+        &lt;br&gt;&lt;small&gt;Bank: ${cfg.bankUrl}&lt;/small&gt;&lt;/div&gt;`</span>;
+      <span class="k">return</span>;
+    }
+
+    <span class="k">if</span> (!<span class="n">questions</span>.length) {
+      <span class="n">container</span>.innerHTML = <span class="s">'&lt;div class="alert alert-warning"&gt;No questions found in this bank.&lt;/div&gt;'</span>;
+      <span class="k">return</span>;
+    }
+
+    <span class="c">// Build HTML</span>
+    <span class="k">const</span> <span class="n">html</span> = <span class="s">`
+      &lt;div class="quiz-header mb-3"&gt;
+        &lt;span class="badge badge-success"&gt;${questions.length} questions&lt;/span&gt;
+        &lt;span class="text-muted small ml-2"&gt;Select answers, then click Submit.&lt;/span&gt;
+      &lt;/div&gt;
+      ${questions.<span class="f">map</span>((<span class="n">q</span>, <span class="n">i</span>) => <span class="f">renderQuestion</span>(<span class="n">q</span>, <span class="n">i</span>, <span class="n">questions</span>.length)).<span class="f">join</span>(<span class="s">''</span>)}
+      &lt;div id="quiz-results" style="display:none"&gt;&lt;/div&gt;
+      &lt;div class="quiz-submit-row mt-4"&gt;
+        &lt;button class="btn btn-success quiz-submit-all"&gt;Submit All&lt;/button&gt;
+        &lt;span class="quiz-answered-count text-muted ml-3 small"&gt;0 / ${questions.length} answered&lt;/span&gt;
+      &lt;/div&gt;`</span>;
+    <span class="n">container</span>.innerHTML = <span class="n">html</span>;
+
+    <span class="c">// Track state</span>
+    <span class="k">const</span> <span class="n">state</span> = { <span class="n">scores</span>: <span class="k">new</span> <span class="f">Array</span>(<span class="n">questions</span>.length).<span class="f">fill</span>(<span class="k">null</span>), <span class="n">submitted</span>: <span class="k">false</span> };
+
+    <span class="k">function</span> <span class="f">updateCount</span>() {
+      <span class="k">const</span> <span class="n">done</span> = <span class="n">state</span>.scores.<span class="f">filter</span>(<span class="n">s</span> => <span class="n">s</span> !== <span class="k">null</span>).length;
+      <span class="n">container</span>.<span class="f">querySelector</span>(<span class="s">'.quiz-answered-count'</span>).textContent = <span class="n">done</span> + <span class="s">' / '</span> + <span class="n">questions</span>.length + <span class="s">' answered'</span>;
+    }
+
+    <span class="k">function</span> <span class="f">submitQuestion</span>(<span class="n">qEl</span>, <span class="n">i</span>) {
+      <span class="k">if</span> (<span class="n">qEl</span>.dataset.answered === <span class="s">'true'</span>) <span class="k">return</span>;
+      <span class="k">const</span> <span class="n">s</span> = <span class="f">scoreQuestion</span>(<span class="n">qEl</span>, <span class="n">questions</span>[<span class="n">i</span>]);
+      <span class="k">if</span> (<span class="n">s</span> === <span class="k">null</span>) { <span class="f">alert</span>(<span class="s">'Please answer this question first.'</span>); <span class="k">return</span>; }
+      <span class="n">state</span>.scores[<span class="n">i</span>] = <span class="n">s</span>;
+      <span class="n">qEl</span>.dataset.answered = <span class="s">'true'</span>;
+      <span class="c">// Show general feedback</span>
+      <span class="k">const</span> <span class="n">gf</span> = <span class="f">decodeURI</span>(<span class="n">qEl</span>.dataset.gfeedback);
+      <span class="k">if</span> (<span class="n">gf</span>) {
+        <span class="k">const</span> <span class="n">b</span> = <span class="n">qEl</span>.<span class="f">querySelector</span>(<span class="s">'.quiz-gfeedback-box'</span>);
+        <span class="n">b</span>.style.display=<span class="s">'block'</span>; <span class="n">b</span>.className=<span class="s">'quiz-gfeedback-box alert alert-info mt-2 small'</span>; <span class="n">b</span>.innerHTML=<span class="n">gf</span>;
+      }
+      <span class="f">updateCount</span>();
+      <span class="c">// Re-typeset MathJax if available</span>
+      <span class="k">if</span> (<span class="k">window</span>.MathJax?.typesetPromise) <span class="k">window</span>.MathJax.<span class="f">typesetPromise</span>([<span class="n">qEl</span>]);
+    }
+
+    <span class="c">// Bind multichoice: auto-submit on selection if single</span>
+    <span class="n">questions</span>.<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">q</span>, <span class="n">i</span>) {
+      <span class="k">const</span> <span class="n">qEl</span> = <span class="n">container</span>.<span class="f">querySelector</span>(<span class="s">'#q'</span>+<span class="n">i</span>);
+      <span class="k">if</span> (<span class="n">q</span>.type === <span class="s">'multichoice'</span> || <span class="n">q</span>.type === <span class="s">'truefalse'</span>) {
+        <span class="k">if</span> (<span class="n">q</span>.single !== <span class="k">false</span>) {
+          <span class="c">// Single-answer: reveal on click</span>
+          <span class="n">qEl</span>.<span class="f">querySelectorAll</span>(<span class="s">'.quiz-choice-input'</span>).<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">inp</span>) {
+            <span class="n">inp</span>.<span class="f">addEventListener</span>(<span class="s">'change'</span>, () => <span class="f">submitQuestion</span>(<span class="n">qEl</span>, <span class="n">i</span>));
+          });
+        }
+        <span class="c">// Multiple-answer: needs explicit Submit All</span>
+      }
+    });
+
+    <span class="c">// Text submit buttons</span>
+    <span class="n">container</span>.<span class="f">querySelectorAll</span>(<span class="s">'.quiz-submit-text,.quiz-submit-num'</span>).<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">btn</span>) {
+      <span class="n">btn</span>.<span class="f">addEventListener</span>(<span class="s">'click'</span>, <span class="k">function</span>() {
+        <span class="k">const</span> <span class="n">qEl</span> = <span class="n">btn</span>.<span class="f">closest</span>(<span class="s">'.quiz-question'</span>);
+        <span class="k">const</span> <span class="n">idx</span> = <span class="n">questions</span>.<span class="f">findIndex</span>((<span class="n">q</span>,<span class="n">i</span>) => <span class="n">container</span>.<span class="f">querySelector</span>(<span class="s">'#q'</span>+<span class="n">i</span>) === <span class="n">qEl</span>);
+        <span class="n">btn</span>.disabled = <span class="k">true</span>;
+        <span class="f">submitQuestion</span>(<span class="n">qEl</span>, <span class="n">idx</span>);
+      });
+    });
+
+    <span class="c">// Matching submit buttons</span>
+    <span class="n">container</span>.<span class="f">querySelectorAll</span>(<span class="s">'.quiz-submit-match'</span>).<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">btn</span>) {
+      <span class="n">btn</span>.<span class="f">addEventListener</span>(<span class="s">'click'</span>, <span class="k">function</span>() {
+        <span class="k">const</span> <span class="n">qEl</span> = <span class="n">btn</span>.<span class="f">closest</span>(<span class="s">'.quiz-question'</span>);
+        <span class="k">const</span> <span class="n">idx</span> = <span class="n">questions</span>.<span class="f">findIndex</span>((<span class="n">q</span>,<span class="n">i</span>) => <span class="n">container</span>.<span class="f">querySelector</span>(<span class="s">'#q'</span>+<span class="n">i</span>) === <span class="n">qEl</span>);
+        <span class="k">const</span> <span class="n">s</span> = <span class="f">scoreQuestion</span>(<span class="n">qEl</span>, <span class="n">questions</span>[<span class="n">idx</span>]);
+        <span class="k">if</span> (<span class="n">s</span> === <span class="k">null</span>) { <span class="f">alert</span>(<span class="s">'Please fill all dropdowns.'</span>); <span class="k">return</span>; }
+        <span class="n">state</span>.scores[<span class="n">idx</span>] = <span class="n">s</span>; <span class="n">qEl</span>.dataset.answered=<span class="s">'true'</span>; <span class="n">btn</span>.disabled=<span class="k">true</span>;
+        <span class="f">updateCount</span>();
+      });
+    });
+
+    <span class="c">// Submit All button</span>
+    <span class="n">container</span>.<span class="f">querySelector</span>(<span class="s">'.quiz-submit-all'</span>).<span class="f">addEventListener</span>(<span class="s">'click'</span>, <span class="k">function</span>() {
+      <span class="k">if</span> (<span class="n">state</span>.submitted) <span class="k">return</span>;
+      <span class="c">// Submit any remaining unanswered questions</span>
+      <span class="n">questions</span>.<span class="f">forEach</span>(<span class="k">function</span>(<span class="n">q</span>, <span class="n">i</span>) {
+        <span class="k">const</span> <span class="n">qEl</span> = <span class="n">container</span>.<span class="f">querySelector</span>(<span class="s">'#q'</span>+<span class="n">i</span>);
+        <span class="k">if</span> (<span class="n">qEl</span>.dataset.answered !== <span class="s">'true'</span>) {
+          <span class="k">const</span> <span class="n">s</span> = <span class="f">scoreQuestion</span>(<span class="n">qEl</span>, <span class="n">q</span>);
+          <span class="n">state</span>.scores[<span class="n">i</span>] = <span class="n">s</span> ?? <span class="v">0</span>;
+          <span class="n">qEl</span>.dataset.answered = <span class="s">'true'</span>;
+        }
+      });
+      <span class="n">state</span>.submitted = <span class="k">true</span>;
+      <span class="k">this</span>.disabled = <span class="k">true</span>;
+      <span class="k">const</span> <span class="n">totalScore</span> = <span class="n">state</span>.scores.<span class="f">reduce</span>((<span class="n">s</span>, <span class="n">v</span>) => <span class="n">s</span> + (<span class="n">v</span>||<span class="v">0</span>), <span class="v">0</span>);
+      <span class="k">const</span> <span class="n">maxScore</span>   = <span class="n">questions</span>.length; <span class="c">// each worth 1 point</span>
+      <span class="f">showResults</span>(<span class="n">container</span>, <span class="n">totalScore</span>, <span class="n">maxScore</span>, <span class="n">cfg</span>);
+      <span class="k">if</span> (<span class="k">window</span>.MathJax?.typesetPromise) <span class="k">window</span>.MathJax.<span class="f">typesetPromise</span>([<span class="n">container</span>]);
+    });
+
+    <span class="c">// Retry button (added to results panel dynamically)</span>
+    <span class="n">container</span>.<span class="f">addEventListener</span>(<span class="s">'click'</span>, <span class="k">function</span>(<span class="n">e</span>) {
+      <span class="k">if</span> (<span class="n">e</span>.target.classList.<span class="f">contains</span>(<span class="s">'quiz-retry-btn'</span>)) {
+        <span class="k">window</span>.QuizEngine.<span class="f">init</span>(<span class="n">cfg</span>); <span class="c">// re-init = new random subset</span>
+      }
+    });
+
+    <span class="c">// Initial MathJax typeset</span>
+    <span class="k">if</span> (<span class="k">window</span>.MathJax?.typesetPromise) <span class="k">window</span>.MathJax.<span class="f">typesetPromise</span>([<span class="n">container</span>]);
+  }
+};
+
+})(); <span class="c">// end IIFE</span></code></pre>
+</section>
+
+<!-- ═══ PART 3: JEKYLL ═══ -->
+<h2 style="color:var(--p3)">Part 3 — Jekyll Integration</h2>
+
+<section id="include-quiz">
+  <span class="pb p3c">Step 3.1</span>
+  <h3>_includes/quiz.html — the bridge</h3>
+
+  <p>This include reads the quiz config from the lesson's front matter and passes it to the engine. Replace your existing <code>_includes/quiz.html</code> entirely:</p>
+
+  <pre><code><span class="lang-tag">liquid</span><span class="c">&lt;!-- _includes/quiz.html
+     Usage: {%- include quiz.html -%}
+     Reads: page.quiz front matter block --&gt;</span>
+
+<span class="c">{%- if page.quiz -%}</span>
+<span class="c">{%- assign q = page.quiz -%}</span>
+<span class="c">{%- assign quiz_id = page.slug | default: page.title | slugify | prepend: "quiz-" -%}</span>
+<span class="c">{%- assign base_url = site.baseurl | default: "" -%}</span>
+<span class="c">{%- assign t = site.data.i18n[page.lang | default: site.default_lang] -%}</span>
+
+<span class="c">&lt;!-- Load the quiz engine once per page --&gt;</span>
+<span class="c">{%- unless page.quiz_engine_loaded -%}</span>
+<span class="t">&lt;link</span> <span class="a">rel</span>=<span class="m">"stylesheet"</span> <span class="a">href</span>=<span class="m">"{{base_url}}/assets/css/quiz.css"</span><span class="t">&gt;</span>
+<span class="t">&lt;script</span> <span class="a">src</span>=<span class="m">"{{base_url}}/assets/js/quiz-engine.js"</span> <span class="a">defer</span><span class="t">&gt;&lt;/script&gt;</span>
+<span class="c">{%- endunless -%}</span>
+
+<span class="t">&lt;div</span> <span class="a">class</span>=<span class="m">"quiz-wrapper my-5"</span><span class="t">&gt;</span>
+  <span class="t">&lt;div</span> <span class="a">class</span>=<span class="m">"quiz-wrapper-header"</span><span class="t">&gt;</span>
+    <span class="t">&lt;h5</span> <span class="a">class</span>=<span class="m">"font-weight-bold"</span><span class="t">&gt;</span>
+      <span class="c">{%- if t -%}</span>{{ t.quiz_title }}<span class="c">{%- else -%}</span>📝 Knowledge Check<span class="c">{%- endif -%}</span>
+    <span class="t">&lt;/h5&gt;</span>
+    <span class="t">&lt;small</span> <span class="a">class</span>=<span class="m">"text-muted"</span><span class="t">&gt;</span>
+      <span class="c">{%- if q.count and q.count &lt; 999 -%}</span>
+      {{ q.count }} questions randomly selected
+      <span class="c">{%- endif -%}</span>
+      <span class="c">{%- if q.pass_percent -%}</span> · Pass: {{ q.pass_percent }}%<span class="c">{%- endif -%}</span>
+    <span class="t">&lt;/small&gt;</span>
+  <span class="t">&lt;/div&gt;</span>
+
+  <span class="t">&lt;div</span> <span class="a">id</span>=<span class="m">"{{ quiz_id }}"</span> <span class="a">class</span>=<span class="m">"quiz-container"</span><span class="t">&gt;</span>
+    <span class="c">&lt;!-- Engine fills this --&gt;</span>
+  <span class="t">&lt;/div&gt;</span>
+<span class="t">&lt;/div&gt;</span>
+
+<span class="t">&lt;script&gt;</span>
+<span class="c">// Run after quiz-engine.js is loaded (defer attribute handles ordering)</span>
+<span class="f">document</span>.<span class="f">addEventListener</span>(<span class="s">'DOMContentLoaded'</span>, <span class="k">function</span>() {
+  <span class="k">window</span>.QuizEngine.<span class="f">init</span>({
+    <span class="n">containerId</span>:       <span class="s">'{{ quiz_id }}'</span>,
+    <span class="n">bankUrl</span>:           <span class="s">'{{ base_url }}/assets/questions/{{ q.bank }}'</span>,
+    <span class="n">count</span>:             {{ q.count | default: 999 }},
+    <span class="n">shuffleQuestions</span>:  {{ q.shuffle_questions | default: true }},
+    <span class="n">shuffleAnswers</span>:    {{ q.shuffle_answers | default: true }},
+    <span class="n">passPercent</span>:       {{ q.pass_percent | default: 70 }},
+    <span class="n">lessonSlug</span>:        <span class="s">'{{ page.course | default: "" }}/{{ page.slug | default: page.title | slugify }}'</span>,
+    <span class="n">lang</span>:              <span class="s">'{{ page.lang | default: site.default_lang }}'</span>,
+  });
+});
+<span class="t">&lt;/script&gt;</span>
+
+<span class="c">{%- endif -%}</span></code></pre>
+</section>
+
+<section id="frontmatter">
+  <span class="pb p3c">Step 3.2</span>
+  <h3>Lesson front matter — all options</h3>
+
+  <pre><code><span class="lang-tag">yaml</span><span class="c">---
+layout: lesson
+title: "Forward & Inverse Kinematics"
+course: robotics
+lesson_order: 2
+lang: en
+
+# ── Quiz configuration ─────────────────────────────────────
+quiz:
+  # Path relative to assets/questions/
+  bank: robotics/ch1-kinematics.xml
+
+  # How many questions to pick from the bank (omit = all)
+  count: 5
+
+  # Shuffle question order on each load? (default: true)
+  shuffle_questions: true
+
+  # Shuffle answer choices on each load? (default: true)
+  shuffle_answers: true
+
+  # Minimum score to pass and mark lesson complete (default: 70)
+  pass_percent: 70
+---</span>
+
+## Introduction
+
+Your lesson content here...
+
+<span class="c">{%- include quiz.html -%}</span>
+
+## Next steps...
+
+You can also place multiple quizzes in one lesson by calling the
+include multiple times with different bank configs — but then you
+need separate include files (quiz-mid.html, quiz-end.html) each
+with their own front matter variable name.</code></pre>
+
+  <div class="callout tip"><strong>Multiple quizzes per lesson:</strong> If you want a mid-lesson check and an end-of-lesson quiz from different banks, create <code>_includes/quiz-mid.html</code> and <code>_includes/quiz-end.html</code> that read from <code>page.quiz_mid</code> and <code>page.quiz_end</code> respectively. The engine supports multiple instances on the same page since each has a unique container ID.</div>
+</section>
+
+<section id="styling">
+  <span class="pb p3c">Step 3.3</span>
+  <h3>assets/css/quiz.css — complete styles</h3>
+
+  <pre><code><span class="lang-tag">css</span><span class="c">/* assets/css/quiz.css — unified with your token system */</span>
+
+<span class="t">.quiz-wrapper</span> {
+  border: <span class="v">1px</span> solid var(--border, #e9ecef);
+  border-radius: <span class="v">8px</span>;
+  overflow: hidden;
+}
+<span class="t">.quiz-wrapper-header</span> {
+  background: var(--bg-subtle, #f8f9fa);
+  border-bottom: <span class="v">1px</span> solid var(--border, #e9ecef);
+  padding: <span class="v">14px 20px</span>;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: <span class="v">8px</span>;
+}
+<span class="t">.quiz-container</span> { padding: <span class="v">20px</span>; }
+
+<span class="c">/* ── Question layout ── */</span>
+<span class="t">.quiz-question</span> {
+  margin-bottom: <span class="v">32px</span>;
+  padding-bottom: <span class="v">24px</span>;
+  border-bottom: <span class="v">1px</span> solid var(--border, #e9ecef);
+}
+<span class="t">.quiz-question:last-of-type</span> { border-bottom: none; margin-bottom: <span class="v">0</span>; }
+
+<span class="t">.quiz-q-header</span> {
+  display: flex; align-items: center;
+  margin-bottom: <span class="v">10px</span>;
+}
+<span class="t">.quiz-q-num</span> {
+  font-size: <span class="v">0.72rem</span>; font-weight: <span class="v">700</span>;
+  text-transform: uppercase; letter-spacing: <span class="v">0.08em</span>;
+  color: var(--text-secondary, #6c757d);
+}
+<span class="t">.quiz-q-type</span> { font-size: <span class="v">0.68rem</span>; }
+
+<span class="t">.quiz-q-text</span> {
+  font-size: <span class="v">1rem</span>; line-height: <span class="v">1.6</span>;
+  margin-bottom: <span class="v">16px</span>;
+  color: var(--text-primary, #212529);
+}
+
+<span class="c">/* ── Multichoice ── */</span>
+<span class="t">.quiz-choice-label</span> {
+  display: flex; align-items: flex-start; gap: <span class="v">10px</span>;
+  padding: <span class="v">10px 14px</span>;
+  border: <span class="v">1px</span> solid var(--border, #dee2e6);
+  border-radius: <span class="v">6px</span>; margin-bottom: <span class="v">8px</span>;
+  cursor: pointer;
+  transition: background <span class="v">0.12s</span>, border-color <span class="v">0.12s</span>;
+  background: var(--surface, #fff);
+}
+<span class="t">.quiz-choice-label</span>:<span class="t">hover</span> {
+  border-color: var(--accent, #03a87c);
+  background: var(--accent-light, #e8f3ec);
+}
+<span class="t">.quiz-choice-input</span> { margin-top: <span class="v">3px</span>; flex-shrink: <span class="v">0</span>; }
+<span class="t">.quiz-choice-text</span> { flex: <span class="v">1</span>; line-height: <span class="v">1.5</span>; }
+
+<span class="c">/* ── Answer states ── */</span>
+<span class="t">.quiz-correct</span> {
+  border-color: <span class="v">#28a745 !important</span>;
+  background: <span class="v">rgba(40,167,69,0.08) !important</span>;
+}
+<span class="t">.quiz-wrong</span> {
+  border-color: <span class="v">#dc3545 !important</span>;
+  background: <span class="v">rgba(220,53,69,0.08) !important</span>;
+}
+<span class="t">.quiz-neutral</span> { opacity: <span class="v">0.55</span>; }
+<span class="t">.quiz-answer-feedback</span> {
+  color: <span class="v">#495057</span>; font-size: <span class="v">0.82rem</span>;
+  margin-top: <span class="v">6px</span>; font-style: italic;
+}
+
+<span class="c">/* ── Text / numerical inputs ── */</span>
+<span class="t">.quiz-text-input</span>, <span class="t">.quiz-num-input</span> {
+  max-width: <span class="v">400px</span>;
+  border-color: var(--border, #ced4da);
+  background: var(--surface, #fff);
+  color: var(--text-primary, #212529);
+}
+<span class="t">.quiz-input-correct</span> { border-color: <span class="v">#28a745 !important</span>; }
+<span class="t">.quiz-input-wrong</span>   { border-color: <span class="v">#dc3545 !important</span>; }
+
+<span class="c">/* ── Matching table ── */</span>
+<span class="t">.quiz-match-table</span> { margin-bottom: <span class="v">12px</span>; }
+<span class="t">.quiz-match-term</span> {
+  font-weight: <span class="v">600</span>;
+  vertical-align: middle;
+  padding-right: <span class="v">16px</span>;
+  color: var(--text-primary, #212529);
+}
+
+<span class="c">/* ── Submit row ── */</span>
+<span class="t">.quiz-submit-row</span> {
+  display: flex; align-items: center;
+  padding-top: <span class="v">16px</span>;
+  border-top: <span class="v">1px</span> solid var(--border, #e9ecef);
+}
+
+<span class="c">/* ── Loading spinner ── */</span>
+<span class="t">.quiz-loading</span> { padding: <span class="v">40px 20px</span>; }
+
+<span class="c">/* ── Dark mode ── */</span>
+<span class="t">[data-theme="dark"] .quiz-choice-label</span> {
+  background: var(--surface, #1a1f2e);
+  border-color: var(--border, #2a3045);
+  color: var(--text-primary, #e8eaed);
+}
+<span class="t">[data-theme="dark"] .quiz-choice-label</span>:<span class="t">hover</span> {
+  border-color: var(--accent, #05d4a0);
+  background: var(--accent-light, #0a2e24);
+}
+<span class="t">[data-theme="dark"] .quiz-text-input</span>,
+<span class="t">[data-theme="dark"] .quiz-num-input</span> {
+  background: var(--surface, #1a1f2e);
+  border-color: var(--border, #2a3045);
+  color: var(--text-primary, #e8eaed);
+}</code></pre>
+</section>
+
+<section id="workflow">
+  <span class="pb p3c">Step 3.4</span>
+  <h3>Day-to-day authoring workflow</h3>
+
+  <ol style="line-height:2;color:#38352c">
+    <li>Write or generate questions in Moodle XML → save to <code>assets/questions/&lt;topic&gt;/&lt;name&gt;.xml</code></li>
+    <li>In the lesson front matter, set <code>quiz.bank:</code> to the relative path</li>
+    <li>Set <code>quiz.count: 5</code> (or however many you want shown per attempt)</li>
+    <li>Place <code>{%- include quiz.html -%}</code> anywhere in the lesson Markdown</li>
+    <li>Run <code>bundle exec jekyll serve</code> — the quiz loads and shuffles on each page refresh</li>
+    <li>To update questions: edit the XML file. No rebuild needed for local dev (Jekyll hot-reloads static assets). On GitHub Pages: push the commit.</li>
+  </ol>
+
+  <div class="callout warn"><strong>CORS note for local dev:</strong> <code>fetch()</code> against <code>file://</code> URLs is blocked by the browser. Always test via <code>bundle exec jekyll serve</code> (which runs on <code>http://localhost:4000</code>), not by opening the HTML file directly. On GitHub Pages the fetch works fine since everything is served from the same origin.</div>
+</section>
+
+<!-- ═══ PART 4: TOOLS ═══ -->
+<h2 style="color:var(--p4)">Part 4 — Tools & Tips</h2>
+
+<section id="moodle-export">
+  <span class="pb p4c">Step 4.1</span>
+  <h3>Exporting from a real Moodle instance</h3>
+
+  <ol style="line-height:1.9;color:#38352c">
+    <li>In Moodle: go to <strong>Question bank</strong> → select questions → <strong>Export</strong></li>
+    <li>Choose <strong>Moodle XML format</strong></li>
+    <li>Download the <code>.xml</code> file</li>
+    <li>Place it in <code>assets/questions/</code> — no conversion needed</li>
+    <li>The engine handles all Moodle-generated quirks (CDATA wrappers, extra whitespace, empty category nodes)</li>
+  </ol>
+</section>
+
+<section id="tools">
+  <span class="pb p4c">Step 4.2</span>
+  <h3>Recommended authoring tools</h3>
+
+  <table>
+    <tr><th>Tool</th><th>Best for</th><th>Notes</th></tr>
+    <tr><td><strong>Any text editor</strong></td><td>Quick questions</td><td>Just follow the XML structure above</td></tr>
+    <tr><td><strong>Moodle GIFT format + converter</strong></td><td>Fast authoring</td><td>GIFT is simpler syntax; convert to XML with <a href="https://github.com/fuhrmanator/GIFT-grammar-PEG" style="color:var(--accent)">gift2moodle</a></td></tr>
+    <tr><td><strong>H5P Question Set</strong></td><td>Visual editor</td><td>Export as Moodle XML from H5P.org</td></tr>
+    <tr><td><strong>AI (Claude/ChatGPT)</strong></td><td>Bulk generation</td><td>Paste the XML schema above and ask for 10 questions</td></tr>
+    <tr><td><strong>Moodle itself</strong></td><td>Team collaboration</td><td>Build in Moodle, export XML, commit to repo</td></tr>
+  </table>
+
+  <h4>Validate your XML before pushing</h4>
+  <pre><code><span class="lang-tag">bash</span><span class="c"># Check XML is well-formed (catches unclosed tags etc.)</span>
+xmllint --noout assets/questions/robotics/ch1-kinematics.xml
+<span class="c"># Output: nothing = valid. "parser error" = fix your XML.</span>
+
+<span class="c"># Count questions in a bank</span>
+grep -c '&lt;question type=' assets/questions/robotics/ch1-kinematics.xml</code></pre>
+
+  <div class="callout tip"><strong>AI prompt template for question generation:</strong><br>
+  <em>"Generate 8 Moodle XML questions about [TOPIC]. Requirements: all multichoice type, 1 correct answer (fraction=100), 3 distractors (fraction=0), CDATA wrappers on questiontext, LaTeX equations where relevant using $...$. Per-answer feedback required. Output only the XML &lt;question&gt; elements (no &lt;quiz&gt; wrapper)."</em><br><br>
+  Then wrap the output in <code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;quiz&gt;...&lt;/quiz&gt;</code>.</div>
+</section>
+
+<section id="checklist">
+  <h2>Final checklist</h2>
+
+  <div class="card">
+    <h3 style="margin-top:0">Files to create</h3>
+    <ul class="cl">
+      <li>At least one <code>assets/questions/&lt;topic&gt;/&lt;name&gt;.xml</code> question bank</li>
+      <li><code>assets/js/quiz-engine.js</code> — the complete engine from Step 2.7</li>
+      <li><code>assets/css/quiz.css</code> — styles from Step 3.3</li>
+      <li><code>_includes/quiz.html</code> — bridge from Step 3.1</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Lesson front matter</h3>
+    <ul class="cl">
+      <li>Add <code>quiz:</code> block with <code>bank:</code>, <code>count:</code>, <code>pass_percent:</code></li>
+      <li>Place <code>{%- include quiz.html -%}</code> in the lesson Markdown</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Validate</h3>
+    <ul class="cl">
+      <li>Run <code>xmllint --noout</code> on each XML bank before pushing</li>
+      <li>Test locally with <code>bundle exec jekyll serve</code> (not via file://)</li>
+      <li>Open browser DevTools → Network tab → verify the XML file loads with HTTP 200</li>
+      <li>Check Console for any parse errors</li>
+      <li>Verify MathJax renders LaTeX in question text</li>
+      <li>Test Retry button — should produce a different random subset</li>
+      <li>Test localStorage: complete a quiz, reload page — past result should be remembered by <code>progress.js</code></li>
+    </ul>
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+const obs = new IntersectionObserver(e => {
+  e.forEach(en => {
+    if (en.isIntersecting) {
+      document.querySelectorAll('.sidebar a').forEach(l => l.classList.remove('active'));
+      const a = document.querySelector(`.sidebar a[href="#${en.target.id}"]`);
+      if (a) a.classList.add('active');
+    }
+  });
+}, { rootMargin: '-15% 0px -72% 0px' });
+document.querySelectorAll('section[id], h2[id]').forEach(s => obs.observe(s));
+</script>
+</body>
+</html>

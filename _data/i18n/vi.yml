@@ -1,0 +1,32 @@
+lang_name:       "Tiếng Việt"
+lang_flag:       "🇻🇳"
+
+nav_home:        "Trang chủ"
+nav_resume:      "Sơ yếu lý lịch"
+nav_courses:     "Khoá học"
+nav_tutorials:   "Hướng dẫn"
+nav_categories:  "Danh mục"
+nav_contact:     "Liên hệ"
+
+read_more:       "Đọc thêm"
+published_on:    "Đăng ngày"
+min_read:        "phút đọc"
+share_this:      "Chia sẻ"
+all_posts:       "Tất cả bài viết"
+featured:        "Nổi bật"
+search_placeholder: "Tìm kiếm..."
+
+resume_download: "Tải xuống"
+cv_filename:     "VO_Duc_Tri_CV_VI.pdf"
+
+course_start:    "Bắt đầu khoá học"
+lesson_complete: "Đánh dấu hoàn thành ✓"
+lesson_completed: "✓ Đã hoàn thành"
+quiz_title:      "📝 Kiểm tra kiến thức"
+quiz_correct:    "✓ Chính xác!"
+quiz_wrong:      "✗ Chưa đúng."
+quiz_retry:      "Thử lại"
+
+not_found_title: "Không tìm thấy trang"
+not_found_text:  "Trang bạn tìm kiếm không tồn tại."
+go_home:         "Về trang chủ"

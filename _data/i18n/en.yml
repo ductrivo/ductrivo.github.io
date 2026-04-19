@@ -1,0 +1,32 @@
+lang_name:       "English"
+lang_flag:       "🇬🇧"
+
+nav_home:        "Home"
+nav_resume:      "Résumé"
+nav_courses:     "Courses"
+nav_tutorials:   "Tutorials"
+nav_categories:  "Categories"
+nav_contact:     "Contact"
+
+read_more:       "Read more"
+published_on:    "Published on"
+min_read:        "min read"
+share_this:      "Share this"
+all_posts:       "All Posts"
+featured:        "Featured"
+search_placeholder: "Search..."
+
+resume_download: "Download"
+cv_filename:     "VO_Duc_Tri_CV_EN.pdf"
+
+course_start:    "Start Course"
+lesson_complete: "Mark as Complete ✓"
+lesson_completed: "✓ Completed"
+quiz_title:      "📝 Knowledge Check"
+quiz_correct:    "✓ Correct!"
+quiz_wrong:      "✗ Not quite."
+quiz_retry:      "Try Again"
+
+not_found_title: "Page not found"
+not_found_text:  "The page you're looking for doesn't exist."
+go_home:         "Go Home"

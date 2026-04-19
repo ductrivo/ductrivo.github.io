@@ -1,0 +1,82 @@
+/* assets/css/tokens.css
+   Single source of truth for all design decisions. */
+
+:root {
+  /* Brand */
+  --accent:        #03a87c;
+  --accent-hover:  #028f6a;
+  --accent-light:  #e8f3ec;
+  --accent-dark:   #025c44;
+
+  /* Surfaces */
+  --bg:            #ffffff;
+  --bg-subtle:     #f8f9fa;
+  --surface:       #ffffff;
+  --surface-raised:#f4f6f8;
+  --border:        #e9ecef;
+  --border-strong: #ced4da;
+
+  /* Text */
+  --text-primary:  #212529;
+  --text-secondary:#6c757d;
+  --text-muted:    #adb5bd;
+  --text-inverse:  #ffffff;
+
+  /* Typography */
+  --font-body:     "Poppins", "Segoe UI", sans-serif;
+  --font-serif:    "Lora", Georgia, serif;
+  --font-mono:     "Fira Code", "Courier New", monospace;
+  --font-size-base:1rem;
+  --line-height:   1.65;
+
+  /* Resume-specific */
+  --resume-profile-bg:  #7FA093;
+  --resume-accent:      #03a87c;
+  --resume-timeline:    #c8d8d2;
+  --resume-sidebar-bg:  #f0f5f3;
+  --resume-icon-filter: invert(40%) sepia(30%) saturate(400%) hue-rotate(120deg);
+
+  /* Navbar */
+  --navbar-bg:     var(--surface);
+  --navbar-border: var(--border);
+  --navbar-text:   var(--text-secondary);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.10);
+
+  /* Transitions */
+  --transition: 0.2s ease;
+}
+
+/* Dark mode — toggled by data-theme="dark" on <html> */
+[data-theme="dark"] {
+  --bg:            #0f1117;
+  --bg-subtle:     #161b26;
+  --surface:       #1a1f2e;
+  --surface-raised:#222840;
+  --border:        #2a3045;
+  --border-strong: #3a4060;
+
+  --text-primary:  #e8eaed;
+  --text-secondary:#9aa3b2;
+  --text-muted:    #5c6478;
+  --text-inverse:  #0f1117;
+
+  --accent:        #05d4a0;
+  --accent-hover:  #04b88c;
+  --accent-light:  #0a2e24;
+
+  --navbar-bg:     #12161f;
+  --navbar-border: #1e2436;
+  --navbar-text:   #9aa3b2;
+
+  --resume-profile-bg:  #1e3a30;
+  --resume-sidebar-bg:  #161b26;
+  --resume-timeline:    #2a3a35;
+  --resume-icon-filter: invert(70%) sepia(20%) saturate(300%) hue-rotate(100deg);
+}
+
+/* Bootstrap utility patches — kept here for non-dark-mode token usage */
+.bg-lightblue { background-color: var(--accent-light) !important; }
+.spanborder { border-bottom-color: var(--accent-light) !important; }

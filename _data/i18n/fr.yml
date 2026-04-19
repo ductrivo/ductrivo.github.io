@@ -1,0 +1,32 @@
+lang_name:       "Français"
+lang_flag:       "🇫🇷"
+
+nav_home:        "Accueil"
+nav_resume:      "Résumé"
+nav_courses:     "Cours"
+nav_tutorials:   "Tutoriels"
+nav_categories:  "Catégories"
+nav_contact:     "Contact"
+
+read_more:       "Lire la suite"
+published_on:    "Publié le"
+min_read:        "min de lecture"
+share_this:      "Partager"
+all_posts:       "Tous les articles"
+featured:        "À la une"
+search_placeholder: "Rechercher..."
+
+resume_download: "Télécharger"
+cv_filename:     "VO_Duc_Tri_CV_FR.pdf"
+
+course_start:    "Commencer"
+lesson_complete: "Marquer comme terminé ✓"
+lesson_completed: "✓ Terminé"
+quiz_title:      "📝 Quiz de compréhension"
+quiz_correct:    "✓ Correct !"
+quiz_wrong:      "✗ Pas tout à fait."
+quiz_retry:      "Réessayer"
+
+not_found_title: "Page introuvable"
+not_found_text:  "La page que vous cherchez n'existe pas."
+go_home:         "Retour à l'accueil"
