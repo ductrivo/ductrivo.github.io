@@ -1,0 +1,112 @@
+---
+title: Accueil
+layout: default
+lang: fr
+permalink: /fr/
+---
+
+{% assign t = site.data.i18n[page.lang] %}
+{% assign posts = site.posts | where: "lang", "fr" %}
+
+<div class="container">
+
+    {% if page.url == "/fr/" %}
+
+    <!-- Section "À la une" (Featured) -->
+    <div class="row remove-site-content-margin">
+        {%- assign featured_posts = posts | slice: 0, 4 -%}
+
+        {%- assign first = featured_posts[0] -%}
+        {% if first %}
+        <div class="col-md-6">
+            <div class="card bg-transparent border-0 mb-4 box-shadow">
+                <a href="{{site.baseurl}}{{first.url}}">
+                    <div class="topfirstimage"
+                        style="background-image:url('{{ first.image }}'); height:200px; background-size:contain;background-position:center; background-repeat:no-repeat;">
+                    </div>
+                </a>
+                <div class="card-body bg-transparent px-0 pb-0 d-flex flex-column">
+                    <h2 class="h2 font-weight-bold">
+                        <a class="text-dark" href="{{site.baseurl}}{{first.url}}">{{ first.title }}</a>
+                    </h2>
+                    <p class="excerpt">{{ first.description | strip_html | truncate: 136 }}</p>
+                    <small class="text-muted">{{ first.date | date: '%d %b %Y' }}</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            {%- for post in featured_posts offset: 1 -%}
+            <div class="mb-3 d-flex align-items-center">
+                {%- if post.image -%}
+                <div class="col-md-4 pl-0">
+                    <a href="{{site.baseurl}}{{post.url}}">
+                        <img class="w-100" src="{{ post.image }}" alt="{{ post.title }}" loading="lazy">
+                    </a>
+                </div>
+                {%- endif -%}
+                <div>
+                    <h2 class="mb-2 h3 font-weight-bold">
+                        <a class="text-dark" href="{{site.baseurl}}{{post.url}}">{{ post.title }}</a>
+                    </h2>
+                    <small class="text-muted">{{ post.date | date: '%d %b %Y' }}</small>
+                </div>
+            </div>
+            {%- endfor -%}
+        </div>
+        {% endif %}
+    </div>
+
+
+    <!-- Articles Épinglés (Sticky) -->
+    {% for post in posts %}
+    {% if post.tags contains "sticky" %}
+    <div class="jumbotron jumbotron-fluid jumbotron-home pt-0 pb-0 mt-3 mb-2rem bg-lightblue position-relative">
+        <div class="pl-4 pr-0 h-100 tofront">
+            <div class="row justify-content-between">
+                <div class="col-md-6 pt-6 pb-6 pr-lg-4 align-self-center">
+                    <h1 class="mb-3">{{post.title}}</h1>
+                    <p class="mb-3 lead">
+                        {{ post.description | strip_html | strip_newlines | truncate: 136 }}
+                    </p>
+                    <a href="{{site.baseurl}}{{post.url}}" class="btn btn-dark">{{ t.read_more }}</a>
+                </div>
+
+                {% if post.image contains ':' %}
+                {% assign background_url = post.image %}
+                {% else %}
+                {% assign background_url = post.image | prepend: site.baseurl %}
+                {% endif %}
+
+                <div class="col-md-6 d-none d-md-block pr-0"
+                    style="background-size: contain; background-repeat: no-repeat; background-position: center; background-image: url('{{ background_url }}');">
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    {% endif %}
+
+
+    <!-- Liste de tous les articles français -->
+    <div class="row mt-3">
+        <div class="col-md-8 main-loop">
+            <h3 class="font-weight-bold spanborder"><span>{{ t.all_posts }}</span></h3>
+
+            {% for post in posts %}
+                {% include main-loop-card.html %}
+            {% endfor %}
+
+            {% comment %} 
+                Note: Standard Jekyll pagination only works on index.html. 
+                For /fr/, we display all French posts. 
+            {% endcomment %}
+        </div>
+
+        <div class="col-md-4">
+            {% include sidebar-featured.html %}
+        </div>
+    </div>
+</div>
