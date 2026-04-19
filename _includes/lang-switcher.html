@@ -2,22 +2,17 @@
 {%- assign t = site.data.i18n[current_lang] -%}
 
 <div class="nav-item dropdown ml-2">
-  <button class="btn btn-sm btn-outline-secondary dropdown-toggle"
-    type="button" id="langDropdown"
-    data-toggle="dropdown"
-    aria-expanded="false"
+  <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="langDropdown"
+    data-toggle="dropdown" aria-expanded="false"
     style="border-color:var(--border);color:var(--text-primary);font-size:0.78rem">
-    {{ t.lang_flag }} {{ t.lang_name }}
+    {{ t.lang_flag }}
   </button>
-  <div class="dropdown-menu dropdown-menu-right"
-    aria-labelledby="langDropdown"
+  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="langDropdown"
     style="min-width:120px;background:var(--surface)">
     {%- for lang in site.languages -%}
     {%- assign lt = site.data.i18n[lang] -%}
-    <a class="dropdown-item{% if lang == current_lang %} active{% endif %}"
-      href="javascript:void(0)"
-      onclick="switchLang('{{ lang }}')"
-      style="font-size:0.85rem">
+    <a class="dropdown-item{% if lang == current_lang %} active{% endif %}" href="javascript:void(0)"
+      onclick="switchLang('{{ lang }}')" style="font-size:0.85rem">
       {{ lt.lang_flag }} {{ lt.lang_name }}
     </a>
     {%- endfor -%}
@@ -25,14 +20,14 @@
 </div>
 
 <script>
-function switchLang(lang) {
-  localStorage.setItem('expred-lang', lang);
-  var langPaths = {
-    'fr': '{{ site.baseurl }}/',
-    'en': '{{ site.baseurl }}/en/',
-    'vi': '{{ site.baseurl }}/vi/'
-  };
-  if (lang === '{{ current_lang }}') return;
-  window.location.href = langPaths[lang] || '{{ site.baseurl }}/';
-}
+  function switchLang(lang) {
+    localStorage.setItem('expred-lang', lang);
+    var langPaths = {
+      'en': '{{ site.baseurl }}/',
+      'fr': '{{ site.baseurl }}/fr/',
+      'vi': '{{ site.baseurl }}/vi/'
+    };
+    if (lang === '{{ current_lang }}') return;
+    window.location.href = langPaths[lang] || '{{ site.baseurl }}/';
+  }
 </script>
