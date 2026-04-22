@@ -1,6 +1,7 @@
 ---
 layout: post-sidebar
 title:  "Code Propre en Python, Guides de Style, Formateurs et Linters"
+ref: python-clean-code
 author: ductri
 categories: [Programming]
 tags: [featured, python]

@@ -5,6 +5,7 @@ author: ductri
 categories: [Control System]
 tags: [featured]
 image: /assets/publications/pso-based-mpc.png
+ref: pso-based-adaptive-mpc
 lang: vi
 permalink: /vi/dieu-khien-du-bao-thich-nghi-dua-tren-pso-chiet-tach-uranium/
 ---

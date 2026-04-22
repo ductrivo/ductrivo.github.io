@@ -1,6 +1,7 @@
 ---
 layout: post-sidebar
 title:  "Code Versioning"
+ref: code-versioning
 author: ductri
 categories: [Programming]
 tags: [featured, python]

@@ -1,6 +1,7 @@
 ---
 layout: post-sidebar
 title:  "Mô hình động lực học của Robot phẳng với hai khớp quay"
+ref: dynamics-planar-robots
 author: ductri
 categories: [Robotics]
 tags: [featured, sticky, robots, kinematics]

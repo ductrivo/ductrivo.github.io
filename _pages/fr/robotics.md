@@ -7,6 +7,7 @@ comments: true
 toc: false
 side_toc: True
 lang: fr
+ref: robotics
 ---
 Cette série de tutoriels a commencé avec une idée : [`EXPREDCO`](https://github.com/ductrivo/nextpredco), un cadre de contrôle et d'optimisation flexible. À partir de là, je l'ai spécialisé dans une classe d'application *Modélisation, Contrôle et Conception en Robotique*, en commençant par les *bras robotiques planaires*, puis les *robots mobiles*, et enfin en étendant les concepts aux systèmes de *robots industriels*.
 

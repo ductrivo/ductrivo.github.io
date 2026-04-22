@@ -1,6 +1,7 @@
 ---
 layout: post-sidebar
 title:  "Gestion de Version du Code"
+ref: code-versioning
 author: ductri
 categories: [Programming]
 tags: [featured, python]

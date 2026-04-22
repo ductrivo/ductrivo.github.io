@@ -5,6 +5,7 @@ author: ductri
 categories: [Control System]
 tags: [featured]
 image: /assets/publications/extraction-scrubbing.png
+ref: nmpc-uranium-extraction-scrubbing
 lang: fr
 permalink: /fr/nonlinear-model-predictive-control-uranium-extraction/
 ---

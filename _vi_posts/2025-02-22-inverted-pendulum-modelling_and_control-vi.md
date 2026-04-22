@@ -1,6 +1,7 @@
 ---
 layout: post-sidebar
 title:  "Mô hình hóa và điều khiển con lắc ngược"
+ref: inverted-pendulum
 author: ductri
 categories: [Control System]
 tags: [featured]

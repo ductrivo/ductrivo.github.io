@@ -1,6 +1,7 @@
 ---
 layout: post-sidebar
 title:  "Điều khiển phân cấp sử dụng các quan hệ mô phỏng xấp xỉ"
+ref: hierarchical-control-simulation-relations
 author: ductri
 categories: [Control System]
 tags: [featured]

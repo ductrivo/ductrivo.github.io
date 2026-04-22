@@ -1,6 +1,7 @@
 ---
 layout: post-sidebar
 title:  "Dynamic Model of Planar Robots with Two Revolut Joints"
+ref: dynamics-planar-robots
 author: ductri
 categories: [Robotics]
 tags: [featured, sticky, robots, kinematics]

@@ -5,6 +5,7 @@ author: ductri
 categories: [Control System]
 tags: [featured]
 image: /assets/images/ann-based-mpc-paper.png
+ref: ann-based-adaptive-mpc
 lang: vi
 permalink: /vi/dieu-khien-du-bao-thich-nghi-dua-tren-mang-than-kinh-nhan-tao-chiet-tach-uranium/
 ---

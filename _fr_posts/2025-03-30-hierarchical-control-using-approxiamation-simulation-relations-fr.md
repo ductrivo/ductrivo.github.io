@@ -1,6 +1,7 @@
 ---
 layout: post-sidebar
 title:  "Contrôle Hiérarchique utilisant des Relations de Simulation Approchées"
+ref: hierarchical-control-simulation-relations
 author: ductri
 categories: [Control System]
 tags: [featured]

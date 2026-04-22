@@ -1,6 +1,7 @@
 ---
 layout: post-sidebar
 title:  "Động học của Robot phẳng với các khớp quay"
+ref: kinematics-planar-robots
 author: ductri
 categories: [Robotics]
 tags: [featured, robots, kinematics]

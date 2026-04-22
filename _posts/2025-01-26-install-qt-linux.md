@@ -1,6 +1,7 @@
 ---
 layout: post-sidebar
 title:  "Install Qt on Linux"
+ref: install-qt-linux
 author: ductri
 categories: [Programming]
 tags: [featured, python]

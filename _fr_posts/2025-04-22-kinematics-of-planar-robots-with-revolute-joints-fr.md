@@ -1,6 +1,7 @@
 ---
 layout: post-sidebar
 title:  "Cinématique des Robots Planaires avec Liaisons Pivots"
+ref: kinematics-planar-robots
 author: ductri
 categories: [Robotics]
 tags: [featured, robots, kinematics]

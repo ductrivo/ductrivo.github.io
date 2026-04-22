@@ -1,6 +1,7 @@
 ---
 layout: post-sidebar
 title:  "Cài đặt Ignition trên VPS"
+ref: ignition-on-cloud
 author: ductri
 categories: [SCADA]
 tags: [ignition]

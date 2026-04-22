@@ -1,5 +1,30 @@
 {%- assign current_lang = page.lang | default: site.default_lang -%}
 {%- assign t = site.data.i18n[current_lang] -%}
+{%- assign current_ref = page.ref -%}
+
+{%- assign url_en = "/" -%}
+{%- assign url_fr = "/fr/" -%}
+{%- assign url_vi = "/vi/" -%}
+
+{%- if current_ref and current_ref != "" -%}
+  {%- for p in site.posts -%}
+    {%- if p.ref == current_ref -%}{%- assign url_en = p.url -%}{%- endif -%}
+  {%- endfor -%}
+  {%- for p in site.fr_posts -%}
+    {%- if p.ref == current_ref -%}{%- assign url_fr = p.url -%}{%- endif -%}
+  {%- endfor -%}
+  {%- for p in site.vi_posts -%}
+    {%- if p.ref == current_ref -%}{%- assign url_vi = p.url -%}{%- endif -%}
+  {%- endfor -%}
+  {%- for pg in site.pages -%}
+    {%- if pg.ref == current_ref -%}
+      {%- if pg.lang == "en" -%}{%- assign url_en = pg.url -%}
+      {%- elsif pg.lang == "fr" -%}{%- assign url_fr = pg.url -%}
+      {%- elsif pg.lang == "vi" -%}{%- assign url_vi = pg.url -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
 
 <div class="nav-item dropdown ml-2">
   <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="langDropdown"
@@ -22,12 +47,12 @@
 <script>
   function switchLang(lang) {
     localStorage.setItem('expred-lang', lang);
-    var langPaths = {
-      'en': '{{ site.baseurl }}/',
-      'fr': '{{ site.baseurl }}/fr/',
-      'vi': '{{ site.baseurl }}/vi/'
+    var langUrls = {
+      'en': '{{ site.baseurl }}{{ url_en }}',
+      'fr': '{{ site.baseurl }}{{ url_fr }}',
+      'vi': '{{ site.baseurl }}{{ url_vi }}'
     };
     if (lang === '{{ current_lang }}') return;
-    window.location.href = langPaths[lang] || '{{ site.baseurl }}/';
+    window.location.href = langUrls[lang] || '/';
   }
 </script>

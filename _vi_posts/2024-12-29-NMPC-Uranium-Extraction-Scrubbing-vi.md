@@ -5,6 +5,7 @@ author: ductri
 categories: [Control System]
 tags: [featured]
 image: /assets/publications/extraction-scrubbing.png
+ref: nmpc-uranium-extraction-scrubbing
 lang: vi
 permalink: /vi/dieu-khien-du-bao-mo-hinh-phi-tuyen-chiet-tach-uranium/
 ---

@@ -5,6 +5,7 @@ author: ductri
 categories: [Control System]
 tags: [featured]
 image: /assets/publications/pso-based-mpc.png
+ref: pso-based-adaptive-mpc
 lang: fr
 permalink: /fr/pso-based-adaptive-nmpc-uranium-extraction/
 ---

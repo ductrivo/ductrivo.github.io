@@ -1,6 +1,7 @@
 ---
 layout: post-sidebar
 title:  "Modèle Dynamique des Robots Planaires à Deux Liaisons Pivots"
+ref: dynamics-planar-robots
 author: ductri
 categories: [Robotics]
 tags: [featured, sticky, robots, kinematics]

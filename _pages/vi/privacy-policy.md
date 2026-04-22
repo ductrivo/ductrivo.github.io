@@ -2,6 +2,7 @@
 title: "Chính sách bảo mật"
 permalink: "/vi/privacy-policy.html"
 lang: vi
+ref: privacy-policy
 ---
 
 "{{site.name}}" rất coi trọng quyền riêng tư của bạn. Để bảo vệ quyền riêng tư của bạn tốt hơn, chúng tôi cung cấp thông báo chính sách bảo mật này để giải thích cách thức thông tin cá nhân của bạn được thu thập và sử dụng.

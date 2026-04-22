@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "PSO-Based Adaptive NMPC for Uranium Extraction-Scrubbing Operation in Spent Nuclear Fuel Treatment Process"
+ref: pso-based-adaptive-mpc
 author: ductri
 categories: [Control System]
 tags: [featured]

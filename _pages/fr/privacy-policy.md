@@ -2,6 +2,7 @@
 title: "Politique de confidentialité"
 permalink: "/fr/privacy-policy.html"
 lang: fr
+ref: privacy-policy
 ---
 
 "{{site.name}}" prend votre vie privée au sérieux. Pour mieux protéger votre vie privée, nous fournissons cet avis de politique de confidentialité expliquant la manière dont vos informations personnelles sont collectées et utilisées.

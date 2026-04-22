@@ -1,6 +1,7 @@
 ---
 layout: post-sidebar
 title:  "Kinematics of Planar Robots with Revolut Joints"
+ref: kinematics-planar-robots
 author: ductri
 categories: [Robotics]
 tags: [featured, robots, kinematics]

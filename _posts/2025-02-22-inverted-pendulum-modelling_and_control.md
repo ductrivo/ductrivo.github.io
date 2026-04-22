@@ -1,6 +1,7 @@
 ---
 layout: post-sidebar
 title:  "Inverted Pendulumn Modelling and Control"
+ref: inverted-pendulum
 author: ductri
 categories: [Control System]
 tags: [featured]

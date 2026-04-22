@@ -2,6 +2,7 @@
 title: "Liên hệ"
 permalink: "/vi/contact.html"
 lang: vi
+ref: contact
 ---
 
 <form action="https://formspree.io/f/mnnnoybp" method="POST">    

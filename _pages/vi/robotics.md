@@ -7,6 +7,7 @@ comments: true
 toc: false
 side_toc: True
 lang: vi
+ref: robotics
 ---
 Chuỗi hướng dẫn này bắt đầu với một ý tưởng: [`EXPREDCO`](https://github.com/ductrivo/nextpredco), một khung điều khiển và tối ưu hóa linh hoạt. Từ đó, tôi chuyên môn hóa nó vào một nhóm ứng dụng *Mô hình hóa, Điều khiển và Thiết kế Robot*, bắt đầu với *cánh tay robot phẳng*, sau đó là *robot di động*, và cuối cùng mở rộng các khái niệm sang các hệ thống *robot công nghiệp*.
 

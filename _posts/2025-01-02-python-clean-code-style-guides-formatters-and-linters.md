@@ -1,6 +1,7 @@
 ---
 layout: post-sidebar
 title:  "Python Clean Code, Style Guides, Formatters, and Linters"
+ref: python-clean-code
 author: ductri
 categories: [Programming]
 tags: [featured, python]

@@ -1,6 +1,7 @@
 ---
 layout: post-sidebar
 title:  "Installer Ignition sur un VPS"
+ref: ignition-on-cloud
 author: ductri
 categories: [SCADA]
 tags: [ignition]

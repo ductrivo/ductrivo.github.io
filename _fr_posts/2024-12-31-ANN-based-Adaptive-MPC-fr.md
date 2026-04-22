@@ -5,6 +5,7 @@ author: ductri
 categories: [Control System]
 tags: [featured]
 image: /assets/images/ann-based-mpc-paper.png
+ref: ann-based-adaptive-mpc
 lang: fr
 permalink: /fr/ann-based-adaptive-nmpc-uranium-extraction/
 ---

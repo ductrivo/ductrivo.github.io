@@ -8,6 +8,7 @@ image: /assets/images/code-versioning.webp
 # description: "Dành cho các nhà khoa học dữ liệu, nhà phân tích và lập trình viên mới bắt đầu: chuyển từ 'người viết mã' sang 'kỹ sư phần mềm' và học cách phát hành mã nguồn."
 toc: true
 side_toc: true
+ref: code-versioning
 lang: vi
 permalink: /vi/quan-ly-phien-ban-ma-nguon/
 ---

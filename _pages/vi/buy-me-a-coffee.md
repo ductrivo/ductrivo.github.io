@@ -2,6 +2,7 @@
 title: "Mời tôi một ly cà phê"
 permalink: "/vi/buy-me-a-coffee.html"
 lang: vi
+ref: buy-me-a-coffee
 ---
 
 Chào bạn! Tôi là Đức Trí, một người đam mê robot và tự động hóa. Những dự án tôi chia sẻ tại đây là thành quả của công việc cá nhân và niềm đam mê chia sẻ kiến thức của mình.

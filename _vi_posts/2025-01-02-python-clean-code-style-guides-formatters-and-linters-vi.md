@@ -8,6 +8,7 @@ image: /assets/images/python-clean-code-style-guides-formatters-linters.webp
 # description: "Data scientists, analysts, and beginner devs: transition from 'coder' to 'software engineer' and learn to ship code."
 toc: true
 side_toc: True
+ref: python-clean-code
 lang: vi
 permalink: /vi/python-clean-code-style-guides-formatters-linters/
 intro: >

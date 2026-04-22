@@ -2,6 +2,7 @@
 title: "Offrez-moi un café"
 permalink: "/fr/buy-me-a-coffee.html"
 lang: fr
+ref: buy-me-a-coffee
 ---
 
 Bonjour ! Je suis Duc-Tri, passionné par la robotique et l'automatisation. Les projets que je partage ici sont le fruit de mon travail personnel et de ma passion pour le partage des connaissances.
