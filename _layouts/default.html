@@ -9,9 +9,9 @@
 
     <!-- Dark mode FOUC prevention: must run before CSS -->
     <script>
-        (function(){
+        (function () {
             var t = localStorage.getItem('expred-theme')
-                 || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+                || (window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
             document.documentElement.setAttribute('data-theme', t);
         })();
     </script>
@@ -23,7 +23,9 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,700;1,400&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,700;1,400&family=Poppins:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
         integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
@@ -64,6 +66,7 @@
 </head>
 
 {%- assign _lang = page.lang | default: site.default_lang -%}
+
 <body data-spy="scroll" data-target="#toc" class="{% if page.url == " /" %} homefirstpage {% endif %} lang-{{ _lang }}">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PL8GJV6G" height="0" width="0"
@@ -73,7 +76,7 @@
     <!-- Navbar -->
     {%- assign t = site.data.i18n[_lang] -%}
     <nav id="MagicMenu" class="topnav navbar navbar-expand-lg fixed-top"
-         style="background-color:var(--navbar-bg);border-bottom:1px solid var(--navbar-border)">
+        style="background-color:var(--navbar-bg);border-bottom:1px solid var(--navbar-border)">
         <div class="container">
             <a class="navbar-brand" href="{{ site.baseurl }}/index.html"><strong>{{site.name}}</strong></a>
             <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor02"
@@ -88,12 +91,8 @@
                     {% include search-lunr.html %}
                     <li class="nav-item d-flex align-items-center">
                         {% include lang-switcher.html %}
-                        <button
-                            id="theme-toggle"
-                            onclick="toggleTheme()"
-                            class="btn btn-sm btn-outline-secondary ml-2"
-                            aria-label="Toggle dark mode"
-                            title="Toggle dark mode"
+                        <button id="theme-toggle" onclick="toggleTheme()" class="btn btn-sm btn-outline-secondary ml-2"
+                            aria-label="Toggle dark mode" title="Toggle dark mode"
                             style="border-radius:50%;width:34px;height:34px;padding:0;font-size:1rem;line-height:1;border-color:var(--border);color:var(--text-primary)">
                             ☽
                         </button>
@@ -141,14 +140,17 @@
                     </span>
                     <!--  Github Repo Star Btn-->
                     <!-- <a class="text-dark ml-1" target="_blank" href="https://github.com/wowthemesnet/mundana-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a> -->
-
                 </div>
-                <div>
-                    Made with <a target="_blank" class="text-dark font-weight-bold"
+                <div class="d-flex align-items-center flex-wrap" style="gap: 1rem;">
+                    <!-- Visitor Counter Badge -->
+                    <a href="https://hitscounter.dev" title="Visitor counter" style="line-height:0;">
+                        <img src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fexpred.co%2F&label=Visitors&icon=heart-fill&color=%23198754&message=&style=flat&tz=UTC"
+                            alt="Visitor counter" style="height:20px; vertical-align:middle; border-radius:3px;">
+                    </a>
+                    <!-- <span>Made with <a target="_blank" class="text-dark font-weight-bold"
                         href="https://www.wowthemes.net/mundana-jekyll-theme/"> Mundana Jekyll Theme </a> by <a
-                        class="text-dark" target="_blank" href="https://www.wowthemes.net">WowThemes</a>.
+                        class="text-dark" target="_blank" href="https://www.wowthemes.net">WowThemes</a>.</span> -->
                 </div>
-
             </div>
         </div>
     </footer>
