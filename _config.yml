@@ -150,7 +150,7 @@ collections:
     output: true
   fr_posts:
     output: true
-    permalink: /courses/:path/
+    permalink: /fr/:path/
   vi_posts:
     output: true
-    permalink: /courses/:path/
+    permalink: /vi/:path/
